@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+{% include relatives.html %}
+{% include head.html %}
+
+<body class="{{ page.class }}">
+
+  {% if page.category != 404 %}
+  <!-- % include navbar.html % -->
+  {% endif %}
+
+  <div class="SiteWrapper">
+    {% if page.markdown == 1 %}
+      {{ content | markdownify }}
+    {% else %}
+      {{ content }}
+    {% endif %}
+
+    {% if page.category != 404 %}
+
+    {% endif %}
+
+
+  </div>
+</body>
+</html>

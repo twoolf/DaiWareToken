@@ -1,0 +1,94 @@
+.composer {
+  .indexnav {
+    height: 63px;
+    background-color: $second-highlight;
+    z-index: 10000;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.20);
+
+    .navcontent {
+      font-size: 0.9rem;
+      display: flex;
+      height: 100%;
+
+      .navlogo {
+        max-width: 20rem;
+        min-width: 19rem;
+        background-color: $first-highlight;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .links {
+        display: flex;
+
+        svg.nav-icon {
+          vertical-align: middle;
+        }
+
+        li {
+          display: flex;
+          height: 63px;
+          line-height: 63px;
+
+          &.withseparator::after {
+            content: '';
+            border-right: 2px solid $sixth-highlight;
+            margin: $space-medium 0;
+          }
+        }
+
+        a {
+          margin-left: 1rem;
+          margin-right: 1rem;
+          line-height: 63px;
+          vertical-align: middle;
+          color: $white;
+          text-decoration: none;
+          border: 1px solid transparent;
+          border-bottom: 3px solid transparent;
+
+          svg {
+            margin-right: $space-small;
+          }
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .action {
+          margin-left: 1rem;
+          margin-right: 1rem;
+          line-height: 63px;
+          color: $white;
+          transition: none;
+          border-bottom: 3px solid transparent;
+
+          &:hover {
+            box-shadow: inset 0px -3px 0px $white;
+            border-bottom: 0px;
+            border-radius: 0px;
+          }
+
+          &.active {
+            box-shadow: inset 0px -3px 0px $white;
+            border-bottom: 0px;
+            border-radius: 0px;
+          }
+        }
+
+        &.navleft {
+          flex: 1;
+          margin-left: 2rem;
+        }
+
+        &.navright {
+          justify-content: flex-end;
+          margin-right: 2rem;
+        }
+      }
+    }
+  }
+}

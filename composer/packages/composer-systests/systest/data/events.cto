@@ -1,0 +1,50 @@
+namespace systest.events
+
+enum SimpleEnum {
+    o WOW
+    o SUCH
+    o MANY
+    o MUCH
+}
+
+event SimpleEvent {
+  o String stringValue
+  o String[] stringValues
+  o Double doubleValue
+  o Double[] doubleValues
+  o Integer integerValue
+  o Integer[] integerValues
+  o Long longValue
+  o Long[] longValues
+  o DateTime dateTimeValue
+  o DateTime[] dateTimeValues
+  o Boolean booleanValue
+  o Boolean[] booleanValues
+  o SimpleEnum enumValue
+  o SimpleEnum[] enumValues
+}
+
+event ComplexEvent {
+  --> SimpleAsset simpleAsset
+  --> SimpleAsset[] simpleAssets
+}
+
+asset SimpleAsset identified by assetId {
+  o String assetId
+}
+
+transaction EmitSimpleEvent {
+
+}
+
+transaction EmitComplexEvent {
+
+}
+
+transaction EmitMultipleEvents {
+
+}
+
+transaction EmitMultipleDifferentEvents {
+
+}

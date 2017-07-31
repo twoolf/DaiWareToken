@@ -1,0 +1,109 @@
+ME=`basename "$0"`
+if [ "${ME}" = "install-hlfv1{{ENV}}.sh" ]; then
+  echo "Please re-run as >   cat install-hlfv1{{ENV}}.sh | bash"
+  exit 1
+fi
+(cat > composer.sh; chmod +x composer.sh; exec bash composer.sh)
+#!/bin/bash
+set -e
+
+# Docker stop function
+function stop()
+{
+P1=$(docker ps -q)
+if [ "${P1}" != "" ]; then
+  echo "Killing all running containers"  &2> /dev/null
+  docker kill ${P1}
+fi
+
+P2=$(docker ps -aq)
+if [ "${P2}" != "" ]; then
+  echo "Removing all containers"  &2> /dev/null
+  docker rm ${P2} -f
+fi
+}
+
+if [ "$1" == "stop" ]; then
+ echo "Stopping all Docker containers" >&2
+ stop
+ exit 0
+fi
+
+# Get the current directory.
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Get the full path to this script.
+SOURCE="${DIR}/composer.sh"
+
+# Create a work directory for extracting files into.
+WORKDIR="$(pwd)/composer-data{{ENV}}"
+rm -rf "${WORKDIR}" && mkdir -p "${WORKDIR}"
+cd "${WORKDIR}"
+
+# Find the PAYLOAD: marker in this script.
+PAYLOAD_LINE=$(grep -a -n '^PAYLOAD:$' "${SOURCE}" | cut -d ':' -f 1)
+echo PAYLOAD_LINE=${PAYLOAD_LINE}
+
+# Find and extract the payload in this script.
+PAYLOAD_START=$((PAYLOAD_LINE + 1))
+echo PAYLOAD_START=${PAYLOAD_START}
+tail -n +${PAYLOAD_START} "${SOURCE}" | tar -xzf -
+
+# stop all the docker containers
+stop
+
+
+
+# run the fabric-dev-scripts to get a running fabric
+./fabric-dev-servers/downloadFabric.sh
+./fabric-dev-servers/startFabric.sh
+./fabric-dev-servers/createComposerProfile.sh
+
+# pull and tage the correct image for the installer
+docker pull hyperledger/composer-playground:{{ENV_VER}}
+docker tag hyperledger/composer-playground:{{ENV_VER}} hyperledger/composer-playground:latest
+
+
+# Start all composer
+docker-compose -p composer -f docker-compose-playground.yml up -d
+# copy over pre-imported admin credentials
+cd fabric-dev-servers/fabric-scripts/hlfv1/composer/creds
+docker exec composer mkdir /home/composer/.composer-credentials
+tar -cv * | docker exec -i composer tar x -C /home/composer/.composer-credentials
+
+# Wait for playground to start
+sleep 5
+
+# Kill and remove any running Docker containers.
+##docker-compose -p composer kill
+##docker-compose -p composer down --remove-orphans
+
+# Kill any other Docker containers.
+##docker ps -aq | xargs docker rm -f
+
+# Open the playground in a web browser.
+case "$(uname)" in
+"Darwin") open http://localhost:8080
+          ;;
+"Linux")  if [ -n "$BROWSER" ] ; then
+	       	        $BROWSER http://localhost:8080
+	        elif    which xdg-open > /dev/null ; then
+	                xdg-open http://localhost:8080
+          elif  	which gnome-open > /dev/null ; then
+	                gnome-open http://localhost:8080
+          #elif other types blah blah
+	        else
+    	            echo "Could not detect web browser to use - please launch Composer Playground URL using your chosen browser ie: <browser executable name> http://localhost:8080 or set your BROWSER variable to the browser launcher in your PATH"
+	        fi
+          ;;
+*)        echo "Playground not launched - this OS is currently not supported "
+          ;;
+esac
+
+echo
+echo "--------------------------------------------------------------------------------------"
+echo "Hyperledger Fabric and Hyperledger Composer installed, and Composer Playground launched"
+echo "Please use 'composer.sh' to re-start, and 'composer.sh stop' to shutdown all the Fabric and Composer docker images"
+
+# Exit; this is required as the payload immediately follows.
+exit 0

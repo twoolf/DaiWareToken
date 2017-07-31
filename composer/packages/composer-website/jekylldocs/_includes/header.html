@@ -1,0 +1,54 @@
+<header class="page-header">
+  <div class="container">
+    <div class="mobile-bar">
+     <h1 ><a href="{{site.baseurl}}/index.html" class="logot">Hyperledger Composer</a> </h1></a>
+      <button class="mobile-menu-toggle ir">open</button>
+    </div>
+    <nav class="main-menu">
+      <ul class="main-nav">
+        <li>
+          <a href="{{site.baseurl}}/index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/introduction/introduction.html">Introduction</a>
+          {{ introduction | markdownify }}
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/tutorials/tutorials.html">Tutorials</a>
+          {{ tutorials | markdownify }}
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/installing/prerequisites.html">Installing</a>
+          {{ installing | markdownify }}
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/business-network/bnd-define.html">Defining Business Networks</a>
+          {{ businessnetworks | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/applications/genapp.html">Writing Applications</a>
+          {{ applications | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/integrating/integrating-index.html">Integrating Existing Systems</a>
+          {{ integrating | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/managing/participant-add.html">Managing and Operating</a>
+          {{ managing | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/problems/diagnostics.html">Determining Problems</a>
+          {{ problems | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/reference/index.html">Reference</a>
+          {{ reference | markdownify }}
+        </li>
+        <li>
+            <a href="{{site.baseurl}}/support/index.html">Support</a>
+        </li>
+      </ul>
+    </nav>
+  </div><!-- /.container -->
+</header><!-- /.page-header -->

@@ -1,0 +1,161 @@
+@import '../../assets/styles/base/_colors.scss';
+@import '../../assets/styles/base/_variables.scss';
+
+app-editor {
+  display: flex;
+  width: 100%;
+
+  .side-bar {
+    display: flex;
+
+    .error_dot {
+        align-self: center;
+    }
+
+    .files {
+      & > * {
+        padding: $space-medium $space-large;
+      }
+      margin-top: $space-large;
+
+      span {
+        color: $secondary-text;
+      }
+
+      .side-bar-nav {
+        padding: 0;
+        max-height: 60vh;
+        overflow-y: auto;
+        .error {
+            color: $first-warning;
+        }
+      }
+    }
+
+    .actions {
+      padding: $space-medium $space-large;
+    }
+  }
+
+  svg.nav-icon {
+      width: 32px;
+      height: 16px;
+  }
+
+  .main-view {
+    display: flex;
+    flex-direction: column;
+    .business-network-details {
+      display: flex;
+      height:50px;
+      margin-bottom: 0.2rem;
+
+      .business-network-version {
+        margin-right: $space-smedium;
+        color: $secondary-text;
+      }
+
+      .edit-package-text {
+        font-style: italic;
+      }
+
+      .edit-label{
+        line-height: 2.5rem;
+        font-weight:bold;
+        flex-shrink:1;
+        margin-top: 0.2rem;
+      }
+
+      .edit-file-hidden{
+        line-height: 2.3rem;
+        color: $secondary-text;
+        flex-shrink:1;
+      }
+
+      .edit-file-label{
+        line-height: 2.5rem;
+        font-weight: bold;
+        color: $primary-text;
+        flex-shrink: 1;
+        margin-right: 1rem;
+        font-size:14px;
+      }
+
+      .edit-file-row{
+        flex:2;
+        display:flex;
+        padding-bottom:$space-medium;
+
+        .edit-file-value{
+            flex-basis:50%;
+            display:flex;
+            flex-direction: column;
+        }
+      }
+    }
+
+    .readme {
+      background-color: $white;
+      padding: $space-large;
+      min-height: 72vh;
+      max-height: 72vh;
+      overflow-y: auto;
+
+      pre {
+        font-size: 0.8rem;
+        color: $white;
+        background-color: #272B36;
+        code {
+          background-color: transparent;
+          border: none;
+          font-size: 0.7rem;
+        }
+      }
+
+      code {
+        border: 1px solid $keyline-highlight;
+        background-color: $white;
+        border-radius: 2px;
+        padding-right: 5px;
+        padding-left: 5px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+      }
+    }
+
+    .edit_icon {
+        flex-shrink: 1;
+        align-self: center;
+        padding-top:4px;
+    }
+
+    .delete_icon {
+        flex-shrink: 1;
+        align-self: center;
+        margin-left: auto;
+        padding-top:4px;
+    }
+
+    .readme_icon_edit {
+      flex-shrink: 1;
+      padding-top:4px;
+    }
+
+    .readme_icon_preview {
+      flex-shrink: 1;
+      margin-left: auto;
+      padding-top:4px;
+      padding-right: 10px;
+    }
+  }
+
+  .CodeMirror {
+    font-family: Source Code Pro;
+  }
+
+  .ps.ps--active-x>.ps__scrollbar-x-rail,
+  .ps.ps--active-y>.ps__scrollbar-y-rail{
+      opacity: 0.6;
+  }
+
+}

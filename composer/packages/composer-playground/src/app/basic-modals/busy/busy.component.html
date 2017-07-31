@@ -1,0 +1,19 @@
+<div tabindex="-1">
+    <section class="modal-body">
+        <div class="contents">
+            <div>
+                <span>Please Wait: </span>
+                <span [innerHTML]="busy.title"></span>
+                <div class="busy-text" [innerHTML]="busy.text"></div>
+            </div>
+            <div class="ibm-spinner-indeterminate small loop">
+                <div class="loader">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="circle-path" cx="50" cy="50" r="20"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
