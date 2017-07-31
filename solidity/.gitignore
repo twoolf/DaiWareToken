@@ -1,0 +1,44 @@
+commit_hash.txt
+prerelease.txt
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directory
+build/
+docs/_build
+docs/utils/__pycache__
+
+# vim stuff
+*.swp
+
+# IDE files
+.idea
+browse.VC.db
+CMakeLists.txt.user
