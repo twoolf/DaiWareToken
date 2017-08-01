@@ -1,0 +1,80 @@
+#txStoryPanel
+
+	span.fa.fa-close.closeTxStory#closeTxStoryPos
+
+	//----------------- Step 1 Content
+	.txStepWrap#txStep1.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend Build Proposal
+		.txStoryWrap
+			.marbleWrap
+				div.ball#proposeMarbleStable.hideBorders.leftPos(title="Your marble tx")
+				div.ball#proposeMarble.hideBorders.leftPos
+				div.ball#marbleBorderTop.leftPos
+				div.ball#marbleBorderBottom.leftPos
+				div.ball#marbleBorderLeft.leftPos
+				div.ball#marbleBorderRight.leftPos
+		.txDescription
+			span The invocation needs to be signed and packaged as a proposal. 
+			span This is done here, in the Marbles application. 
+
+	//----------------- Step 2 Content
+	.txStepWrap#txStep2.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend Endorsement
+		.txStoryWrap 
+			.marbleWrap
+				div.ball#endorseMarbleStable(title="Your marble tx")
+					span.fa.fa-check
+				div.ball#endorseMarble
+					span.fa.fa-check
+		.txDescription
+			span Next, we send the transaction proposal to our peer for endorsement. 
+			span The peer will simulate the transaction, verify the proposal, and then sign the proposal. 
+			span It is then sent back to Marbles.
+
+	//----------------- Step 3 Content
+	.txStepWrap#txStep3.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend Ordering
+		.txStoryWrap
+			#orderBoxStable 
+				span.ball.ordererMarbles.hideMe(title="Another marble tx")
+					span.fa.fa-check
+				span.ball.ordererMarbles.hideMe(title="Your marble tx")
+					span.fa.fa-check
+				span.ball.ordererMarbles.hideMe(title="Another marble tx")
+					span.fa.fa-check
+				#orderBox Block
+		.txDescription
+			span Then Marbles will send our endorsed proposal to the orderer. 
+			span The orderer will sequence transactions from throughout the network including ours. 
+
+	//----------------- Step 4 Content
+	.txStepWrap#txStep4.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend Validate & Commit
+		.txStoryWrap 
+			#commitBoxStable(title="Block")
+				span.fa.fa-search
+		.txDescription
+			span The block containing our transaction is sent from the orderer to our peer. 
+			span Finally it is validated by the peer and then committed to the peer's ledger. 
+
+	div
+		.hint * Note the speed of this process is slowed down for demonstration purposes
+
+	#txStoryErrorWrap 
+		span.fa.fa-warning(style="fill: #000;")
+		span#txStoryErrorTxt &nbsp;
+
+	//----------------- All done
+	.stepHelpWrap#doneTxStep
+		h2 Invoke Complete
+		br
+		br
+		button(type="button").closeTxStory Close

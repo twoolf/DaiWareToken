@@ -1,0 +1,40 @@
+{
+	"credentials": {
+		"network_id": "FakeNetworkId",
+		"orderers": [
+			{
+				"discovery": "grpc://localhost:7050",
+				"msp_id": "Org1MSP",
+				"tls_certificate": "cert_1"
+			}
+		],
+		"cas": [
+			{
+				"api": "http://localhost:8054",
+				"msp_id": "Org1MSP",
+				"users": [
+					{
+						"enrollId": "admin2",
+						"enrollSecret": "adminpw2"
+					}
+				],
+				"tls_certificate": "cert_1"
+			}
+		],
+		"peers": [
+			{
+				"name": "fabric-peer-2a",
+				"discovery": "grpc://localhost:8051",
+				"events": "grpc://localhost:8053",
+				"msp_id": "Org1MSP",
+				"tls_certificate": "cert_1"
+			}
+		],
+		"app": {
+			"channel_id": "mychannel",
+			"chaincode_id": "marbles",
+			"chaincode_version": "v0",
+			"block_delay": 10000
+		}
+	}
+}

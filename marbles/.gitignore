@@ -1,0 +1,16 @@
+**/launchConfigurations
+**/node_modules
+**/.vscode
+**/temp
+**/public/logs/**
+.idea
+.project
+/cc_summaries
+keyValStore*
+certificate.pem
+/chaincode/Dockerfile
+chaincode.exe
+app_state*
+/utils/fc_wrangler/kvs
+blockchain_creds3.json
+blockchain_creds4.json

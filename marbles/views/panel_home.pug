@@ -1,0 +1,37 @@
+#homePanel.panel
+	div
+		#tips
+			span Tips: Simply 
+			strong drag 
+			span and 
+			strong drop 
+			span a marble from one user to another
+
+		#ownerWrap
+			div#toolbarWrap
+				.bottomAlign
+					input(type="text" placeholder="Search" style="margin-left: 0; border-radius:2px;")#searchUsers.longer
+					span.hint(style="margin-left: 10px; font-size: 16px;") 
+						span#foundUsers 0
+						span /
+						span#totalUsers 0
+
+				button(disabled="disabled")#showStartupPanel
+					span.fa.fa-gears
+					span &nbsp; Setup
+					
+				span &nbsp;&nbsp;
+
+				button(disabled="disabled")#showSettingsPanel
+					span.fa.fa-gear
+					span &nbsp; Settings
+				
+				#trashbin.sortable.innerMarbleWrap
+					div.fa.fa-trash-o.fa-3x(style="vertical-align: middle;")
+					span &nbsp;
+					div#trashText Drag and drop marble to remove
+			
+
+
+		#allUserPanelsWrap
+			#appStartingText Connecting...
