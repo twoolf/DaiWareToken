@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - stable
+script: 
+  - npm run test
+  - ./ci/browser_tests.sh
+deploy:
+  provider: script
+  script: ci/deploy_from_travis.sh
+  skip_cleanup: true
+  on:
+        branch: master
+cache: false
+
