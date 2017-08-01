@@ -1,0 +1,23 @@
+# Coverage directory used by tools like istanbul
+coverage
+
+# Dependency directory
+# Commenting this out is preferred by some people, see
+# https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+node_modules
+
+# Users Environment Variables
+.lock-wscript
+
+# Development database
+dev.sqlite3
+
+# SSL keys
+/server.key
+/server.crt
+.elasticbeanstalk/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
