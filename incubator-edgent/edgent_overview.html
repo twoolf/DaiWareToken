@@ -1,0 +1,245 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<body>
+Edgent provides an programming model and micro-service style runtime
+for executing streaming analytics at the <i>edge</i>.
+<P>
+<em>
+Apache Edgent is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by Apache Incubator PMC. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
+</em>
+</P>
+<H1>Edgent</H1>
+<OL>
+<LI><a href="#overview">Overview</A></LI>
+<LI><a href="#model">Programming Model</A></LI>
+<LI><a href="#start">Getting Started</A></LI>
+</OL>
+<a name="overview"></a>
+<H2>Overview</H2>
+Edgent provides an programming model and runtime for executing streaming
+analytics at the <i>edge</i>. Edgent is focusing on two edge cases:
+<UL>
+<LI>Internet of Things (IoT) - Widely distributed and/or mobile devices.</LI>
+<LI>Enterprise Embedded - Edge analytics within an enterprise, such as local analytic applications of eash system in a machine room, or error log analytics in application servers.</LI>
+</UL>
+In both cases Edgent applications analyze live data and
+send results of that analytics and/or data intermittently
+to back-end systems for deeper analysis. An Edgent application
+can use analytics to decide when to send information to back-end systems,
+such as when the behaviour of the system is outside normal parameters
+(e.g. an engine running too hot).
+<BR>
+Edgent applications do not send data continually
+to back-end systems as the cost of communication may be high
+(e.g. cellular networks) or bandwidth may be limited.
+<P>
+Edgent applications communicate with back-end systems through
+some form of message hub as there may be millions of edge devices.
+Edgent supports these message hubs:
+<UL>
+<LI> MQTT - Messaging standard for IoT</LI>
+<LI> IBM Watson IoT Platform - Cloud based service providing a device model on top of MQTT</LI>
+<LI> Apache Kafka - Enterprise message bus</LI>
+</UL> 
+</P>
+<P>
+Back-end analytic systems are used to perform analysis on information from Edgent applications that cannot be performed at the edge. Such analysis may be:
+<UL>
+<LI>Running complex analytic algorithms than require more resources (cpu, memory etc.) than are available at the edge. </LI>
+<LI>Maintaining more state per device that can exist at the edge, e.g. hours of state for patients' medical sensors. </LI>
+<LI>Correlating device information with multiple data sources:
+<UL>
+<LI> Weather data</LI>
+<LI> Social media data</LI>
+<LI> Data of record (e.g patients' medical histories, trucking manifests).</LI>
+<LI> Other devices </LI>
+<LI>etc.</LI>
+</UL>
+</LI>
+</UL>
+<BR>
+Back-end systems can interact or control devices based upon their analytics, by sending commands to specific devices, e.g. reduce maximum engine revs to reduce chance of failure before the next scheduled service, or send an alert of an accident ahead.
+</P>
+<a name="model"></a>
+<H2>Programming Model</H2>
+Edgent applications are streaming applications in which each <em>tuple</em>
+(data item or event) in a <em>stream</em> of data is processed as it occurs.
+Additionally, you can process <em>windows</em> (logical subsets) of data.
+For example, you could analyze the last 90 seconds of data from a sensor to identify trends in the data
+<P>
+<H3>Topology functional API</H3>
+<H4>Overview</H4>
+The primary api is {@link org.apache.edgent.topology.Topology} which uses a functional
+model to build a topology of {@link org.apache.edgent.topology.TStream streams} for an application.
+<BR>
+{@link org.apache.edgent.topology.TStream TStream} is a declaration of a stream of tuples, an application will create streams that source data (e.g. sensor readings) and then apply functions that transform those streams into derived streams, for example simply filtering a stream containg engine temperator readings to a derived stream that only contains readings thar are greater than 100&deg;C.
+<BR>
+An application terminates processing for a stream by <em>sinking</em> it. Sinking effectively terminates a stream by applying processing to each tuple on the stream (as it occurs) that does not produce a result. Typically this sinking is transmitting the tuple to an external system, for example the messgae hub to send the data to a back-end system, or locally sending the data to a user interface.
+</P>
+<P>
+This programming style is typical for streaming systems and similar APIs are supported by systems such as Apache Flink, Apache Spark Streaming, IBM Streams and Java 8 streams.
+</P>
+<H4>Functions</H4>
+Edgent supports Java 8 and it is encouraged to use Java 8 as functions can be easily and clearly written using lambda expressions.
+<H4>Arbitrary Topology</H4>
+Simple applications may just be a pipeline of streams, for example, logically:
+<BR>
+{@code source --> filter --> transform --> aggregate --> send to MQTT}
+<BR>
+However Edgent allows arbitrary topologies including:
+<UL>
+<LI>Multiple source streams in an application</LI>
+<LI>Multiple sinks in an application </LI>
+<LI>Multiple processing including sinks against a stream (fan-out)</LI>
+<LI>Union of streams (fan-in)  </LI>
+<LI>Correlation of streams by allowing streams to be joined</LI>
+</UL>
+<H3>Graph API</H3>
+<H4>Overview</H4>
+The {@link org.apache.edgent.graph.Graph graph} API is a lower-level API that the
+topology api is built on top of. A graph consists of
+{@link org.apache.edgent.oplet.Oplet oplet} invocations connected by streams.
+The oplet invocations contain the processing applied to each tuple
+on streams connected to their input ports. Processing by the oplet
+submits tuples to its output ports for subsequent processing
+by downstream connected oplet invocations.
+<a name="start"></a>
+<H2>Getting Started</H2>
+Below, {@code <edgent-target>} refers to an Edgent release's platform target
+directory such as {@code .../edgent/java8}.
+<P>
+A number of sample Java applications are provided that demonstrate use of Edgent.
+<BR>
+The Java code for the samples is under {@code <edgent-target>/samples}.
+<P>
+Shell scripts to run the samples are {@code <edgent-target>/scripts}.
+See the {@code README} there.
+<P>
+Summary of samples:
+<TABLE border=1 width="80%" table-layout="auto">
+<TR class="rowColor"><TH>Sample</TH><TH>Description</TH><TH>Focus</TH></TR>
+<TR class="altColor"><TD>{@link org.apache.edgent.samples.topology.HelloEdgent}</TD>
+  <TD>Prints Hello Edgent! to standard output.</TD>
+  <TD>Basic mechanics of declaring a topology and executing it.</TD></TR>
+<TR class="altColor"><TD>{@link org.apache.edgent.samples.topology.PeriodicSource}</TD>
+  <TD>Polls a random number generator for a new value every second
+      and then prints out the raw value and a filtered and transformed stream.</TD>
+  <TD>Polling of a data value to create a source stream.</TD></TR>
+<TR class="altColor"><TD>{@link org.apache.edgent.samples.topology.SensorsAggregates}</TD>
+  <TD>Demonstrates partitioned aggregation and filtering of simulated sensors
+      that are bursty in nature, so that only intermittently
+      is the data output to {@code System.out}</TD>
+  <TD>Simulated sensors with windowed aggregation</TD></TR>
+<TR class="altColor"><TD>{@link org.apache.edgent.samples.topology.SimpleFilterTransform}</TD>
+  <TD></TD>
+  <TD></TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/connectors/file/package-summary.html">
+      File</a></TD>
+  <TD>Write a stream of tuples to files.  Watch a directory for new files
+      and create a stream of tuples from the file contents.</TD>
+  <TD>Use of the <a href="{@docRoot}/org/apache/edgent/connectors/file/package-summary.html">
+      File stream connector</a></TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/connectors/iotp/package-summary.html">
+      iotp</a></TD>
+  <TD>Sends simulated sensor readings to an IBM Watson IoT Platform instance as device events.
+      Receive device commands.</TD>
+  <TD>Use of the <a href="{@docRoot}/org/apache/edgent/connectors/iotp/package-summary.html">
+      IBM Watson IoT Platform connector</a> to send device events and receive device commands.</TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/connectors/jdbc/package-summary.html">
+      JDBC</a></TD>
+  <TD>Write a stream of tuples to an Apache Derby database table.
+      Create a stream of tuples by reading a table.</TD>
+  <TD>Use of the <a href="{@docRoot}/org/apache/edgent/connectors/jdbc/package-summary.html">
+      JDBC stream connector</a></TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/connectors/kafka/package-summary.html">
+      Kafka</a></TD>
+  <TD>Publish a stream of tuples to a Kafka topic. 
+      Create a stream of tuples by subscribing to a topic and receiving 
+      messages from it.</TD>
+  <TD>Use of the <a href="{@docRoot}/org/apache/edgent/connectors/kafka/package-summary.html">
+      Kafka stream connector</a></TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/connectors/mqtt/package-summary.html">
+      MQTT</a></TD>
+  <TD>Publish a stream of tuples to a MQTT topic. 
+      Create a stream of tuples by subscribing to a topic and receiving 
+      messages from it.</TD>
+  <TD>Use of the <a href="{@docRoot}/org/apache/edgent/connectors/mqtt/package-summary.html">
+      MQTT stream connector</a></TD></TR>
+<TR class="altColor"><TD><a href="{@docRoot}/org/apache/edgent/samples/apps/sensorAnalytics/package-summary.html">
+      SensorAnalytics</a></TD>
+  <TD>Demonstrates a Sensor Analytics application that includes: 
+      configuration control, a device of one or more sensors and
+      some typical analytics, use of MQTT for publishing results and receiving
+      commands, local results logging, conditional stream tracing.</TD>
+  <TD>A more complete sample application demonstrating common themes.</TD></TR>
+</TABLE>
+<BR>
+Other samples are also provided but have not yet been fully documented.
+Feel free to explore them.
+<H2>Building Applications</H2>
+You need to include one or more Edgent jars in your {@code classpath} depending
+on what features your application uses.
+<P>
+Include one or more of the topology providers:
+<ul>
+<li>{@code <edgent-target>/lib/edgent.providers.iot.jar} - if you use the
+{@link org.apache.edgent.providers.iot.IotProvider IotProvider}</li>
+<li>{@code <edgent-target>/lib/edgent.providers.direct.jar} - if you use the
+{@link org.apache.edgent.providers.direct.DirectProvider DirectProvider}</li>
+<li>{@code <edgent-target>/lib/edgent.providers.development.jar} - if you use the
+{@link org.apache.edgent.providers.development.DevelopmentProvider DevelopmentProvider}</li>
+</ul>
+Include the jar of any Edgent connector you use:
+<ul>
+<li>{@code <edgent-target>/connectors/command/lib/edgent.connectors.command.jar}</li>
+<li>{@code <edgent-target>/connectors/csv/lib/edgent.connectors.csv.jar}</li>
+<li>{@code <edgent-target>/connectors/file/lib/edgent.connectors.file.jar}</li>
+<li>{@code <edgent-target>/connectors/http/lib/edgent.connectors.http.jar}</li>
+<li>{@code <edgent-target>/connectors/iotp/lib/edgent.connectors.iotp.jar}</li>
+<li>{@code <edgent-target>/connectors/jdbc/lib/edgent.connectors.jdbc.jar}</li>
+<li>{@code <edgent-target>/connectors/kafka/lib/edgent.connectors.kafka.jar}</li>
+<li>{@code <edgent-target>/connectors/mqtt/lib/edgent.connectors.mqtt.jar}</li>
+<li>{@code <edgent-target>/connectors/pubsub/lib/edgent.connectors.pubsub.jar}</li>
+<li>{@code <edgent-target>/connectors/wsclient-javax.websocket/lib/edgent.connectors.wsclient.javax.websocket.jar} [*]</li>
+</ul>
+[*] You also need to include a {@code javax.websocket} client implementation
+if you use the {@code wsclient} connector.  Include the following to use
+an Eclipse Jetty based implementation:
+<ul>
+<li>{@code <edgent-target>/connectors/javax.websocket-client/lib/javax.websocket-client.jar}</li>
+</ul>
+<p>
+Include jars for any Edgent analytic features you use:
+<ul>
+<li>{@code <edgent-target>/analytics/math3/lib/edgent.analytics.math3.jar}</li>
+<li>{@code <edgent-target>/analytics/sensors/lib/edgent.analytics.sensors.jar}</li>
+</ul>
+Include jars for any Edgent utility features you use:
+<ul>
+<li>{@code <edgent-target>/utils/metrics/lib/edgent.utils.metrics.jar} - for the {@code org.apache.edgent.metrics} package</li>
+</ul>
+Edgent uses <a href="www.slf4j.org">slf4j</a> for logging,
+leaving the decision of the actual logging implementation to your application
+(e.g., {@code java.util.logging} or {@code log4j}).  
+For {@code java.util.logging} you can include:
+<ul>
+<li>{@code <edgent-target>/ext/ slf4j-jdk14-1.7.12.jar}</li>
+</ul>
+</body>

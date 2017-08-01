@@ -1,0 +1,3 @@
+Quickstart device type:iotsamples-edgent
+Quickstart device id  :qs1be89acb003001cb
+https://quickstart.internetofthings.ibmcloud.com/#/device/qs1be89acb003001cb

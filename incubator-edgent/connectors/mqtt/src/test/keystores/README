@@ -1,0 +1,37 @@
+Configuring mosquitto for SSL/TLS and client-auth.
+
+mosquitto deals in terms of PEM format certificates and key files.
+The files can optionally be passphrase encrypted.  If they are
+encrypted, the server prompts for passphrases when starting up.
+
+mosquitto, written in C/C++, is ignorant of Java specific notions
+such as JKS encoded keystores.  
+
+mosquitto SSL client-auth follows a model where clients are issued
+certificates signed by a CA known to the mosquitto server and,
+unlike a typical java SSL/client-auth server configuration, the
+client certificates themselves are not "registered" with the mosquitto server.
+i.e., the server makes authentication decisions purely based on
+receiving a client certificate signed by its know CA.
+
+It was easiest to follow mosquitto's:
+    https://mosquitto.org/man/mosquitto-tls-7.html
+for generating the needed info for mosquitto and then create JKS stores
+from that info for use by java clients.  The create-all.sh script does
+just that should you need to regenerate the files.
+
+mosquitto-SSL.conf.template file is a template mosquitto configuration
+file supporting non-SSL clients on port 1883, SSL on 8883,
+and SSL-client-auth on 8884.  To generate a conf file that works
+with these files in the edgent repository:
+
+    cd <this-keystores-directory>
+    cat mosquitto-SSL.conf.template | 
+       sed -e "s,TEST-KEYSTORES-DIR,`pwd`," >/usr/local/etc/mosquitto/mosquitto-SSL.conf
+
+start your mosquitto server as:
+
+    /usr/local/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto-SSL.conf
+
+
+Other helpful info: https://docs.oracle.com/cd/E35976_01/server.740/es_admin/src/tadm_ssl_convert_pem_to_jks.html
