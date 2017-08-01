@@ -1,0 +1,10 @@
+[package]
+name = "evmjit"
+version = "1.8.0"
+authors = ["Parity Technologies <admin@parity.io>"]
+
+[lib]
+crate-type = ["dylib"]
+
+[dependencies]
+tiny-keccak = "1.2"

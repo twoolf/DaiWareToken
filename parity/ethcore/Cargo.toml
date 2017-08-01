@@ -1,0 +1,75 @@
+[package]
+description = "Ethcore library"
+homepage = "http://parity.io"
+license = "GPL-3.0"
+name = "ethcore"
+version = "1.8.0"
+authors = ["Parity Technologies <admin@parity.io>"]
+build = "build.rs"
+
+[build-dependencies]
+"ethcore-ipc-codegen" = { path = "../ipc/codegen" }
+
+[dependencies]
+bit-set = "0.4"
+bloomchain = "0.1"
+bn = { git = "https://github.com/paritytech/bn" }
+byteorder = "1.0"
+clippy = { version = "0.0.103", optional = true}
+common-types = { path = "types" }
+crossbeam = "0.2.9"
+env_logger = "0.4"
+ethabi = "2.0"
+ethash = { path = "../ethash" }
+ethcore-bloom-journal = { path = "../util/bloom" }
+ethcore-devtools = { path = "../devtools" }
+ethcore-io = { path = "../util/io" }
+ethcore-ipc = { path = "../ipc/rpc" }
+ethcore-ipc-nano = { path = "../ipc/nano" }
+ethcore-logger = { path = "../logger" }
+ethcore-stratum = { path = "../stratum" }
+ethcore-util = { path = "../util" }
+ethjson = { path = "../json" }
+ethkey = { path = "../ethkey" }
+ethstore = { path = "../ethstore" }
+evm = { path = "evm" }
+futures = "0.1"
+hardware-wallet = { path = "../hw" }
+hyper = { git = "https://github.com/paritytech/hyper", default-features = false }
+itertools = "0.5"
+lazy_static = "0.2"
+linked-hash-map = "0.3.0"
+log = "0.3"
+lru-cache = "0.1.0"
+native-contracts = { path = "native_contracts" }
+num = "0.1"
+num_cpus = "1.2"
+price-info = { path = "../price-info" }
+rand = "0.3"
+rlp = { path = "../util/rlp" }
+rust-crypto = "0.2.34"
+rustc-hex = "1.0"
+semver = "0.6"
+stats = { path = "../util/stats" }
+time = "0.1"
+transient-hashmap = "0.4"
+using_queue = { path = "../util/using_queue" }
+table = { path = "../util/table" }
+bloomable = { path = "../util/bloomable" }
+vm = { path = "vm" }
+wasm = { path = "wasm" }
+
+[dev-dependencies]
+native-contracts = { path = "native_contracts", features = ["test_contracts"] }
+
+[features]
+jit = ["evm/jit"]
+evm-debug = ["slow-blocks"]
+evm-debug-tests = ["evm-debug"]
+slow-blocks = [] # Use SLOW_TX_DURATION="50" (compile time!) to track transactions over 50ms
+json-tests = []
+test-heavy = []
+dev = ["clippy"]
+default = []
+benches = []
+ipc = []

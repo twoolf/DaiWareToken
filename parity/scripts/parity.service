@@ -1,0 +1,12 @@
+[Unit]
+Description=Parity Daemon
+After=network.target
+
+[Service]
+EnvironmentFile=-%h/.parity/parity.conf
+ExecStart=/usr/bin/parity $ARGS
+
+[Install]
+WantedBy=default.target
+
+
