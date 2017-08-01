@@ -1,0 +1,104 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+apply plugin: 'net.corda.plugins.quasar-utils'
+apply plugin: 'net.corda.plugins.publish-utils'
+apply plugin: 'net.corda.plugins.cordformation'
+apply plugin: 'maven-publish'
+
+sourceSets {
+    integrationTest {
+        kotlin {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/kotlin')
+        }
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    testCompile "junit:junit:$junit_version"
+
+    // Corda integration dependencies
+    cordaCompile project(path: ":node:capsule", configuration: 'runtimeArtifacts')
+    cordaCompile project(path: ":webserver:webcapsule", configuration: 'runtimeArtifacts')
+    cordaCompile project(':core')
+    cordaCompile project(':webserver')
+    cordaCompile project(':test-utils')
+}
+
+task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
+    ext.rpcUsers = [['username': "demo", 'password': "demo", 'permissions': ["StartFlow.net.corda.attachmentdemo.AttachmentDemoFlow"]]]
+
+    directory "./build/nodes"
+    networkMap "CN=Notary Service,O=R3,OU=corda,L=London,C=GB"
+    node {
+        name "CN=Notary Service,O=R3,OU=corda,L=London,C=GB"
+        advertisedServices["corda.notary.validating"]
+        p2pPort 10002
+        rpcPort 10003
+        cordapps = []
+        rpcUsers = ext.rpcUsers
+    }
+    node {
+        name "CN=Bank A,O=Bank A,L=London,C=GB"
+        advertisedServices = []
+        p2pPort 10005
+        rpcPort 10006
+        cordapps = []
+        rpcUsers = ext.rpcUsers
+    }
+    node {
+        name "CN=Bank B,O=Bank B,L=New York,C=US"
+        advertisedServices = []
+        p2pPort 10008
+        rpcPort 10009
+        webPort 10010
+        cordapps = []
+        rpcUsers = ext.rpcUsers
+    }
+}
+
+task integrationTest(type: Test, dependsOn: []) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+idea {
+    module {
+        downloadJavadoc = true // defaults to false
+        downloadSources = true
+    }
+}
+
+publishing {
+    publications {
+        jarAndSources(MavenPublication) {
+            from components.java
+            artifactId 'attachmentdemo'
+
+            artifact sourceJar
+            artifact javadocJar
+        }
+    }
+}
+
+task runSender(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'net.corda.attachmentdemo.AttachmentDemoKt'
+    args '--role'
+    args 'SENDER'
+}
+
+task runRecipient(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'net.corda.attachmentdemo.AttachmentDemoKt'
+    args '--role'
+    args 'RECIPIENT'
+}
