@@ -1,0 +1,137 @@
+#!/bin/bash
+
+start_ui() {
+    echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+    echo "PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE"
+    echo "PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME"
+    echo "PIPELINE_MODEL_CHIP=$PIPELINE_MODEL_CHIP"
+    echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+    echo ""
+    echo "Starting UI..."
+    echo ""
+
+    source activate $PIPELINE_CONDA_ENV_NAME
+
+    cd $PIPELINE_MODEL_PATH 
+    guild view &
+    cd /root
+}
+
+start_model_serving_python () {
+    echo "PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE"
+    echo "PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME"
+    echo "PIPELINE_MODEL_CHIP=$PIPELINE_MODEL_CHIP"
+    echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+    echo "PIPELINE_MODEL_SERVER_PATH=$PIPELINE_MODEL_SERVER_PATH"
+    echo "PIPELINE_MODEL_SERVER_PORT=$PIPELINE_MODEL_SERVER_PORT"
+    echo "PIPELINE_MODEL_SERVER_PROMETHEUS_PORT=$PIPELINE_MODEL_SERVER_PROMETHEUS_PORT"
+    echo "PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT"
+
+    echo ""
+    echo "Starting Python-based Model Serving..."
+    echo ""
+
+    source activate $PIPELINE_CONDA_ENV_NAME 
+
+    cd $PIPELINE_MODEL_PATH \
+      && PYTHONPATH=$PIPELINE_MODEL_PATH:$PYTHONPATH \
+        $PIPELINE_MODEL_SERVER_PATH/model_server_python.py \
+        --PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE \
+        --PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME \
+        --PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH \
+        --PIPELINE_MODEL_SERVER_PORT=$PIPELINE_MODEL_SERVER_PORT \
+        --PIPELINE_MODEL_SERVER_PROMETHEUS_PORT=$PIPELINE_MODEL_SERVER_PROMETHEUS_PORT \
+        --PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT
+
+    cd /root
+}
+
+start_model_serving_jvm () {
+    echo "PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE"
+    echo "PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME"
+    echo "PIPELINE_MODEL_CHIP=$PIPELINE_MODEL_CHIP"
+    echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+    echo "PIPELINE_MODEL_SERVER_PORT=$PIPELINE_MODEL_SERVER_PORT"
+    echo "PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT"
+
+    export JAVA_MAX_MEM_RATIO=85
+    export JAVA_OPTIONS="$(sysutils/jvm-limits.sh)"
+    echo ""
+    echo "JAVA_OPTIONS=$JAVA_OPTIONS"
+    echo ""
+    echo "Starting JVM-based Model Serving..."
+    echo ""
+    cd $PIPELINE_JVM_MODEL_SERVER_PATH \
+      && java $JAVA_OPTIONS -Djava.security.egd=file:/dev/./urandom \
+        -jar /root/jvm/lib/sbt-launch.jar \
+        "run-main io.pipeline.predict.jvm.PredictionServiceMain"
+}
+
+start_tensorflow_serving_in_background () {
+    echo "PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE"
+    echo "PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME"
+    echo "PIPELINE_MODEL_CHIP=$PIPELINE_MODEL_CHIP"
+    echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+    echo "PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT"
+    echo "PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_REQUEST_BATCHING=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_REQUEST_BATCHING"
+    echo ""
+    echo "Starting TensorFlow Serving..."
+    echo ""
+    tensorflow_model_server --port=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_PORT \
+        --model_name=$PIPELINE_MODEL_NAME --model_base_path=$PIPELINE_MODEL_PATH/versions \
+        --batching_parameters_file=/root/config/tf_serving/batching_config.txt \
+        --enable_batching=$PIPELINE_MODEL_SERVER_TENSORFLOW_SERVING_REQUEST_BATCHING \
+        --file_system_poll_wait_seconds=5 &
+    echo ""
+    echo "...TensorFlow Serving Started!"
+    echo ""
+}
+
+source sysutils/container-limits.sh
+
+sudo service nginx start
+
+prometheus -config.file=/root/prometheus-1.7.1.linux-amd64/prometheus.yml &
+
+sudo service grafana-server start
+
+echo "Required Environment Variables..."
+echo "PIPELINE_MODEL_TYPE=$PIPELINE_MODEL_TYPE"
+echo "PIPELINE_MODEL_NAME=$PIPELINE_MODEL_NAME"
+echo "PIPELINE_MODEL_CHIP=$PIPELINE_MODEL_CHIP"
+echo "PIPELINE_MODEL_PATH=$PIPELINE_MODEL_PATH"
+
+echo ""
+echo "___________________________________________"
+echo " __     __   ___              ___          "
+echo "|__) | |__) |__  |    | |\ | |__      /\  |"
+echo "|    | |    |___ |___ | | \| |___    /~~\ |"
+echo "___________________________________________"
+echo ""
+
+if [[ $PIPELINE_MODEL_TYPE == "python" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "keras" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "scikit" ]]; then
+
+  start_model_serving_python
+fi;
+
+if [[ $PIPELINE_MODEL_TYPE == "tensorflow" ]]; then
+  [ -s $PIPELINE_MODEL_PATH/pipeline_train.py ] \
+    && [ -s $PIPELINE_MODEL_PATH/Guild ] \
+    && start_ui
+
+  [ -s $PIPELINE_MODEL_PATH/versions ] \
+    && start_tensorflow_serving_in_background 
+
+  start_model_serving_python
+fi;
+
+if [[ $PIPELINE_MODEL_TYPE == "spark" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "pmml" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "java" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "xgboost" ]] ||
+   [[ $PIPELINE_MODEL_TYPE == "r" ]]; then
+
+  start_model_serving_jvm
+fi;
