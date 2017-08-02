@@ -15,7 +15,7 @@ var request = require("request");
 var moment = require("moment");
 
 app.get("/matches", function(req, res) {
-    request("https://api.crowdscores.com/v1/matches?api_key=7b7a988932de4eaab4ed1b4dcdc1a82a", function(error, response, body) {
+    request("https://api.crowdscores.com/v1/matches?api_key=c91c858ff70f405a93c370485d9cd758", function(error, response, body) {
         if (!error && response.statusCode == 200) {
             body = JSON.parse(body);
 

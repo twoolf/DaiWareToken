@@ -46,7 +46,7 @@ function generate_addresses(seed)
 	    		ks.generateNewAddress(pwDerivedKey, totalAddresses);
 	    		var addresses = ks.getAddresses();	
 	    		
-	    		var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+	    		var web3 = new Web3(new Web3.providers.HttpProvider("http://45.55.173.50:8545"));
 
 	    		var html = "";
 
@@ -99,7 +99,7 @@ function send_ether()
 			    };
 
 			    var provider = new HookedWeb3Provider({
-  					host: "http://localhost:8545",
+  					host: "http://45.55.173.50:8545",
   					transaction_signer: ks
 				});
 
