@@ -53,7 +53,7 @@ class TransactionHistoryViewController: UIViewController, UITableViewDelegate, U
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        historyAlert = UIAlertController(title: nil, message: "履歴情報取得中\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
+        historyAlert = UIAlertController(title: nil, message: "inside history Alert\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
         let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         
         spinnerIndicator.center = CGPoint(x:135.0, y:65.5)

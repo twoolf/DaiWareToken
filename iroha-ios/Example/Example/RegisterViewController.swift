@@ -109,13 +109,13 @@ class RegisterViewController: UIViewController ,UITextFieldDelegate{
     
     @IBAction func onClickCreate(_ sender: AnyObject) {
         if(accessField.text == "" || userNameField.text == ""){
-            alertController = UIAlertController(title: "警告", message: "すべての情報を入力してください", preferredStyle: .alert)
+            alertController = UIAlertController(title: "from Alert Controller", message: "inside Alert Controller", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
             present(alertController, animated: true, completion: nil)
 
         }else{
-            alertController = UIAlertController(title: nil, message: "口座開設中\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
+            alertController = UIAlertController(title: nil, message: "in alert controller\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
             let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         
             spinnerIndicator.center = CGPoint(x:135.0, y:65.5)

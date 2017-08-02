@@ -60,13 +60,13 @@ class CreateAssetViewController : UIViewController, UITextFieldDelegate {
     @IBAction func onClickCreate(_ sender: AnyObject) {
         self.view.endEditing(true)
         if(domainNameField.text == "" || assetNameField.text == ""){
-            creatAssetAlert = UIAlertController(title: "警告", message: "すべての情報を入力してください", preferredStyle: .alert)
+            creatAssetAlert = UIAlertController(title: "Header-of-Alert", message: "inside creatAssetAlert", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             creatAssetAlert.addAction(defaultAction)
             present(creatAssetAlert, animated: true, completion: nil)
             
         }else{
-            creatAssetAlert = UIAlertController(title: nil, message: "アセット作成中\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
+            creatAssetAlert = UIAlertController(title: nil, message: "inside of create Asset Alert\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
             let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
             
             spinnerIndicator.center = CGPoint(x:135.0, y:65.5)

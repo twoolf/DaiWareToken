@@ -54,7 +54,7 @@ class AssetsListViewController : UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        listAlert = UIAlertController(title: nil, message: "口座情報取得中\n\n\n", preferredStyle: UIAlertControllerStyle.alert)
+        listAlert = UIAlertController(title: nil, message: "inside listAlert \n\n\n", preferredStyle: UIAlertControllerStyle.alert)
         let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         
         spinnerIndicator.center = CGPoint(x:135.0, y:65.5)
