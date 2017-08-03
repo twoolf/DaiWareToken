@@ -1,0 +1,3 @@
+- name: make sure firewalld stopped and disabled
+  sudo: yes
+  service: name=firewalld state=stopped enabled=false
