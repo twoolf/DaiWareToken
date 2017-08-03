@@ -5,11 +5,10 @@
 
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_equal, initialize_chain_clean, \
-    start_nodes, connect_nodes_bi
+from test_framework.util import *
+from time import *
 
-import time
-from decimal import Decimal
+import sys
 
 class WalletTreeStateTest (BitcoinTestFramework):
 
@@ -36,7 +35,7 @@ class WalletTreeStateTest (BitcoinTestFramework):
         for x in xrange(1, timeout):
             results = self.nodes[0].z_getoperationresult(opids)
             if len(results)==0:
-                time.sleep(1)
+                sleep(1)
             else:
                 status = results[0]["status"]
                 if status == "failed":
@@ -107,7 +106,7 @@ class WalletTreeStateTest (BitcoinTestFramework):
             status = results[0]["status"]
             if status == "executing":
                 break
-            time.sleep(1)
+            sleep(1)
 
         # Now mine Tx 1 which will change global treestate before Tx 2's second joinsplit begins processing
         self.sync_all()

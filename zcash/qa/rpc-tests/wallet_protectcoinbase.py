@@ -5,13 +5,8 @@
 
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.authproxy import JSONRPCException
-from test_framework.util import assert_equal, initialize_chain_clean, \
-    start_nodes, connect_nodes_bi
-
-import sys
-import time
-from decimal import Decimal
+from test_framework.util import *
+from time import *
 
 class WalletProtectCoinbaseTest (BitcoinTestFramework):
 
@@ -40,7 +35,7 @@ class WalletProtectCoinbaseTest (BitcoinTestFramework):
         for x in xrange(1, timeout):
             results = self.nodes[0].z_getoperationresult(opids)
             if len(results)==0:
-                time.sleep(1)
+                sleep(1)
             else:
                 status = results[0]["status"]
                 if status == "failed":
@@ -99,7 +94,7 @@ class WalletProtectCoinbaseTest (BitcoinTestFramework):
         for x in xrange(1, timeout):
             results = self.nodes[0].z_getoperationresult(opids)
             if len(results)==0:
-                time.sleep(1)
+                sleep(1)
             else:
                 status = results[0]["status"]
                 errorString = results[0]["error"]["message"]

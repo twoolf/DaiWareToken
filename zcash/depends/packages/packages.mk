@@ -5,3 +5,5 @@ packages := boost openssl libevent zeromq $(zcash_packages) googletest googlemoc
 native_packages := native_ccache
 
 wallet_packages=bdb
+
+upnp_packages=miniupnpc

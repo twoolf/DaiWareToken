@@ -5,10 +5,11 @@
 #
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.authproxy import JSONRPCException
-from test_framework.util import assert_equal, connect_nodes, \
-    gather_inputs, sync_blocks
-
+from test_framework.util import *
+from decimal import Decimal
+import os
+import shutil
+import sys
 import time
 
 class JoinSplitTest(BitcoinTestFramework):

@@ -4,10 +4,8 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.authproxy import AuthServiceProxy
-from test_framework.util import random_transaction
+from test_framework.util import *
 
-from decimal import Decimal
 
 def check_array_result(object_array, to_match, expected):
     """

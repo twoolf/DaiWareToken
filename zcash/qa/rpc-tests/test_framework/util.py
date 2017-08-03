@@ -21,7 +21,8 @@ import subprocess
 import time
 import re
 
-from authproxy import AuthServiceProxy
+from authproxy import AuthServiceProxy, JSONRPCException
+from util import *
 
 def p2p_port(n):
     return 11000 + n + os.getpid()%999
@@ -152,7 +153,7 @@ def initialize_chain_clean(test_dir, num_nodes):
     Useful if a test case wants complete control over initialization.
     """
     for i in range(num_nodes):
-        initialize_datadir(test_dir, i)
+        datadir=initialize_datadir(test_dir, i)
 
 
 def _rpchost_to_args(rpchost):

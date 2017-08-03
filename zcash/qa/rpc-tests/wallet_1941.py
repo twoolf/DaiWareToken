@@ -6,12 +6,10 @@
 # This is a regression test for #1941.
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_equal, initialize_chain_clean, \
-    initialize_datadir, start_nodes, start_node, connect_nodes_bi, \
-    bitcoind_processes
+from test_framework.util import *
+from time import *
 
-import time
-from decimal import Decimal
+import sys
 
 starttime = 1388534400
 
@@ -51,7 +49,7 @@ class Wallet1941RegressionTest (BitcoinTestFramework):
         for x in xrange(1, timeout):
             results = self.nodes[0].z_getoperationresult(opids)
             if len(results)==0:
-                time.sleep(1)
+                sleep(1)
             else:
                 status = results[0]["status"]
                 if status == "failed":

@@ -5,10 +5,9 @@
 #
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.authproxy import JSONRPCException
-from test_framework.util import assert_equal, start_node
-
+from test_framework.util import *
 import os
+import shutil
 
 class HardForkDetectionTest(BitcoinTestFramework):
 
@@ -17,7 +16,7 @@ class HardForkDetectionTest(BitcoinTestFramework):
     def setup_network(self):
         self.nodes = []
         self.alert_filename = os.path.join(self.options.tmpdir, "alert.txt")
-        with open(self.alert_filename, 'w'):
+        with open(self.alert_filename, 'w') as f:
             pass  # Just open then close to create zero-length file
         self.nodes.append(start_node(0, self.options.tmpdir,
                             ["-blockversion=2", "-alertnotify=echo %s >> \"" + self.alert_filename + "\""]))

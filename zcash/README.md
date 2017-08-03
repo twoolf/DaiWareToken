@@ -1,4 +1,4 @@
-Zcash 1.0.11-rc1
+Zcash 1.0.10-1
 =============
 
 What is Zcash?
@@ -21,7 +21,7 @@ Security Warnings
 See important security warnings in
 [doc/security-warnings.md](doc/security-warnings.md).
 
-**Zcash is experimental and a work-in-progress.** Use at your own risk.
+**Zcash is unfinished and highly experimental.** Use at your own risk.
 
 Deprecation Policy
 ------------------

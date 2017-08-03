@@ -6,11 +6,9 @@
 #
 # Test -reindex with CheckBlockIndex
 #
-
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_equal, initialize_chain_clean, \
-    start_node, stop_node, wait_bitcoinds
-
+from test_framework.util import *
+import os.path
 
 class ReindexTest(BitcoinTestFramework):
 

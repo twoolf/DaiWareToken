@@ -4,12 +4,9 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
 
-from mininode import CBlock, CTransaction, CInv, NodeConn, NodeConnCB, \
-    msg_inv, msg_getheaders, msg_ping, msg_mempool, mininode_lock, MAX_INV_SZ
+from mininode import *
 from blockstore import BlockStore, TxStore
 from util import p2p_port
-
-import time
 
 '''
 This is a tool for comparing two or more bitcoinds to each other
@@ -27,6 +24,8 @@ generator that returns TestInstance objects.  See below for definition.
 # on_pong: update ping response map (for synchronization)
 # on_getheaders: provide headers via BlockStore
 # on_getdata: provide blocks via BlockStore
+
+global mininode_lock
 
 def wait_until(predicate, attempts=float('inf'), timeout=float('inf')):
     attempt = 0

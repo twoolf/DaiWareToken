@@ -5,9 +5,11 @@
 #
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import assert_equal, start_node, \
-    gather_inputs
-
+from test_framework.util import *
+from decimal import Decimal
+import os
+import shutil
+import sys
 
 class JoinSplitTest(BitcoinTestFramework):
     def setup_network(self):
