@@ -1,0 +1,523 @@
+import os
+import time
+import functools
+import asyncio
+
+import aiocache
+
+from aiocache.log import logger
+from aiocache.utils import get_cache_value_with_fallbacks
+from aiocache.backends import SimpleMemoryBackend, LRUMemoryBackend, RedisBackend, MemcachedBackend
+
+
+class API:
+
+    CMDS = set()
+
+    @classmethod
+    def register(cls, fn):
+        API.CMDS.add(fn)
+        return fn
+
+    @classmethod
+    def unregister(cls, fn):
+        API.CMDS.discard(fn)
+
+    @classmethod
+    def timeout(cls, fn):
+        """
+        This decorator sets a maximum timeout for a coroutine to execute. The timeout can be both
+        set in the ``self.timeout`` attribute or in the ``timeout`` kwarg of the function call.
+        I.e if you have a function ``get(self, key)``, if its decorated with this decorator, you
+        will be able to call it with ``await get(self, "my_key", timeout=4)``.
+
+        Use either 0 or None to disable the timeout.
+        """
+        @functools.wraps(fn)
+        async def _timeout(self, *args, timeout=None, **kwargs):
+            timeout = timeout or self.timeout
+            if timeout == 0 or timeout is None:
+                return await fn(self, *args, **kwargs)
+            return await asyncio.wait_for(fn(self, *args, **kwargs), timeout)
+
+        return _timeout
+
+    @classmethod
+    def aiocache_enabled(cls, fake_return=None):
+        """
+        Use this decorator to be able to fake the return of the function by setting the
+        ``AIOCACHE_DISABLE`` environment variable
+        """
+        def enabled(fn):
+            @functools.wraps(fn)
+            async def _enabled(*args, **kwargs):
+                if os.getenv('AIOCACHE_DISABLE') == "1":
+                    return fake_return
+                return await fn(*args, **kwargs)
+
+            return _enabled
+        return enabled
+
+    @classmethod
+    def plugins(cls, fn):
+        @functools.wraps(fn)
+        async def _plugins(self, *args, **kwargs):
+            start = time.time()
+            for plugin in self.plugins:
+                await getattr(plugin, "pre_{}".format(fn.__name__))(self, *args, **kwargs)
+
+            ret = await fn(self, *args, **kwargs)
+
+            for plugin in self.plugins:
+                await getattr(
+                    plugin, "post_{}".format(fn.__name__))(
+                        self, *args, took=time.time() - start, ret=ret, **kwargs)
+            return ret
+
+        return _plugins
+
+
+class BaseCache:
+    """
+    Base class that agregates the common logic for the different caches that may exist. Cache
+    related available options are:
+
+    :param serializer: obj with :class:`aiocache.serializers.DefaultSerializer` interface.
+    :param plugins: list of :class:`aiocache.plugins.BasePlugin` derived classes.
+    :param namespace: string to use as default prefix for the key used in all operations of
+        the backend.
+    :param timeout: int or float in seconds specifying maximum timeout for the operations to last.
+        By default its 5. Use 0 or None if you want to disable it.
+    """
+    DEFAULT_TIMEOUT = 5
+
+    def __init__(self, serializer=None, plugins=None, namespace=None, timeout=None):
+        self.timeout = get_cache_value_with_fallbacks(
+            timeout, from_config="timeout",
+            from_fallback=self.DEFAULT_TIMEOUT, cls=self.__class__)
+        self.namespace = get_cache_value_with_fallbacks(
+            namespace, from_config="namespace",
+            from_fallback=namespace, cls=self.__class__)
+        self.encoding = "utf-8"
+
+        self._serializer = None
+        self.serializer = serializer or self.get_default_serializer()
+
+        self._plugins = None
+        self.plugins = plugins or self.get_default_plugins()
+
+    def get_default_serializer(self):
+        return aiocache.settings.DEFAULT_SERIALIZER()
+
+    def get_default_plugins(self):
+        return [plugin(**config) for plugin, config in aiocache.settings.DEFAULT_PLUGINS.items()]
+
+    @property
+    def serializer(self):
+        return self._serializer
+
+    @serializer.setter
+    def serializer(self, value):
+        self._serializer = value
+        self.encoding = getattr(self._serializer, "encoding", 'utf-8')
+
+    @property
+    def plugins(self):
+        return self._plugins
+
+    @plugins.setter
+    def plugins(self, value):
+        self._plugins = value
+
+    @API.register
+    @API.aiocache_enabled(fake_return=True)
+    @API.timeout
+    @API.plugins
+    async def add(self, key, value, ttl=None, dumps_fn=None, namespace=None):
+        """
+        Stores the value in the given key with ttl if specified. Raises an error if the
+        key already exists.
+
+        :param key: str
+        :param value: obj
+        :param ttl: int the expiration time in seconds
+        :param dumps_fn: callable alternative to use as dumps function
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True if key is inserted
+        :raises:
+            - ValueError if key already exists
+            - :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        dumps = dumps_fn or self._serializer.dumps
+        ns_key = self._build_key(key, namespace=namespace)
+
+        await self._add(ns_key, dumps(value), ttl)
+
+        logger.debug("ADD %s %s (%.4f)s", ns_key, True, time.time() - start)
+        return True
+
+    async def _add(self, key, value, ttl):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled()
+    @API.timeout
+    @API.plugins
+    async def get(self, key, default=None, loads_fn=None, namespace=None):
+        """
+        Get a value from the cache. Returns default if not found.
+
+        :param key: str
+        :param default: obj to return when key is not found
+        :param loads_fn: callable alternative to use as loads function
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: obj loaded
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        loads = loads_fn or self._serializer.loads
+        ns_key = self._build_key(key, namespace=namespace)
+
+        value = loads(await self._get(ns_key))
+
+        logger.debug("GET %s %s (%.4f)s", ns_key, value is not None, time.time() - start)
+        return value or default
+
+    async def _get(self, key):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=[])
+    @API.timeout
+    @API.plugins
+    async def multi_get(self, keys, loads_fn=None, namespace=None):
+        """
+        Get multiple values from the cache, values not found are Nones.
+
+        :param keys: list of str
+        :param loads_fn: callable alternative to use as loads function
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: list of objs
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        loads = loads_fn or self._serializer.loads
+
+        ns_keys = [self._build_key(key, namespace=namespace) for key in keys]
+        values = [loads(value) for value in await self._multi_get(ns_keys)]
+
+        logger.debug(
+            "MULTI_GET %s %d (%.4f)s",
+            ns_keys,
+            len([value for value in values if value is not None]),
+            time.time() - start)
+        return values
+
+    async def _multi_get(self, keys):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=True)
+    @API.timeout
+    @API.plugins
+    async def set(self, key, value, ttl=None, dumps_fn=None, namespace=None):
+        """
+        Stores the value in the given key with ttl if specified
+
+        :param key: str
+        :param value: obj
+        :param ttl: int the expiration time in seconds
+        :param dumps_fn: callable alternative to use as dumps function
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        dumps = dumps_fn or self._serializer.dumps
+        ns_key = self._build_key(key, namespace=namespace)
+
+        await self._set(ns_key, dumps(value), ttl)
+
+        logger.debug("SET %s %d (%.4f)s", ns_key, True, time.time() - start)
+        return True
+
+    async def _set(self, key, value, ttl):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=True)
+    @API.timeout
+    @API.plugins
+    async def multi_set(self, pairs, ttl=None, dumps_fn=None, namespace=None):
+        """
+        Stores multiple values in the given keys.
+
+        :param pairs: list of two element iterables. First is key and second is value
+        :param ttl: int the expiration time of the keys in seconds
+        :param dumps_fn: callable alternative to use as dumps function
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        dumps = dumps_fn or self._serializer.dumps
+
+        tmp_pairs = []
+        for key, value in pairs:
+            tmp_pairs.append((self._build_key(key, namespace=namespace), dumps(value)))
+
+        await self._multi_set(tmp_pairs, ttl=ttl)
+
+        logger.debug(
+            "MULTI_SET %s %d (%.4f)s",
+            [key for key, value in tmp_pairs],
+            len(pairs),
+            time.time() - start)
+        return True
+
+    async def _multi_set(self, pairs, ttl):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=0)
+    @API.timeout
+    @API.plugins
+    async def delete(self, key, namespace=None):
+        """
+        Deletes the given key.
+
+        :param key: Key to be deleted
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: int number of deleted keys
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        ns_key = self._build_key(key, namespace=namespace)
+        ret = await self._delete(ns_key)
+        logger.debug("DELETE %s %d (%.4f)s", ns_key, ret, time.time() - start)
+        return ret
+
+    async def _delete(self, key):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=0)
+    @API.timeout
+    @API.plugins
+    async def exists(self, key, namespace=None):
+        """
+        Check key exists in the cache.
+
+        :param key: str key to check
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True if key exists otherwise False
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        ns_key = self._build_key(key, namespace=namespace)
+        ret = await self._exists(ns_key)
+        logger.debug("EXISTS %s %d (%.4f)s", ns_key, ret, time.time() - start)
+        return ret
+
+    async def _exists(self, key):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=False)
+    @API.timeout
+    @API.plugins
+    async def expire(self, key, ttl, namespace=None):
+        """
+        Set the ttl to the given key. By setting it to 0, it will disable it
+
+        :param key: str key to expire
+        :param ttl: int number of seconds for expiration. If 0, ttl is disabled
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True if set, False if key is not found
+        """
+        start = time.time()
+        ns_key = self._build_key(key, namespace=namespace)
+        ret = await self._expire(ns_key, ttl)
+        logger.debug("EXPIRE %s %d (%.4f)s", ns_key, ret, time.time() - start)
+        return ret
+
+    async def _expire(self, key, ttl):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled(fake_return=True)
+    @API.timeout
+    @API.plugins
+    async def clear(self, namespace=None):
+        """
+        Clears the cache in the cache namespace. If an alternative namespace is given, it will
+        clear those ones instead.
+
+        :param namespace: str alternative namespace to use
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: True
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        ret = await self._clear(namespace)
+        logger.debug("CLEAR %s %d (%.4f)s", namespace, ret, time.time() - start)
+        return ret
+
+    async def _clear(self, namespace):
+        raise NotImplementedError()
+
+    @API.register
+    @API.aiocache_enabled()
+    @API.timeout
+    @API.plugins
+    async def raw(self, command, *args, **kwargs):
+        """
+        Send the raw command to the underlying client.
+
+        :param command: str with the command.
+        :param timeout: int or float in seconds specifying maximum timeout
+            for the operations to last. None by default
+        :returns: whatever the underlying client returns
+        :raises: :class:`asyncio.TimeoutError` if it lasts more than self.timeout
+        """
+        start = time.time()
+        ret = await self._raw(command, *args, **kwargs)
+        logger.debug("%s (%.4f)s", command, time.time() - start)
+        return ret
+
+    async def _raw(self, command, *args, **kwargs):
+        raise NotImplementedError()
+
+    def _build_key(self, key, namespace=None):
+        if namespace is not None:
+            return "{}{}".format(namespace, key)
+        if self.namespace is not None:
+            return "{}{}".format(self.namespace, key)
+        return key
+
+
+class SimpleMemoryCache(SimpleMemoryBackend, BaseCache):
+    """
+    :class:`aiocache.backends.SimpleMemoryBackend` cache implementation with
+    the following components as defaults:
+      - serializer: :class:`aiocache.serializers.DefaultSerializer`
+      - plugins: None
+
+    Config options are:
+
+    :param serializer: obj with :class:`aiocache.serializers.DefaultSerializer` interface.
+    :param plugins: list of :class:`aiocache.plugins.BasePlugin` derived classes.
+    :param namespace: string to use as default prefix for the key used in all operations of
+        the backend.
+    :param timeout: int or float in seconds specifying maximum timeout for the operations to last.
+        By default its 5.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+
+class LRUMemoryCache(LRUMemoryBackend, BaseCache):
+    """
+    :class:`aiocache.backends.LRUMemoryBackend` cache implementation with
+    the following components as defaults:
+      - serializer: :class:`aiocache.serializers.DefaultSerializer`
+      - plugins: None
+
+    Config options are:
+
+    :param serializer: obj with :class:`aiocache.serializers.DefaultSerializer` interface.
+    :param plugins: list of :class:`aiocache.plugins.BasePlugin` derived classes.
+    :param namespace: string to use as default prefix for the key used in all operations of
+        the backend.
+    :param timeout: int or float in seconds specifying maximum timeout for the operations to last.
+        By default its 5.
+    :param max_size: int specifying the maximum number of keys to hold in the cache.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __repr__(self):  # pragma: no cover
+        return "LRUMemoryCache ({})".format(self.max_size)
+
+
+class RedisCache(RedisBackend, BaseCache):
+    """
+    :class:`aiocache.backends.RedisBackend` cache implementation with the
+    following components as defaults:
+      - serializer: :class:`aiocache.serializers.DefaultSerializer`
+      - plugins: None
+
+    Config options are:
+
+    :param serializer: obj with :class:`aiocache.serializers.DefaultSerializer` interface.
+    :param plugins: list of :class:`aiocache.plugins.BasePlugin` derived classes.
+    :param namespace: string to use as default prefix for the key used in all operations of
+        the backend.
+    :param timeout: int or float in seconds specifying maximum timeout for the operations to last.
+        By default its 5.
+    :param endpoint: str with the endpoint to connect to
+    :param port: int with the port to connect to
+    :param db: int indicating database to use
+    :param password: str indicating password to use
+    :param pool_min_size: int minimum pool size for the redis connections pool
+    :param pool_max_size: int maximum pool size for the redis connections pool
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def _build_key(self, key, namespace=None):
+        if namespace is not None:
+            return "{}{}{}".format(namespace, ":" if namespace else "", key)
+        if self.namespace is not None:
+            return "{}{}{}".format(self.namespace, ":" if self.namespace else "", key)
+        return key
+
+    def __repr__(self):  # pragma: no cover
+        return "RedisCache ({}:{})".format(self.endpoint, self.port)
+
+
+class MemcachedCache(MemcachedBackend, BaseCache):
+    """
+    :class:`aiocache.backends.MemcachedCache` cache implementation with the following
+    components as defaults:
+      - serializer: :class:`aiocache.serializers.DefaultSerializer`
+      - plugins: None
+
+    Config options are:
+
+    :param serializer: obj with :class:`aiocache.serializers.DefaultSerializer` interface.
+    :param plugins: list of :class:`aiocache.plugins.BasePlugin` derived classes.
+    :param namespace: string to use as default prefix for the key used in all operations of
+        the backend.
+    :param timeout: int or float in seconds specifying maximum timeout for the operations to last.
+        By default its 5.
+    :param endpoint: str with the endpoint to connect to
+    :param port: int with the port to connect to
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def _build_key(self, key, namespace=None):
+        ns_key = super()._build_key(key, namespace=namespace)
+        return str.encode(ns_key)
+
+    def __repr__(self):  # pragma: no cover
+        return "MemcachedCache ({}:{})".format(self.endpoint, self.port)
