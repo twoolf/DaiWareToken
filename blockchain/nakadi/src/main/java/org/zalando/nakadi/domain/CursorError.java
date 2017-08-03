@@ -1,0 +1,5 @@
+package org.zalando.nakadi.domain;
+
+public enum CursorError {
+    PARTITION_NOT_FOUND, UNAVAILABLE, INVALID_FORMAT, NULL_PARTITION, NULL_OFFSET, FORBIDDEN, INVALID_OFFSET
+}

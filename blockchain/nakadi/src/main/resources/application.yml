@@ -1,0 +1,117 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/plain,application/x-json-stream
+management:
+  port: 7979
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: INFO
+    org.apache.kafka: WARN
+    org.zalando.nakadi: DEBUG
+    org.zalando.nakadi.config: INFO
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/local_nakadi_db
+    username: nakadi
+    password: nakadi
+    driverClassName: org.postgresql.Driver
+    tomcat:
+      initial-size: 2
+      max-active: 2
+      min-idle: 1
+      max-idle: 1
+      test-on-borrow: true
+      validation-query: SELECT 1
+      test-while-idle: true
+      time-between-eviction-runs-millis: 5000
+      min-evictable-idle-time-millis: 60000
+      connection-properties: socketTimeout=2;connectTimeout=2;loginTimeout=2
+
+hystrix.command.default.execution.isolation.strategy: SEMAPHORE
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 15000
+hystrix.command.default.circuitBreaker.requestVolumeThreshold: 20
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds: 5000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage: 20
+hystrix.command.default.metrics.rollingStats.timeInMilliseconds: 30000
+
+nakadi:
+  topic:
+    min:
+      retentionMs: 86400000 # 1 days
+    max:
+      partitionNum: 8
+      retentionMs: 345600000 # 4 days
+    default:
+      partitionNum: 1
+      replicaFactor: 1
+      retentionMs: 172800000 # 2 days
+      rotationMs: 86400000 # 1 day
+  stream:
+    timeoutMs: 31536000000 # 1 year :-P
+    default.commitTimeout: 60 # 1 minute
+    maxConnections: 5
+  featureToggle.default: false
+  kafka:
+    request.timeout.ms: 30000
+    instanceType: t2.large
+    poll.timeoutMs: 100
+    send.timeoutMs: 5000
+    batch.size: 5242880
+    linger.ms: 0
+    enable.auto.commit: false
+  zookeeper:
+    kafkaNamespace:
+    brokers: 127.0.0.1:2181
+    sessionTimeoutMs: 30000
+    connectionTimeoutMs: 10000
+  oauth2:
+    mode: BASIC
+    adminClientId: adminClientId
+    tokenInfoUrl: https://example.com/tokeninfo
+    clientId: stups_aruha-event-store-poc
+    realms: '/arealm, /anotherone'
+    scopes:
+      uid: uid
+      nakadiAdmin: nakadi.config.write
+      eventTypeWrite: nakadi.event_type.write
+      eventStreamRead: nakadi.event_stream.read
+      eventStreamWrite: nakadi.event_stream.write
+  plugins:
+    auth:
+      factory: org.zalando.nakadi.plugin.auth.DefaultApplicationServiceFactory
+    authz:
+      factory: org.zalando.nakadi.plugin.auth.DefaultAuthorizationServiceFactory
+  event.max.bytes: 999000
+  timeline.wait.timeoutMs: 40000
+  subscription:
+    maxPartitions: 100
+  jobs:
+    checkRunMs: 600000 # 10 min
+    timelineCleanup.runPeriodMs: 3600000 # 1 hour
+    consumerNodesCleanup.runPeriodMs: 21600000 # 6 hours
+
+twintip:
+  mapping: /api
+  yaml: "file:nakadi-event-bus-api.yaml"
+
+---
+
+spring:
+  profiles: acceptanceTest
+nakadi:
+  stream:
+    default:
+      commitTimeout: 5 # seconds
+  subscription:
+    maxPartitions: 30
+
+---
+
+spring:
+  profiles: test
+twintip:
+  mapping: /api
+  yaml: "file:api/nakadi-event-bus-api.yaml"
