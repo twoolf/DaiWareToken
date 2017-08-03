@@ -1,0 +1,34 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "stream-itemsim-create-%CLIENT%",
+        "labels": {
+	    "service" : "seldon"
+        }
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "stream-itemsim-create-%CLIENT%",
+                "image": "seldonio/seldon-stream-itemsim:%SELDON_STREAM_ITEMSIM_IMAGE_VERSION%",
+                "command": [
+		    "java",
+			"-cp",
+			"/home/seldon/libs/seldon-stream.jar",
+		        "io.seldon.stream.itemsim.ItemSimilarityProcessor",
+		    "--client", "%CLIENT%", 
+		    "--window-secs", "1800",  
+		    "--parse-date-method",  "json-time",  
+		    "--output-topic",  "%CLIENT%-similarity",
+		    "--kafka", "kafka-service:9092",
+		    "--zookeeper", "zookeeper-1:2181",
+		    "--min-activity", "100"
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent"
+            }
+        ],
+	"terminationGracePeriodSeconds": 0
+    }
+}

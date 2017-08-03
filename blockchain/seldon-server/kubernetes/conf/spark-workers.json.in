@@ -1,0 +1,63 @@
+{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "name": "spark-worker-controller",
+        "labels": {
+            "component": "spark-worker",
+	    "service" : "seldon"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+		"component": "spark-worker"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "component": "spark-worker",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+                "volumes": [
+                    {
+                        "name": "data-volume",
+			"persistentVolumeClaim": {
+			    "claimName": "seldon-claim"
+			}
+                    }
+                ],
+                "containers": [
+                    {
+                        "name": "spark-worker",
+                        "image": "gcr.io/google_containers/spark:1.5.2_v1",
+                        "command": [
+                            "/start-worker"
+                        ],
+                        "ports": [
+                            {
+                                "containerPort": 8081,
+                                "protocol": "TCP"
+                            }
+                        ],
+			"resources": {
+			    "requests":{ "memory" : "1G" },
+			    "limits":{ "memory" : "1G"}
+			},
+                        "volumeMounts": [
+                            {
+                                "name": "data-volume",
+                                "mountPath": "/seldon-data"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

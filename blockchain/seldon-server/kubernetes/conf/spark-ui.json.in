@@ -1,0 +1,140 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "kind": "Deployment",
+	    "apiVersion": "extensions/v1beta1",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "component": "spark-ui-proxy",
+		    "service" : "seldon"
+                },
+                "name": "spark-ui-proxy-controller"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                    "component": "spark-ui-proxy"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "component": "spark-ui-proxy"
+                        }
+                    },
+                    "spec": {
+			"volumes": [{
+			    "name": "sparkui-secret",
+			    "secret": {
+				"secretName": "sparkui-secret"
+			    }
+			}],
+                        "containers": [
+			    {
+                                "name": "spark-ui-auth",
+                                "image": "seldonio/proxy-server:0.1",
+                                "imagePullPolicy": "IfNotPresent",
+				"env":
+				[
+                                    {
+                                        "name": "TARGET",
+                                        "value": "localhost"
+                                    },
+                                    {
+                                        "name": "NGINX_PORT",
+                                        "value": "8000"
+                                    },
+                                    {
+                                        "name": "BASIC_AUTH_FILE",
+                                        "value": "/etc/sparkuisecret/spark.htpasswd"
+                                    }
+				],
+				"volumeMounts": [{
+				    "name": "sparkui-secret",
+				    "mountPath": "/etc/sparkuisecret",
+				    "readOnly": true
+				}],
+                                "ports": [
+                                    {
+                                        "containerPort": 8000,
+                                        "protocol": "TCP"
+                                    }
+                                ]
+			    },
+                            {
+                                "args": [
+                                    "spark-webui:8080"
+                                ],
+                                "image": "elsonrodriguez/spark-ui-proxy:1.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 80,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 120,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "spark-ui-proxy",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "100m"
+                                    }
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 0
+                    }
+                }
+            },
+            "status": {
+                "replicas": 0
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "spark-ui-proxy",
+		"labels":{
+		    "service" : "seldon"
+		}
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "nodePort": 30005,
+                        "port": 8000,
+                        "protocol": "TCP",
+                        "targetPort": 8000
+                    }
+                ],
+                "selector": {
+                    "component": "spark-ui-proxy"
+                },
+                "sessionAffinity": "None",
+                "type": "%SERVICE_TYPE%"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List"
+}

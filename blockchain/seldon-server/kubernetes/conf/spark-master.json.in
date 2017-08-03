@@ -1,0 +1,127 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "items": [
+        {
+           "kind": "Deployment",
+	    "apiVersion": "extensions/v1beta1",
+             "metadata": {
+                "name": "spark-master-controller",
+                "labels": {
+                    "component": "spark-master",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+			"component": "spark-master"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "component": "spark-master"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "data-volume",
+				"persistentVolumeClaim": {
+				    "claimName": "seldon-claim"
+				}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "SPARK_MASTER_OPTS",
+                                        "value": "-Dspark.deploy.defaultCores=2"
+                                    }
+                                ],
+                                "name": "spark-master",
+                                "image": "gcr.io/google_containers/spark:1.5.2_v1",
+                                "command": [
+                                    "/start-master"
+                                ],
+                                "ports": [
+                                    {
+                                        "containerPort": 7077,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+				"resources": {
+				    "requests":{ "memory" : "200M" },
+				    "limits":{ "memory" : "1G"}
+				},
+                                "volumeMounts": [
+                                    {
+                                        "name": "data-volume",
+                                        "mountPath": "/seldon-data"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "spark-master",
+                "labels": {
+		    "service" : "seldon"
+                },
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 7077,
+                        "targetPort": 7077
+                    }
+                ],
+                "selector": {
+                    "component": "spark-master"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "spark-webui",
+                "labels": {
+		    "service" : "seldon"
+                },
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "component": "spark-master"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            }
+        }
+    ]
+}

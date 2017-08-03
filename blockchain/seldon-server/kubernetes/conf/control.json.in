@@ -1,0 +1,69 @@
+{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "labels": {
+            "name": "seldon-control",
+            "service": "seldon"
+        },
+        "name": "seldon-control"
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "name": "seldon-control"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+		    "name": "seldon-control",
+                    "service": "seldon"
+                },
+                "name": "seldon-control"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "sleep",
+                            "infinity"
+                        ],
+                        "image": "seldonio/seldon-control:%SELDON_CONTROL_IMAGE_VERSION%",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "seldon-shell",
+			"env" :
+			[
+                            {
+                                "name": "GRAFANA_ADMIN_PASSWORD",
+				"valueFrom": {
+				    "secretKeyRef": {
+					"key": "grafana-admin-password.txt",
+					"name": "grafana-admin-password"
+				    }
+				}
+                            }
+			],
+                        "terminationMessagePath": "/dev/termination-log",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/seldon-data",
+                                "name": "data-volume"
+                            }
+                        ]
+                    }
+                ],
+                "terminationGracePeriodSeconds": 0,
+                "volumes": [
+                    {
+                        "name": "data-volume",
+			"persistentVolumeClaim": {
+			    "claimName": "seldon-claim"
+			}
+                    }
+                ]
+            }
+        }
+    }
+}

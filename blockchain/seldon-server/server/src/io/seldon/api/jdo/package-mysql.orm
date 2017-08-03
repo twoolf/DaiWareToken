@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+             http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd">
+	<package name="io.seldon.api.jdo">
+		<class name="Consumer" table="CONSUMER">
+            <field name="consumerKey" column="CONSUMER_KEY"/>
+            <field name="consumerSecret" column="CONSUMER_SECRET"/>                      
+            <field name="name" column="NAME"/>
+            <field name="short_name" column="SHORT_NAME"/>
+            <field name="time" column="TIME"/>
+            <field name="url" column="URL"/>
+            <field name="active" column="ACTIVE"/>  
+            <field name="secure" column="SECURE"/>    
+            <field name="scope" column="SCOPE"/>                  
+        </class>
+       <class name="Token" table="TOKEN">
+            <field name="tokenKey" column="TOKEN_KEY"/>
+            <field name="time" column="TIME"/>
+            <field name="type" column="TYPE"/>
+            <field name="scope" column="SCOPE"/>
+            <field name="expires_in" column="EXPIRES_IN"/>
+            <field name="active" column="ACTIVE"/>
+            <field name="consumer" column="CONSUMER"/>
+        </class>
+	</package>
+</orm>

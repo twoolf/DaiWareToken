@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+             http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd">
+	<package name="io.seldon.general">
+        <class name="User" table="USERS">
+            <field name="userId" column="USER_ID"/>
+            <field name="username" column="USERNAME"/>
+            <field name="firstOp" column="FIRST_OP"/>
+            <field name="lastOp" column="LAST_OP"/>
+            <field name="type" column="TYPE"/>
+            <field name="numOp" column="NUM_OP"/>
+            <field name="active" column="ACTIVE"/>
+            <field name="clientUserId" column="CLIENT_USER_ID"/>
+            <field name="avgRating" column="AVGRATING"/>
+            <field name="stdDevRating" column="STDDEVRATING"/>
+        </class>
+        <class name="UserAttribute" table="USER_ATTR">
+            <field name="attributeId" column="ATTR_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="type" column="TYPE"/>
+            <field name="linkType" column="LINK_TYPE"/>
+            <field name="demographic" column="DEMOGRAPHIC"/>
+        </class>
+        <class name="Item" table="ITEMS">
+            <field name="itemId" column="ITEM_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="firstOp" column="FIRST_OP"/>
+            <field name="lastOp" column="LAST_OP"/>
+            <field name="popular" column="POPULAR"/>
+            <field name="type" column="TYPE"/>
+            <field name="clientItemId" column="CLIENT_ITEM_ID"/>
+            <field name="avgRating" column="AVGRATING"/>
+            <field name="stdDevRating" column="STDDEVRATING"/>
+        </class>
+        <class name="UserDimension" table="USER_DIM">
+            <field name="userId" column="USER_ID"/>
+    	    <field name="dimId" column="DIM_ID"/>
+            <field name="relevance" column="RELEVANCE"/>
+        </class>
+        <class name="ItemDemographic" table="ITEM_DEMO">
+            <field name="itemId" column="ITEM_ID"/>
+    	    <field name="demoId" column="DEMO_ID"/>
+            <field name="relevance" column="RELEVANCE"/>
+        </class>
+		<class name="Action" table="ACTIONS">
+           <join table="ACTION_COMMENT" column="ACTION_ID" outer="true"/>
+           <field name="actionId" column="ACTION_ID"/>
+           <field name="userId" column="USER_ID"/>
+           <field name="itemId" column="ITEM_ID"/>
+           <field name="type" column="TYPE"/>
+           <field name="times" column="TIMES"/>
+           <field name="date" column="DATE"/>
+           <field name="value" column="VALUE"/>
+           <field name="clientUserId" column="CLIENT_USER_ID"/>
+           <field name="clientItemId" column="CLIENT_ITEM_ID"/>
+           <field name="comment" table="ACTION_COMMENT">
+               <column name="COMMENT"/>
+           </field>
+       </class>
+       <class name="ExtAction" table="EXT_ACTIONS">
+           <join table="EXT_ACTION_COMMENT" column="ACTION_ID" outer="true"/>
+           <field name="actionId" column="ACTION_ID"/>
+           <field name="userId" column="USER_ID"/>
+           <field name="itemId" column="ITEM_ID"/>
+           <field name="type" column="TYPE"/>
+           <field name="times" column="TIMES"/>
+           <field name="date" column="DATE"/>
+           <field name="value" column="VALUE"/>
+           <field name="clientUserId" column="CLIENT_USER_ID"/>
+           <field name="clientItemId" column="CLIENT_ITEM_ID"/>
+           <field name="comment" table="EXT_ACTION_COMMENT">
+               <column name="COMMENT"/>
+           </field>
+       </class>
+        <class name="ActionType" table="ACTION_TYPE">
+            <field name="typeId" column="TYPE_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="weight" column="WEIGHT"/>
+            <field name="defValue" column="DEF_VALUE"/>
+            <field name="linkType" column="LINK_TYPE"/>
+            <field name="semantic" column="SEMANTIC"/>
+        </class>
+        <class name="ExplicitLink" table="LINKS">
+            <field name="linkId" column="LINK_ID"/>
+            <field name="u1" column="U1"/>
+            <field name="u2" column="U2"/>
+            <field name="value" column="VALUE"/>
+            <field name="type" column="TYPE"/>
+            <field name="date" column="DATE"/>
+        </class>
+        <class name="ItemAttr" table="ITEM_ATTR">
+            <field name="itemAttrId" column="ATTR_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="type" column="TYPE"/>
+        </class>
+        <class name="ItemType" table="ITEM_TYPE">
+            <field name="typeId" column="TYPE_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="linkType" column="LINK_TYPE"/>
+            <field name="semantic" column="SEMANTIC"/>
+        </class>
+        <class name="Version" table="VERSION">
+            <field name="majorVersion" column="MAJOR"/>
+            <field name="minorVersion" column="MINOR"/>
+            <field name="bugFixVersion" column="BUGFIX"/>
+            <field name="releaseDate" column="DATE"/>
+        </class>
+         <class name="LinkType" table="LINK_TYPE">
+            <field name="typeId" column="TYPE_ID"/>
+            <field name="name" column="NAME"/>
+            <field name="defValue" column="DEF_VALUE"/>
+        </class>
+	</package>
+</orm>

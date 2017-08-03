@@ -1,0 +1,93 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "ReplicationController",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "iago",
+                    "service": "seldon"
+                },
+                "name": "iago"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "iago"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "iago",
+                            "service": "seldon"
+                        }
+                    },
+                    "spec": {
+			"nodeSelector" : { "role":"iago" },
+                        "containers": [
+                            {
+                                "command": [
+                                    "sleep",
+                                    "infinity"
+                                ],
+                                "image": "seldonio/iago:%SELDON_IAGO_IMAGE_VERSION%",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "iago",
+                                "terminationMessagePath": "/dev/termination-log",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/seldon-data",
+                                        "name": "storage"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 0,
+                        "volumes": [
+                            {
+                                "name": "storage",
+				"persistentVolumeClaim": {
+				    "claimName": "seldon-claim"
+				}
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "service": "seldon"
+                },
+                "name": "iago"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "nodePort": 30006,
+                        "port": 9994,
+                        "protocol": "TCP",
+                        "targetPort": 9994
+                    }
+                ],
+                "selector": {
+                    "name": "iago"
+                },
+                "sessionAffinity": "None",
+                "type": "%SERVICE_TYPE%"
+            }
+        }
+    ],
+    "kind": "List"
+}
+

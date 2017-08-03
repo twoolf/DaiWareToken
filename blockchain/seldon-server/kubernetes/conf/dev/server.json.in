@@ -1,0 +1,171 @@
+        {
+            "kind": "Deployment",
+	    "apiVersion": "extensions/v1beta1",
+            "metadata": {
+                "name": "seldon-server",
+                "labels": {
+                    "name": "seldon-server",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "name": "seldon-server"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "name": "seldon-server",
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "seldon-server"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+			    {
+				"name": "data-volume",
+				"persistentVolumeClaim": {
+				    "claimName": "seldon-claim"
+				}
+			    },
+                           {
+                                "name": "base-logs",
+                                "emptyDir": {}
+                            },
+                            {
+                                "name": "action-logs",
+                                "emptyDir": {}
+                            },
+			    {
+				"name": "java-classes",
+				"hostPath": {"path": "%SELDON_HOME%/server/target/classes"}
+			    }
+                        ],
+                        "containers": [
+                            {
+                                "name": "seldon-server",
+                                "image": "seldonio/seldon-server:%SELDON_SERVER_IMAGE_VERSION%",
+                                %SELDON_SERVER_DEBUG_COMMAND%,
+                                "ports": [
+                                    {
+                                        "name": "api",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "debug",
+                                        "containerPort": 8000,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "rpc",
+                                        "containerPort": 5000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SELDON_ZKSERVERS",
+                                        "value": "zookeeper-1,zookeeper-2,zookeeper-3"
+                                    }
+                                ],
+                                "resources": {
+				                    %SELDON_SERVER_RESOURCES%
+                                },
+                                "volumeMounts": [
+				    {
+					"name": "data-volume",
+					"mountPath": "/seldon-data"
+				    },
+                                    {
+                                        "name": "base-logs",
+                                        "mountPath": "/home/seldon/logs/base"
+                                    },
+                                    {
+                                        "name": "action-logs",
+                                        "mountPath": "/home/seldon/logs/actions"
+                                    },
+                                    {
+                                        "name": "java-classes",
+                                        "mountPath": "/home/seldon/ROOT/WEB-INF/classes"
+                                    }
+                                ],
+                                "imagePullPolicy": "IfNotPresent"
+                            },
+                            {
+                                "name": "td-agent",
+                                "image": "seldonio/td-agent-node:%SELDON_TDAGENT_NODE_IMAGE_VERSION%",
+                                "command": [
+                                    "td-agent"
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "base-logs",
+                                        "mountPath": "/home/seldon/logs/base"
+                                    },
+                                    {
+                                        "name": "action-logs",
+                                        "mountPath": "/home/seldon/logs/actions"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        }
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "seldon-server",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "seldon-server",
+		    "service": "seldon"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+			"name":"api",
+                        "protocol": "TCP",
+                        "port": 80,
+                        "targetPort": 8080,
+			"nodePort": %SELDON_SERVER_NODEPORT%
+                    },
+                    {
+			"name":"debug",
+                        "protocol": "TCP",
+                        "port": 8000,
+                        "targetPort": 8000,
+			"nodePort": %SELDON_SERVER_DEBUG_NODEPORT%
+                    },
+                    {
+			"name":"rpc",
+                        "protocol": "TCP",
+                        "port": 5000,
+                        "targetPort": 5000,
+			"nodePort": %SELDON_SERVER_RPC_NODEPORT%
+                    }
+                ],
+                "selector": {
+                    "name": "seldon-server"
+                },
+                "type": "NodePort",
+                "sessionAffinity": "None"
+            }
+        }
+
+

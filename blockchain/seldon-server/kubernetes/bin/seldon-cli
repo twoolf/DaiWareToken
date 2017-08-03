@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -o nounset
+set -o errexit
+
+kubectl exec -it `kubectl get pods | grep seldon-control | grep Running | cut -d' ' -f1` -- seldon-cli "$@"

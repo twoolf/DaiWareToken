@@ -1,0 +1,195 @@
+        {
+            "kind": "Deployment",
+	    "apiVersion": "extensions/v1beta1",
+            "metadata": {
+                "name": "seldon-server",
+                "labels": {
+                    "name": "seldon-server",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "name": "seldon-server"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "name": "seldon-server",
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "seldon-server"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+			    {
+				"name": "data-volume",
+				"persistentVolumeClaim": {
+				    "claimName": "seldon-claim"
+				}
+			    },
+                           {
+                                "name": "base-logs",
+                                "emptyDir": {}
+                            },
+                            {
+                                "name": "action-logs",
+                                "emptyDir": {}
+                            },
+                            {
+                                "name": "tomcat-logs",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "seldon-server",
+                                "image": "seldonio/seldon-server:%SELDON_SERVER_IMAGE_VERSION%",
+                                "command": [
+                                    "/home/seldon/start-server.sh"
+                                ],
+                                "ports": [
+                                    {
+                                        "name": "api",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "rpc",
+                                        "containerPort": 5000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SELDON_ZKSERVERS",
+                                        "value": "zookeeper-1,zookeeper-2,zookeeper-3"
+                                    }
+                                ],
+                                "resources": {
+				    %SELDON_SERVER_RESOURCES%
+				},
+                                "volumeMounts": [
+				    {
+					"name": "data-volume",
+					"mountPath": "/seldon-data"
+				    },
+                                    {
+                                        "name": "base-logs",
+                                        "mountPath": "/home/seldon/logs/base"
+                                    },
+                                    {
+                                        "name": "action-logs",
+                                        "mountPath": "/home/seldon/logs/actions"
+                                    },
+                                    {
+                                        "name": "tomcat-logs",
+                                        "mountPath": "/home/seldon/logs/tomcat"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 15,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            },
+                            {
+                                "name": "td-agent",
+                                "image": "seldonio/td-agent-node:%SELDON_TDAGENT_NODE_IMAGE_VERSION%",
+                                "command": [
+                                    "td-agent"
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "base-logs",
+                                        "mountPath": "/home/seldon/logs/base"
+                                    },
+                                    {
+                                        "name": "action-logs",
+                                        "mountPath": "/home/seldon/logs/actions"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            },
+                            {
+                                "name": "seldon-server-maintenance",
+                                "image": "seldonio/seldon-server-maintenance:%SELDON_SERVER_MAINTENANCE_IMAGE_VERSION%",
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "base-logs",
+                                        "mountPath": "/home/seldon/logs/base"
+                                    },
+                                    {
+                                        "name": "action-logs",
+                                        "mountPath": "/home/seldon/logs/actions"
+                                    },
+                                    {
+                                        "name": "tomcat-logs",
+                                        "mountPath": "/home/seldon/logs/tomcat"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        }
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "seldon-server",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "seldon-server",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+			"name":"api",
+                        "protocol": "TCP",
+                        "port": 80,
+                        "targetPort": 8080,
+			"nodePort": %SELDON_SERVER_NODEPORT%
+                    },
+                    {
+			"name":"rpc",
+                        "protocol": "TCP",
+                        "port": 5000,
+                        "targetPort": 5000,
+			"nodePort": %SELDON_SERVER_RPC_NODEPORT%
+                    }
+                ],
+                "selector": {
+                    "name": "seldon-server"
+                },
+                "type": "%SERVICE_TYPE%",
+                "sessionAffinity": "None"
+            }
+        }
+
+

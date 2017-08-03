@@ -1,0 +1,30 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "stream-itemsim-dbupload-%CLIENT%",
+        "labels": {
+	    "service" : "seldon"
+        }
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "stream-itemsim-dbupload-%CLIENT%",
+                "image": "seldonio/seldon-stream-itemsim:%SELDON_STREAM_ITEMSIM_IMAGE_VERSION%",
+                "command": [
+		    "python", "/home/seldon/python/itemsim-kafka-to-mysql.py",  
+		    "--kafka", "kafka-service:9092",
+		    "--topic", "%CLIENT%-similarity",
+		    "--mysql-host",  "mysql", 
+		    "--mysql-user", "root", 
+		    "--mysql-password", "mypass",
+		    "--client", "%CLIENT%"
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent"
+            }
+        ],
+	"terminationGracePeriodSeconds": 0
+    }
+}

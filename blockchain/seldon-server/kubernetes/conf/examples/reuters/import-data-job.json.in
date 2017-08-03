@@ -1,0 +1,49 @@
+{
+    "kind": "Job",
+    "apiVersion": "batch/v1",
+    "metadata": {
+        "name": "reuters-import-data"
+    },
+    "spec": {
+        "template": {
+            "metadata": {
+                "name": "reuters-import-data"
+            },
+            "spec": {
+		"volumes": [
+		    {
+			"name": "data-volume",
+			"persistentVolumeClaim": {
+			    "claimName": "seldon-claim"
+			}
+		    }
+		],
+                "containers": [
+                    {
+                        "name": "reuters-import-data",
+                        "image": "seldonio/examples-reuters-data:%SELDON_EXAMPLES_REUTERS_DATA_IMAGE_VERSION%",
+			"env" :
+			[
+                            {
+                                "name": "GRAFANA_ADMIN_PASSWORD",
+				"valueFrom": {
+				    "secretKeyRef": {
+					"key": "grafana-admin-password.txt",
+					"name": "grafana-admin-password"
+				    }
+				}
+                            }
+			],
+			"volumeMounts": [
+			    {
+				"name": "data-volume",
+				"mountPath": "/seldon-data"
+			    }
+			]
+                    }
+                ],
+                "restartPolicy": "Never"
+            }
+        }
+    }
+}

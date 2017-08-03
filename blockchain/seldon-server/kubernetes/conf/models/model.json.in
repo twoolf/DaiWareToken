@@ -1,0 +1,48 @@
+{
+    "kind": "Job",
+    "apiVersion": "batch/v1",
+    "metadata": {
+        "name": "%NAME%"
+    },
+    "spec": {
+        "template": {
+            "metadata": {
+                "name": "%NAME%",
+                "labels": {
+                    "name": "%NAME%",
+		    "service" : "seldon"
+                }
+            },
+            "spec": {
+		"volumes": [
+		    {
+			"name": "data-volume",
+			"persistentVolumeClaim": {
+			    "claimName": "seldon-claim"
+			}
+		    }
+		],
+                "containers": [
+                    {
+                        "name": "%NAME%",
+                        "image": "seldonio/seldon-control:%SELDON_CONTROL_IMAGE_VERSION%",
+			"command": ["luigi","--module","seldon.luigi.spark","%LUIGI_TASK%","--local-schedule","--client","%CLIENT%","--startDay","%DAY%"],
+			"env": [
+                            {
+                                "name": "LUIGI_CONFIG_PATH",
+                                "value": "%LUIGI_CONF_PATH%"
+                            }
+                        ],
+			"volumeMounts": [
+			    {
+				"name": "data-volume",
+				"mountPath": "/seldon-data"
+			    }
+			]
+                    }
+                ],
+                "restartPolicy": "Never"
+            }
+        }
+    }
+}

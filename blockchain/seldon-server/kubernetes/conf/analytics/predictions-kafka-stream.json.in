@@ -1,0 +1,59 @@
+{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "labels": {
+            "name": "kafka-stream-predictions",
+            "service": "seldon"
+        },
+        "name": "kafka-stream-predictions"
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "name": "kafka-stream-predictions"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "name": "kafka-stream-predictions",
+                    "service": "seldon"
+                },
+                "name": "kafka-stream-predictions"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "java",
+			    "-Xmx200M",
+                            "-cp",
+                            "seldon-stream-%SELDON_STREAM_VERSION%-jar-with-dependencies.jar",
+                            "io.seldon.stream.analytics.PredictionsToInfluxDb",
+                            "--topic",
+                            "predictions",
+                            "--kafka",
+                            "kafka-service:9092",
+                            "--zookeeper",
+                            "zookeeper-1:2181",
+                            "--influxdb",
+                            "monitoring-influxdb:8086",
+                            "--influx-measurement",
+                            "predictions"
+                        ],
+                        "image": "seldonio/seldon-stream:%SELDON_STREAM_BUILD_IMAGE_VERSION%",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "kafka-streaming-predictions",
+                        "terminationMessagePath": "/dev/termination-log",
+			"resources": {
+			    "requests":{ "memory" : "300M" },
+			    "limits":{ "memory" : "300M"}
+			}                    }
+                ],
+                "terminationGracePeriodSeconds": 0
+            }
+        }
+    }
+}
