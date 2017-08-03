@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tensorflow-svc
+  labels:
+    app: tensorflow-svc
+spec:
+  ports:
+  - port: 2222
+    name: server
+  clusterIP: None
+  selector:
+    app: tensorflow
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mnist
+spec:
+  serviceName: tensorflow-svc
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: tensorflow
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+        scheduler.alpha.kubernetes.io/affinity: >
+            {
+              "podAntiAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": [{
+                  "labelSelector": {
+                    "matchExpressions": [{
+                      "key": "app",
+                      "operator": "In",
+                      "values": ["tensorflow"]
+                    }]
+                  },
+                  "topologyKey": "kubernetes.io/hostname"
+                }]
+              }
+            }
+    spec:
+      containers:
+      - name: tensorflow
+        imagePullPolicy: Always
+        image: damsl/tf:mnist
+        ports:
+        - containerPort: 2222
+          name: server
+        env:
+        - name : num_workers
+          value: '2'
+        command:
+        - sh
+        - -c
+        - cd /mnist && python distrmnist.py
+
+      nodeSelector:
+        opsdx_nodegroup: tf4
+
