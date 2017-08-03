@@ -1,0 +1,12 @@
+{
+ :server  {:port 9000 :auto-reload false}
+
+ :backend {:type :kafka :topic "%%OUTPUT_TOPIC||ingestion%%"
+           :metadata.broker.list "%%>>kafka.*:9092%%"}
+
+ :tracking {:enabled %%TRACKING_ENABLED||false%% :type :riemann
+            :host "%%[addr]>RIEMANN:5555||localhost%%"
+            :port %%[port]>RIEMANN:5555||5555%%
+            :prefix "samsara.ingestion.%%HOSTNAME||ingestion%%" }
+
+}

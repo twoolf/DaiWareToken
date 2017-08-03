@@ -1,0 +1,10 @@
+## Customize the test machine
+machine:
+  services:
+    - docker
+  post:
+    - sudo service zookeeper stop
+
+test:
+  override:
+    - ./bin/build-test-snapshot.sh && ./bin/publish-snapshot-containers.sh CI

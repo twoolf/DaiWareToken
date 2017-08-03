@@ -1,0 +1,25 @@
+{:streams
+  [{:id          :%%INPUT_TOPIC||ingestion%%
+    :input-topic "%%INPUT_TOPIC||ingestion%%"
+    :input-partitions %%INPUT_PARTITIONS||:all%%
+    :state        :partitioned
+    :output-topic "%%OUTPUT_TOPIC||events%%"
+   }]
+
+ :job
+  {:job-name "%%JOB_NAME||Samsara%%"
+   ;; a CSV list of hosts and ports (and optional path)
+   :zookeepers "%%>>ZOOKEEPER.*:2181%%"
+   ;; a CSV list of host and ports of kafka brokers
+   :brokers "%%>>KAFKA.*:9092%%"
+   :offset %%OFFSET_RESET||:smallest%%
+   :samza-overrides
+   { %%SAMZA_CONFIG%% }
+  }
+
+ :tracking {:enabled %%TRACKING_ENABLED||false%% :type :riemann
+            :host "%%[addr]>RIEMANN:5555||localhost%%"
+            :port %%[port]>RIEMANN:5555||5555%%
+            :prefix "samsara.core.%%HOSTNAME||samsara-core%%" }
+
+}
