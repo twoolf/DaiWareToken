@@ -1,0 +1,152 @@
+/* ======= Buttons ======= */
+
+.button,
+.button.link-button {
+  display: inline-block;
+  height: $input-height;
+  line-height: $button-line-height;
+  padding: $button-padding;
+  border: 1px solid;
+  border-radius: $border-radius-default;
+  font-size: $font-size;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+
+.button-wide,
+.button-wide.button-primary {
+  width: 100%;
+  height: 50px;
+  line-height: 48px;
+  text-align: center;
+}
+
+.icon-button {
+  display: block;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: $border-radius-default;
+
+  .icon {
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    opacity: 0.25;
+  }
+
+  &:hover .icon {
+    opacity: 0.5;
+  }
+}
+
+.sms-request-button,
+.call-request-button,
+.email-request-button {
+  text-align: center;
+  @include max-width-text(130px);
+
+  @include max-width-mq($container-width) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+.social-auth-button.link-button {
+  @extend .button-wide;
+  border-radius: $border-radius-default;
+  box-sizing: border-box;
+
+  color: #fff;
+  display: block;
+  font-size: $font-size;
+  line-height: 50px;
+  margin-top: 15px;
+  padding-left: 90px;
+  text-align: left;
+
+  &:last-of-type {
+    margin-bottom: 25px;
+  }
+
+  &:active,
+  &:focus,
+  &:hover,
+  &:visited {
+    text-decoration: none;
+  }
+}
+
+.default-custom-button.link-button {
+  @extend .button-wide;
+  border-radius: $border-radius-default;
+  box-sizing: border-box;
+
+  color: #fff;
+  display: block;
+  font-size: $font-size;
+  line-height: 50px;
+  margin-top: 15px;
+  text-align: center;
+
+  &:last-of-type {
+    margin-bottom: 25px;
+  }
+
+  &:active,
+  &:focus,
+  &:hover,
+  &:visited {
+    text-decoration: none;
+  }
+}
+
+@mixin social-auth-button-template($bg-image, $icon-bg-color, $label-bg-color, $border-color) {
+  background-color: $label-bg-color;
+  background: $bg-image no-repeat 10px,
+    linear-gradient(90deg, $icon-bg-color 50px, $label-bg-color 50px);
+  border: 1px solid $border-color;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: $bg-image no-repeat 10px,
+    linear-gradient(90deg, lighten($icon-bg-color, 3%) 50px, lighten($label-bg-color, 3%) 50px);
+  }
+}
+
+@mixin default-custom-button-template($background-color, $border-color) {
+  background-color: $background-color;
+  border: 1px solid $border-color;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: lighten($background-color, 3%);
+  }
+}
+
+.social-auth-facebook-button {
+  @include social-auth-button-template(url('../img/icons/login/facebook_logo.png'),
+          $facebook-icon-bg-color, $facebook-label-bg-color, $facebook-border-color);
+}
+
+.social-auth-google-button {
+  @include social-auth-button-template(url('../img/icons/login/google_logo.png'),
+          $google-icon-bg-color, $google-label-bg-color, $google-border-color);
+}
+
+.social-auth-linkedin-button {
+  @include social-auth-button-template(url('../img/icons/login/linkedin_logo.png'),
+          $linkedin-icon-bg-color, $linkedin-label-bg-color, $linkedin-border-color);
+}
+
+.social-auth-microsoft-button {
+  @include social-auth-button-template(url('../img/icons/login/microsoft_logo.png'),
+          $microsoft-icon-bg-color, $microsoft-label-bg-color, $microsoft-border-color);
+}
+
+.default-custom-button {
+  @include default-custom-button-template($default-custom-button-background-color, $default-custom-button-border-color);
+}

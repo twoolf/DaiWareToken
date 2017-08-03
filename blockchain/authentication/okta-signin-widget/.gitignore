@@ -1,0 +1,17 @@
+# If a change is made in here, add it to .npmignore as well unless you
+# explicitly want to include it in the published artifact
+node_modules
+npm-debug.log
+test/unit/SpecRunner.html
+target
+build2
+.grunt
+.sass-cache
+.widgetrc
+.vscode
+.DS_Store
+*.iml
+.idea
+
+# These paths should be included in the published artifact, but not the repo
+/dist

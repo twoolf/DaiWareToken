@@ -1,0 +1,12 @@
+node_modules/*
+npm-debug.log
+test/SpecRunner.html
+target
+build2
+.grunt
+.sass-cache
+.widgetrc
+.vscode
+.DS_Store
+*.iml
+.idea
