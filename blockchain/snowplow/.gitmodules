@@ -1,0 +1,48 @@
+[submodule "1-trackers/arduino-tracker"]
+	path = 1-trackers/arduino-tracker
+	url = https://github.com/snowplow/snowplow-arduino-tracker.git
+[submodule "1-trackers/lua-tracker"]
+	path = 1-trackers/lua-tracker
+	url = https://github.com/snowplow/snowplow-lua-tracker.git
+[submodule "1-trackers/javascript-tracker"]
+	path = 1-trackers/javascript-tracker
+	url = https://github.com/snowplow/snowplow-javascript-tracker
+[submodule "1-trackers/python-tracker"]
+	path = 1-trackers/python-tracker
+	url = https://github.com/snowplow/snowplow-python-tracker
+[submodule "1-trackers/java-tracker"]
+	path = 1-trackers/java-tracker
+	url = https://github.com/snowplow/snowplow-java-tracker.git
+[submodule "1-trackers/ruby-tracker"]
+	path = 1-trackers/ruby-tracker
+	url = https://github.com/snowplow/snowplow-ruby-tracker.git
+[submodule "1-trackers/nodejs-tracker"]
+	path = 1-trackers/nodejs-tracker
+	url = https://github.com/snowplow/snowplow-nodejs-tracker.git
+[submodule "1-trackers/objc-tracker"]
+	path = 1-trackers/objc-tracker
+	url = https://github.com/snowplow/snowplow-objc-tracker
+[submodule "1-trackers/android-tracker"]
+	path = 1-trackers/android-tracker
+	url = https://github.com/snowplow/snowplow-android-tracker
+[submodule "1-trackers/dotnet-tracker"]
+	path = 1-trackers/dotnet-tracker
+	url = https://github.com/snowplow/snowplow-dotnet-tracker.git
+[submodule "1-trackers/php-tracker"]
+	path = 1-trackers/php-tracker
+	url = https://github.com/snowplow/snowplow-php-tracker.git
+[submodule "1-trackers/actionscript3-tracker"]
+	path = 1-trackers/actionscript3-tracker
+	url = https://github.com/snowplow/snowplow-actionscript3-tracker.git
+[submodule "1-trackers/scala-tracker"]
+	path = 1-trackers/scala-tracker
+	url = https://github.com/snowplow/snowplow-scala-tracker.git
+[submodule "1-trackers/unity-tracker"]
+	path = 1-trackers/unity-tracker
+	url = https://github.com/snowplow/snowplow-unity-tracker.git
+[submodule "1-trackers/golang-tracker"]
+	path = 1-trackers/golang-tracker
+	url = https://github.com/snowplow/snowplow-golang-tracker.git
+[submodule "4-storage/kinesis-s3"]
+	path = 4-storage/kinesis-s3
+	url = https://github.com/snowplow/kinesis-s3.git
