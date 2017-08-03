@@ -1,0 +1,15 @@
+language: java
+sudo: false
+jdk: oraclejdk8
+install: mvn -T 4 ${CDH} ${SPARK} -Ptravis -Pnetlib -DskipTests=true -B -V install
+script:
+  - mvn -T 2 ${CDH} ${SPARK} ${JACOCO} -Ptravis -Pnetlib -q -B verify
+  - find $HOME/.m2/repository/com/cloudera/oryx -path "*SNAPSHOT/*" -delete
+  - find $HOME/.m2/repository/com/cloudera/oryx -name "*SNAPSHOT" -type d -delete
+env: JACOCO=-Pjacoco
+cache:
+  directories:
+    - $HOME/.m2
+git:
+  depth: 10
+after_success: if [ -n "$JACOCO" ]; then bash <(curl -s https://codecov.io/bash); fi

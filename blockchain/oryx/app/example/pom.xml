@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2014, Cloudera, Inc. All Rights Reserved.
+
+  Cloudera, Inc. licenses this file to you under the Apache License,
+  Version 2.0 (the "License"). You may not use this file except in
+  compliance with the License. You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  This software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for
+  the specific language governing permissions and limitations under the
+  License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!-- Not necessary for your build: -->
+  <parent>
+    <groupId>com.cloudera.oryx</groupId>
+    <artifactId>oryx</artifactId>
+    <version>2.5.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cloudera.oryx</groupId>
+  <artifactId>example</artifactId>
+  <packaging>jar</packaging>
+  <name>Example</name>
+  <description>Example Application</description>
+  <version>2.5.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.cloudera.oryx</groupId>
+      <artifactId>oryx-api</artifactId>
+      <scope>provided</scope>
+      <version>2.5.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <!--
+      Use this only if you use APIs specific to the project's provided
+      application implementations, like the ALS Rescorer interface
+     -->
+    <dependency>
+      <groupId>com.cloudera.oryx</groupId>
+      <artifactId>oryx-app-api</artifactId>
+      <scope>provided</scope>
+      <version>2.5.0-SNAPSHOT</version>
+    </dependency>
+    <!-- optional, but would enable some native acceleration -->
+    <dependency>
+      <groupId>com.github.fommil.netlib</groupId>
+      <artifactId>all</artifactId>
+      <version>1.1.2</version>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <!-- Use scala compiler only if using Scala APIs -->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <checkMultipleScalaVersions>false</checkMultipleScalaVersions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- This shade plugin is only required if your app extends the MLUpdate class.
+        This works around https://github.com/OryxProject/oryx/issues/336 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>shade</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <!-- Replace the groupId below with your application's groupId -->
+                  <include>com.cloudera.oryx:*</include>
+                </includes>
+              </artifactSet>
+              <!-- relocations should match those defined in the parent pom.xml -->
+              <relocations>
+                <relocation>
+                  <pattern>org.jpmml</pattern>
+                  <shadedPattern>oryx.org.jpmml</shadedPattern>
+                  <includes>
+                    <include>org.jpmml.**</include>
+                  </includes>
+                </relocation>
+                <relocation>
+                  <pattern>org.dmg</pattern>
+                  <shadedPattern>oryx.org.dmg</shadedPattern>
+                  <includes>
+                    <include>org.dmg.**</include>
+                  </includes>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

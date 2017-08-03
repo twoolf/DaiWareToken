@@ -1,0 +1,175 @@
+/*
+ * Copyright (c) 2014, Cloudera, Inc. All Rights Reserved.
+ *
+ * Cloudera, Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"). You may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * This software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for
+ * the specific language governing permissions and limitations under the
+ * License.
+ */
+
+package com.cloudera.oryx.app.serving.als;
+
+import java.util.Arrays;
+import java.util.List;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+
+import com.typesafe.config.Config;
+import org.junit.Assert;
+
+import com.cloudera.oryx.api.serving.OryxResource;
+import com.cloudera.oryx.app.serving.IDCount;
+import com.cloudera.oryx.app.serving.IDValue;
+import com.cloudera.oryx.app.serving.als.model.ALSServingModel;
+import com.cloudera.oryx.app.serving.als.model.TestALSModelFactory;
+import com.cloudera.oryx.common.OryxTest;
+import com.cloudera.oryx.common.settings.ConfigUtils;
+import com.cloudera.oryx.lambda.serving.AbstractServingTest;
+import com.cloudera.oryx.lambda.serving.MockTopicProducer;
+
+public abstract class AbstractALSServingTest extends AbstractServingTest {
+
+  static final GenericType<List<IDValue>> LIST_ID_VALUE_TYPE =
+      new GenericType<List<IDValue>>() {};
+  static final GenericType<List<IDCount>> LIST_ID_COUNT_TYPE =
+      new GenericType<List<IDCount>>() {};
+
+  @Override
+  protected final List<String> getResourcePackages() {
+    return Arrays.asList("com.cloudera.oryx.app.serving", "com.cloudera.oryx.app.serving.als");
+  }
+
+  @Override
+  protected Class<? extends ServletContextListener> getInitListenerClass() {
+    return MockManagerInitListener.class;
+  }
+
+  public static class MockManagerInitListener extends AbstractServletContextListener {
+    @Override
+    public final void contextInitialized(ServletContextEvent sce) {
+      ServletContext context = sce.getServletContext();
+      context.setAttribute(OryxResource.MODEL_MANAGER_KEY, getModelManager());
+      context.setAttribute(OryxResource.INPUT_PRODUCER_KEY, new MockTopicProducer());
+    }
+    MockServingModelManager getModelManager() {
+      return new MockServingModelManager(ConfigUtils.getDefault());
+    }
+  }
+
+  static class MockServingModelManager extends AbstractMockServingModelManager {
+    MockServingModelManager(Config config) {
+      super(config);
+    }
+    @Override
+    public ALSServingModel getModel() {
+      return TestALSModelFactory.buildTestModel();
+    }
+  }
+
+  final void testOffset(String requestPath, int howMany, int offset, int expectedSize) {
+    List<?> results = target(requestPath)
+        .queryParam("howMany", Integer.toString(howMany))
+        .queryParam("offset", Integer.toString(offset))
+        .request()
+        .accept(MediaType.APPLICATION_JSON_TYPE)
+        .get(LIST_ID_VALUE_TYPE);
+    Assert.assertEquals(expectedSize, results.size());
+  }
+
+  final void testHowMany(String requestPath, int howMany, int expectedSize) {
+    List<?> results = target(requestPath)
+        .queryParam("howMany", Integer.toString(howMany))
+        .request()
+        .accept(MediaType.APPLICATION_JSON_TYPE)
+        .get(LIST_ID_VALUE_TYPE);
+    Assert.assertEquals(expectedSize, results.size());
+  }
+
+  static void testTopByValue(int expectedSize, List<IDValue> values, boolean reverse) {
+    Assert.assertEquals(expectedSize, values.size());
+    for (int i = 0; i < values.size(); i++) {
+      IDValue value = values.get(i);
+      double thisScore = value.getValue();
+      Assert.assertFalse(Double.isNaN(thisScore));
+      Assert.assertFalse(Double.isInfinite(thisScore));
+      if (i > 0) {
+        double lastScore = values.get(i-1).getValue();
+        if (reverse) {
+          OryxTest.assertLessOrEqual(lastScore, thisScore);
+        } else {
+          OryxTest.assertGreaterOrEqual(lastScore, thisScore);
+        }
+      }
+    }
+  }
+
+  static void testTopCount(int expectedSize, List<IDCount> top) {
+    Assert.assertEquals(expectedSize, top.size());
+    for (int i = 0; i < top.size(); i++) {
+      int thisCount = top.get(i).getCount();
+      OryxTest.assertGreaterOrEqual(thisCount, 1);
+      if (i > 0) {
+        OryxTest.assertGreaterOrEqual(top.get(i - 1).getCount(), thisCount);
+      }
+    }
+  }
+
+  static void testCSVTopByScore(int expectedSize, String response) {
+    testCSVTop(expectedSize, response, false, false);
+  }
+
+  static void testCSVLeastByScore(int expectedSize, String response) {
+    testCSVTop(expectedSize, response, false, true);
+  }
+
+  static void testCSVTopByCount(int expectedSize, String response) {
+    testCSVTop(expectedSize, response, true, false);
+  }
+
+  private static void testCSVTop(int expectedSize,
+                                 String response,
+                                 boolean counts,
+                                 boolean reverse) {
+    String[] rows = response.split("\n");
+    Assert.assertEquals(expectedSize, rows.length);
+    for (int i = 0; i < rows.length; i++) {
+      String row = rows[i];
+      String[] tokens = row.split(",");
+      if (counts) {
+        int count = Integer.parseInt(tokens[1]);
+        OryxTest.assertGreater(count, 0);
+      }
+      double thisScore = Double.parseDouble(tokens[1]);
+      Assert.assertFalse(Double.isNaN(thisScore));
+      Assert.assertFalse(Double.isInfinite(thisScore));
+      if (i > 0) {
+        double lastScore = Double.parseDouble(rows[i-1].split(",")[1]);
+        if (reverse) {
+          OryxTest.assertLessOrEqual(lastScore, thisScore);
+        } else {
+          OryxTest.assertGreaterOrEqual(lastScore, thisScore);
+        }
+      }
+    }
+  }
+
+  static void testCSVScores(int expectedSize, String response) {
+    String[] rows = response.split("\n");
+    Assert.assertEquals(expectedSize, rows.length);
+    for (String row : rows) {
+      double score = Double.parseDouble(row);
+      Assert.assertFalse(Double.isNaN(score));
+      Assert.assertFalse(Double.isInfinite(score));
+    }
+  }
+
+}
