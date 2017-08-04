@@ -1,0 +1,224 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MPinSDK.Controls">
+
+    <Style TargetType="local:PinPadControl">
+        <Setter Property="BorderBrush" Value="Pink"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PinPadControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.ColumnSpan="3" Background="{ThemeResource PhoneChromeBrush}">                                                        
+                            <local:PinPadPassword x:Name="pass" Style="{StaticResource PinPadPassStyle}" HorizontalAlignment="Center" />
+                            <SymbolIcon x:Name="BackButton" Symbol="Back" Margin="20" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <local:PinPadButton  x:Name="one" x:Uid="/MPinSDK/Resources/OneButton" Grid.Row="1"/>
+                        <local:PinPadButton  x:Name="two" x:Uid="/MPinSDK/Resources/TwoButton" Grid.Row="1" Grid.Column="1"/>
+                        <local:PinPadButton  x:Name="three" x:Uid="/MPinSDK/Resources/ThreeButton" Grid.Row="1" Grid.Column="2"/>
+                        <local:PinPadButton  x:Name="four" x:Uid="/MPinSDK/Resources/FourButton" Grid.Row="2"/>
+                        <local:PinPadButton  x:Name="five" x:Uid="/MPinSDK/Resources/FiveButton" Grid.Row="2" Grid.Column="1"/>
+                        <local:PinPadButton  x:Name="six" x:Uid="/MPinSDK/Resources/SixButton" Grid.Row="2" Grid.Column="2"/>
+                        <local:PinPadButton  x:Name="seven" x:Uid="/MPinSDK/Resources/SevenButton" Grid.Row="3" />
+                        <local:PinPadButton  x:Name="eight" x:Uid="/MPinSDK/Resources/EightButton" Grid.Row="3" Grid.Column="1"/>
+                        <local:PinPadButton  x:Name="nine" x:Uid="/MPinSDK/Resources/NineButton" Grid.Row="3" Grid.Column="2"/>
+                        <local:PinPadButton  x:Name="clear" x:Uid="/MPinSDK/Resources/ClearButton"  Grid.Row="4" FontSize="{ThemeResource TextStyleLargeFontSize}" />
+                        <local:PinPadButton  x:Name="zero" x:Uid="/MPinSDK/Resources/ZeroButton" Grid.Row="4" Grid.Column="1"/>
+                        <local:PinPadButton  x:Name="sign" x:Uid="/MPinSDK/Resources/SignButton" Grid.Row="4" Grid.Column="2" IsEnabled="False" FontSize="{ThemeResource TextStyleLargeFontSize}" FontWeight="{ThemeResource PhoneButtonFontWeight}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:PinPadButton">
+        <Setter Property="BorderBrush" Value="{ThemeResource PhoneChromeBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource PhoneForegroundBrush}" />
+        <Setter Property="BorderThickness" Value="{ThemeResource PhoneBorderThickness}" />
+        <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilySemiLight}" /> 
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="45" />
+        <Setter Property="Padding" Value="12,8,12,8" /> 
+        <Setter Property="Margin" Value="0" />        
+        <Setter Property="MinHeight" Value="{ThemeResource PhoneButtonMinHeight}" />
+        <Setter Property="MinWidth" Value="{ThemeResource PhoneButtonMinWidth}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />        
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PinPadButton">
+                    <Grid x:Name="Grid" Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver" />
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="Grid" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Pressed" To="PointerOver">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="PointerOver" To="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Pressed" To="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"></VisualState>
+                                <VisualState x:Name="PointerFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}" Margin="0">
+                            <ContentPresenter x:Name="ContentPresenter" Foreground="{TemplateBinding Foreground}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}"
+                                Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                AutomationProperties.AccessibilityView="Raw"/>
+                        </Border>                        
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PinPadPassStyle" TargetType="local:PinPadPassword">
+        <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="0" /> 
+        <Setter Property="Padding" Value="12,4,12,4" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="{ThemeResource TextStyleExtraExtraLargeFontSize}" />        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <PasswordBox x:Name="PasswordBox" x:Uid="/MPinSDK/Resources/PinPasswordBox" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}"
+                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}" FontSize="{TemplateBinding FontSize}"
+                                 VerticalAlignment="{TemplateBinding VerticalAlignment}" BorderThickness="{TemplateBinding BorderThickness}"
+                                 IsEnabled="False" Style="{StaticResource PasswordBoxStyle}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Grid>                      
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Disabled">
+                                    <!-- PK: as we use the PasswordBox in disabled state to avoid keyboard displaying, but need it to look as normal Password -->
+                                </VisualState>                               
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>                        
+                        <ContentPresenter x:Name="HeaderContentPresenter"
+                                      Grid.Row="0" 
+                                      Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"
+                                      Margin="10,4,10,4"
+                                      Grid.ColumnSpan="2" 
+                                      Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                      FontWeight="Semilight" />
+                        <ScrollViewer x:Name="ContentElement"
+                                      Grid.Row="1" 
+                                      CharacterSpacing="300"
+                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                      Margin="{TemplateBinding BorderThickness}"
+                                      Padding="{TemplateBinding Padding}"
+                                      IsTabStop="False"
+                                      ZoomMode="Disabled"
+                                      AutomationProperties.AccessibilityView="Raw"/>
+                        <ContentControl x:Name="PlaceholderTextContentPresenter"
+                                      Grid.Row="1"
+                                      Foreground="{ThemeResource TextBoxPlaceholderTextThemeBrush}"
+                                      Margin="{TemplateBinding BorderThickness}"
+                                      Padding="{TemplateBinding Padding}"
+                                      IsTabStop="False"
+                                      Grid.ColumnSpan="2"
+                                      Content="{TemplateBinding PlaceholderText}" 
+                                      IsHitTestVisible="False"/>                      
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

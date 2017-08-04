@@ -1,0 +1,3 @@
+[submodule "mpin-sdk-core"]
+	path = mpin-sdk-core
+	url = ../mpin-sdk-core.git

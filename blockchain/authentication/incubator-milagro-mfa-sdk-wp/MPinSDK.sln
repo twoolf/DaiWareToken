@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPinSDK", "MPinSDK\MPinSDK.csproj", "{A36DF2FF-E667-4124-AF68-821C933B7840}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MPinRC", "MPinRC\MPinRC.vcxproj", "{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		MPinConnect|Any CPU = MPinConnect|Any CPU
+		MPinConnect|ARM = MPinConnect|ARM
+		MPinConnect|Mixed Platforms = MPinConnect|Mixed Platforms
+		MPinConnect|Win32 = MPinConnect|Win32
+		MPinConnect|x86 = MPinConnect|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|ARM.Build.0 = Debug|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Win32.ActiveCfg = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|Win32.Build.0 = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|x86.ActiveCfg = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Debug|x86.Build.0 = Debug|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Any CPU.ActiveCfg = MPinConnect|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Any CPU.Build.0 = MPinConnect|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|ARM.ActiveCfg = MPinConnect|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|ARM.Build.0 = MPinConnect|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Mixed Platforms.ActiveCfg = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Mixed Platforms.Build.0 = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Win32.ActiveCfg = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|Win32.Build.0 = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|x86.ActiveCfg = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.MPinConnect|x86.Build.0 = MPinConnect|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|ARM.ActiveCfg = Release|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|ARM.Build.0 = Release|ARM
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Win32.ActiveCfg = Release|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|Win32.Build.0 = Release|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|x86.ActiveCfg = Release|x86
+		{A36DF2FF-E667-4124-AF68-821C933B7840}.Release|x86.Build.0 = Release|x86
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|ARM.Build.0 = Debug|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|Win32.Build.0 = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|x86.ActiveCfg = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Debug|x86.Build.0 = Debug|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|Any CPU.ActiveCfg = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|ARM.ActiveCfg = MPinConnect|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|ARM.Build.0 = MPinConnect|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|Mixed Platforms.ActiveCfg = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|Mixed Platforms.Build.0 = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|Win32.ActiveCfg = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|Win32.Build.0 = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|x86.ActiveCfg = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.MPinConnect|x86.Build.0 = MPinConnect|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|ARM.ActiveCfg = Release|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|ARM.Build.0 = Release|ARM
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|Win32.ActiveCfg = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|Win32.Build.0 = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|x86.ActiveCfg = Release|Win32
+		{B41A817C-AC19-4C56-9FB3-F78B9BC0B2D1}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
