@@ -1,0 +1,14 @@
+bin/
+build/
+dist/
+*.sdf
+*.opensdf
+*.suo
+*.user
+.vs/
+*.VC.db
+*.VC.opendb
+*tokens.json
+*users.json
+cvlog.txt
+unit_tests_recorded_data.inc

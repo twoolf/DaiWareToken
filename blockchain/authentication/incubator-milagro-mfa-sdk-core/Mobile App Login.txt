@@ -1,0 +1,44 @@
+title Mobile App Login
+
+participant Mobile App as mobapp
+participant Mobile SDK as mobsdk
+participant MFA Platform as mfa
+participant App Backend as appbe
+participant Backend SDK as besdk
+
+note over mobapp:
+    The Mobile App has possetion
+    of the Client ID, issued by
+    the MFA Platform
+end note
+
+note over appbe:
+    The App Backend has possetion
+    of the Client ID and the Client Secret,
+    issued by the MFA Platform
+end note
+
+mobapp->mobsdk: SetClientId(<clientId>)
+mobsdk-->mobapp: Status OK
+mobapp->mobsdk: StartAuthentication(user)
+mobsdk-->mobapp: Status OK
+mobapp->mobapp: Get PIN from end-user
+mobapp->mobsdk: FinishAuthenticationMFA(user, PIN, &authzCode)
+mobsdk<->mfa: Authentication Pass 1, header: X-MIRACL-Client-ID: <clientId>
+mobsdk->mfa: Authentication Pass 2, header: X-MIRACL-Client-ID: <clientId>
+mfa-->mobsdk: OK, data: authOTT
+mobsdk->mfa: POST /authenticate, header: X-MIRACL-Client-ID: <clientId>, data: authOTT
+mfa-->mobsdk: OK, data: {"code": <authzCode>}
+mobsdk-->mobapp: Status OK, authzCode
+mobapp->appbe: App-sepcific request for data or for authentication validation, pass <userId>, <authzCode>
+appbe->besdk: validate_authorization(), passing in <authzCode>
+besdk->mfa: Token Endpoint, passing <authzCode>
+mfa-->besdk: Access Token, ID Token
+besdk->besdk: Validate ID Token
+besdk-->appbe: Access Token
+appbe->besdk: get_user_id()
+besdk-->appbe: User ID
+appbe->appbe: Verify User ID == <userId>
+appbe->appbe: (Optional) Generate app-specific Authentication Token
+appbe-->mobapp: App-specific response, pass back either\nAccess Token or app-specific Authentication Token
+mobapp<->appbe: Get data using provided Token

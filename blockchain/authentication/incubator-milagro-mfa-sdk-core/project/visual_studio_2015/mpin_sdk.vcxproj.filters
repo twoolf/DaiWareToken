@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{1f2b4e9c-59f9-4a1f-ad54-75881b53a336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\crypto">
+      <UniqueIdentifier>{cd1eafab-bcdb-4e59-aa36-87cd6762cfe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\json">
+      <UniqueIdentifier>{dde06548-f846-45f7-9f2e-2db976eda377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utf8">
+      <UniqueIdentifier>{733f58c9-cbd3-42f6-a6d3-cb6c0bc53272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ext">
+      <UniqueIdentifier>{40bf2383-eb37-43aa-89b4-3292a44ee00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ext\cvshared">
+      <UniqueIdentifier>{1dc90bf8-1a9d-4f94-bb96-30318d0f9197}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\mpin_crypto_non_tee.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mpin_sdk.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\windows\CvHttpRequest.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\windows\CvMutex.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\CvTime.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\CvString.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\windows\CvLogger.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\CvXcode.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ext\cvshared\cpp\windows\CvThread.cpp">
+      <Filter>ext\cvshared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\aes.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\big.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\ecp.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\ecp2.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\ff.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\fp.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\fp2.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\fp4.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\fp12.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\gcm.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\hash.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\mpin.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\oct.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\pair.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\rand.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\rom.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\crypto\version.c">
+      <Filter>src\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\mpin_crypto.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\mpin_crypto_non_tee.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\mpin_sdk.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\json\elements.h">
+      <Filter>src\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\json\reader.h">
+      <Filter>src\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\json\visitor.h">
+      <Filter>src\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\json\writer.h">
+      <Filter>src\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cv_shared_ptr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utf8.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utf8\checked.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utf8\core.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utf8\unchecked.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvCommon.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvHttpCommon.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvHttpRequest.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvMutex.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvTime.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvString.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvLogger.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvXcode.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\version.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\cvshared\cpp\include\CvThread.h">
+      <Filter>ext\cvshared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\crypto\clint.h">
+      <Filter>src\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\crypto\DLLDefines.h">
+      <Filter>src\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\crypto\mpin.h">
+      <Filter>src\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\crypto\version.h">
+      <Filter>src\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\crypto\platform.h">
+      <Filter>src\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\json\elements.inl">
+      <Filter>src\json</Filter>
+    </None>
+    <None Include="..\..\src\json\reader.inl">
+      <Filter>src\json</Filter>
+    </None>
+    <None Include="..\..\src\json\writer.inl">
+      <Filter>src\json</Filter>
+    </None>
+    <None Include="unit_tests.vcxproj.filters" />
+  </ItemGroup>
+</Project>

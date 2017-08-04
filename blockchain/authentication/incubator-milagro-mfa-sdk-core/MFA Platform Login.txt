@@ -1,0 +1,61 @@
+title MFA Platform Login
+
+participant Authenticator App as app
+participant Mobile SDK as sdk
+participant Login Page\n(Browser) as codepad
+participant Landing Page as landing
+participant MFA Platform as mfa
+
+note over codepad
+    User chooses to login
+    and the Login Page
+    displays a QR Code
+end note
+
+app<-->codepad: Scan QR Code of the form <landing-url>#<access-code>
+app->landing: GET <landing-url>/service
+landing-->app: OK, data: {"name": <service-name>, "url": <backend-url>, ...}
+app->sdk: SetBackend(<backend-url>)
+sdk->mfa: GET clientSetting
+mfa-->sdk: OK, data: <client-settings>
+sdk-->app: OK
+app->sdk: GetSessionDetails(<access-code>)
+sdk->mfa: POST /codeStatus, data: {"status": "wid", "wid": <access-code>}
+mfa-->sdk: OK, data: {"prerollId": <preroll-id>, "appName": <app-name>, "appLogoURL": <app-icon>}
+sdk-->app: OK, {<preroll-id>, <app-name>, <app-icon>}
+app->sdk: ListUsers(<users-list>)
+sdk-->app: OK, populated <users-list>
+alt <preroll-id> is not empty
+    alt <preroll-id> is not in <users-list>
+        app->app: Start registration of <preroll-id>
+    end alt
+    app->app: Select <preroll-id>
+    note right of app
+        NOTE: The registration flow is listed separately
+    end note
+else
+    alt End user chooses to register a new identity
+        app->app: Start registration of new identity
+        app->app: Select newly registered identity
+    else End user selects an identity from the list
+        app->app: Select existing identity
+    end alt
+end alt
+app->sdk: StartAuthentication(<identity>, <access-code>)
+sdk->mfa: POST /codeStatus, data: {"status": "user", "wid": <access-code>, "userId": <identity>}
+mfa-->sdk: OK
+sdk<-->mfa: Fetch Time Permits, if required
+sdk-->app: OK
+app->app: Read <PIN> from end user
+app->sdk: FinishAuthenticationAN(<identity>, <PIN>, <access-code>)
+sdk<-->mfa: Authenticate <identity>, using <PIN>
+sdk-->app: <Status>
+alt <Status> == OK
+        app->app: Display "Successfull Login" message
+else <Status> == INCORRECT_PIN
+    alt User State == BLOCKED
+        app->app: Display "User blocked" message
+    else
+        app->app: Display "Wrong PIN" message
+    end alt
+end alt
