@@ -1,0 +1,12 @@
+//The following is the design document used in the couchDB.   This is optional.
+
+{
+  "_id" : "_design/users",
+  "views" : {
+    "loginlist" : {
+      "map" : "function(doc){ 
+                emit(doc.email, {doc._rev , doc.email, doc.password})
+          }"
+    }
+  }
+}
