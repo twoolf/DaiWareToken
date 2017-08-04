@@ -1,0 +1,37 @@
+#####
+# OS X temporary files that should never be committed
+
+**/xcuserdata
+**/.DS_Store
+.Trashes
+*.swp
+
+####
+# Xcode temporary files that should never be committed
+
+*~.nib
+
+####
+# Xcode build files
+
+DerivedData/
+build/
+
+#####
+# Xcode private settings (window sizes, bookmarks, breakpoints, custom executables, smart groups)
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+####
+# Xcode 4 - semi-personal settings
+
+*.xccheckout
+xcuserdata/
