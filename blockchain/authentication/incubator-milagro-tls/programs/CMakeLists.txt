@@ -1,0 +1,12 @@
+add_subdirectory(aes)
+add_subdirectory(hash)
+add_subdirectory(pkey)
+add_subdirectory(random)
+add_subdirectory(ssl)
+add_subdirectory(test)
+add_subdirectory(x509)
+add_subdirectory(util)
+if(ENABLE_MILAGRO_SUPPORT)
+    add_subdirectory(milagro)
+endif(ENABLE_MILAGRO_SUPPORT)
+
