@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>M-Pin demo</title>
+<!-- <link href="/public/css/certivox.css?v=ee4d555e38d8c86110e6130f077bc6e2" rel="stylesheet" type="text/css" /> -->
+<link href="css/mpin.min.css?v=b7676587a6d88e2818ef2f1a7d1fdae6" rel="stylesheet" type="text/css" />
+<!-- Favicons
+================================================== -->
+<link rel="shortcut icon" href="/public/images/favicon.ico?v=206feb63bb8d6b052afb1192d57d83a7">
+<!-- Fonts
+================================================== -->
+<link href='//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<script type="text/javascript" src="js/mpin.js?r=139636144551"></script>
+<script type="text/javascript">
+(function() {
+new mpin({
+targetElement: "pinHolder",
+clientSettingsURL: "http://192.168.10.114:8011/rps/clientSettings",
+mobileAppFullURL: "http://192.168.10.114:8005/m/index.html",
+// identityCheckRegex: /.*/,
+useWebSocket: false,
+onSuccessLogin: function(authData) {
+window.location = "/protected";
+}
+});
+})();
+</script>
+</head>
+<body>
+<div id="pinHolder" style="margin:auto; width:260px;">
+	
+</div>
+</body>
+</html>

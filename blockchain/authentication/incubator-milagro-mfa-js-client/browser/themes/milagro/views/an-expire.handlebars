@@ -1,0 +1,34 @@
+<div class="mpinHeader">
+    <div class="mpinLogo"></div>
+	<div class="mpinHome mpPointer" id="mpin_home"></div>
+</div>
+
+<div class="mpinHeaderRow mpinHeaderRed">
+	{{txt "an_expire_header"}}
+</div>
+
+<div class="mpinMain mpPaddTop10">
+	
+	<div class="mpinBtnBox mpinBtnDown">
+		<div class="mpinButton mpinMobileBtn mpinBtnClick" id="mpin_access">
+			{{txt "an_btn_generate"}}
+		</div>
+		
+		<div class="mpinButton mpinMobileBtn mpinBtnClick" id="mpin_action_setup">
+			{{txt "an_btn_phone"}}
+		</div>
+		
+		{{#if data.mobileOnly }}
+			<div class="mpinButton mpinButtonDark mpinBtnClick" id="mpin_desktop">
+				{{txt "mobile_button_signin2"}}
+			</div>
+		{{/if}}
+	</div>
+
+</div>
+
+
+<div class="mpinFooter">
+	<div class="mpinPowered"></div>
+	<div class="mpinHelpHub"></div>
+</div>

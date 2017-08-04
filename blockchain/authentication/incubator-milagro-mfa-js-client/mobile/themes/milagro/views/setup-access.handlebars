@@ -1,0 +1,86 @@
+
+<header id="topNav">
+    <div id="mp_action_home">
+    </div>
+    <div id="logo">
+    </div>
+</header>
+
+<div id="accountTopBar">
+    <div id="mpinUser">
+       <p>{{data.email}}</p>
+    </div>
+		<a href="#" id="menuBtn"></a>
+</div>
+
+<div id="inputContainer">
+    <div id="codes">{{hlp 'pinpad_placeholder_text2'}}</div>
+    <div id="accNumHolder" style="display: none;"></div>
+</div>
+ 
+<div id="pinsHolder" class="access-number">
+
+    <div class="pre-row">
+        <div class="row">
+            <button class="btn" data-value="1">
+                1
+            </button>
+            <button class="btn" data-value="2">
+                2
+            </button>
+            <button class="btn" data-value="3">
+                3
+            </button>
+        </div>
+    </div>
+    <div class="pre-row">
+        <div class="row">
+            <button class="btn" data-value="4">
+                4
+            </button>
+            <button class="btn" data-value="5">
+                5
+            </button>
+            <button class="btn" data-value="6">
+                6
+            </button>
+        </div>
+    </div>
+    <div class="pre-row">
+        <div class="row">
+            <button class="btn" data-value="7">
+                7
+            </button>
+            <button class="btn" data-value="8">
+                8
+            </button>
+            <button class="btn" data-value="9">
+                9
+            </button>
+        </div>
+    </div>
+    <div class="pre-row">
+        <div class="row bottom">
+            <button class="btnClear disabled" data-value="clear" id="mpinClear">
+                Clear
+                <!-- <span class="label">clear</span> -->
+            </button>
+            <button class="btn" data-value="0">
+                0
+            </button>
+            <button class="btnLogin disabled" data-value="go" id="mpinLogin">
+                Next
+                <!-- <span class="label">login</span> -->
+            </button>
+        </div>
+    </div>
+</div>
+
+<footer id="mpinFooter">
+    <div id="mpinLogo">
+        <a href="#" id="openHelpHub"></a>
+    </div>
+
+    <div id="poweredBy">
+    </div>
+</footer>

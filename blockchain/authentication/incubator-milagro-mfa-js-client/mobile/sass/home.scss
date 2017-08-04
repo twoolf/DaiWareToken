@@ -1,0 +1,148 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+
+#header {
+	@include top-bar();
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+
+	#mpinLogo {
+		@include logo();
+
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		-webkit-box-flex: 1;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+		-webkit-box-orient: vertical;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-height: 0px;
+	}
+
+	#menuIcon {
+		@include menu-icon();
+
+		display: -webkit-box;
+		display: -ms-flexbox;
+		-webkit-box-flex: 1;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+		-webkit-box-orient: vertical;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-height: 0px;
+
+		float: right;
+		margin: 10px 10px 0 10px;
+	}
+}
+
+#homeIcon {
+
+	margin-top: 10px;
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: white;
+	padding: 10% 0px 20px;
+
+	#mobileIcon {
+
+		@include mobile-icon();
+	}
+
+}
+
+#buttonsContainer {
+
+	margin-top: 3vh;
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+
+
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1 0 auto;
+	flex: 1 0 auto;
+
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical !important;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-height: 0px;
+
+	-webkit-box-align: center;
+	-moz-box-align:center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	width: 100%;
+
+	.mpinBtn {
+		width: 90%;
+	}
+
+	.mpinBtn-green {
+		width: 90%;
+	}
+
+}

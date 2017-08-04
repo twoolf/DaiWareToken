@@ -1,0 +1,38 @@
+<div class="mpinHeader">
+    <div class="mpinLogo"></div>
+	<div class="mpinHome mpPointer" id="mpin_home"></div>
+</div>
+
+<div class="mpinHeaderRow">
+	{{txt "otp_signin_header"}}
+</div>
+
+<div class="mpinMain mpNoHeight">
+	<div class="mpinBtnBox mpNoPadding">
+	
+		<div class="mpinButton mpMobileAccessNumber mpFontNormal">
+			<div class="mpbtnPadding">
+				{{txt "otp_header_btn_text"}}
+				<div id="mpinOTPNumber"></div>
+			</div>
+		</div>
+		
+		<div class='mpinTimerBox'>
+			<canvas id="mpTimer" width="42" height="42"></canvas>
+			<span class="mpLeftTime" id="mpin_seconds"></span>
+		</div>
+	
+	</div>
+	
+	<div class="mpinBtnBox mpinBtnDown">
+		<div class="mpinButton mpinBtnClick mpinButtonDark" id="mpin_cancel">
+			{{txt "button_back_text"}}
+		</div>
+	</div>
+	
+</div>
+
+<div class="mpinFooter">
+	<div class="mpinPowered"></div>
+	<div class="mpinHelpHub"></div>
+</div>

@@ -1,0 +1,58 @@
+<!-- Home/Top Nav Bar -->
+
+<header id="topNav">
+    <div id="mp_action_home">
+    </div>
+    <div id="logo">
+    </div>
+</header>
+
+<!-- User section -->
+
+<div id="addIdentity">
+  <div class="identityHeader">{{hlp 'setup_header' }}</div>
+</div>
+
+<!-- Input button -->
+
+<div id="identityContainer">
+  <div class="inputContainer">
+    
+    <div class="identityElHolder">
+      <div class="identityInput">
+        <div>
+          <label class="inputLabel" for="email">{{hlp 'setup_text1' }}</label>
+          <div class="inputGroup">
+            <div class="userLabel"></div>
+            <input type="email" id="emailInput" placeholder="" name="email" value="{{ data.userId }}">
+          </div>
+          {{#if data.setDeviceName}}
+            <label class="inputLabel" for="deviceInput">{{hlp 'setup_device_label' }}</label>
+            <div class="inputGroup">
+              <div class="deviceLabel"></div>
+              <input type="text" id="deviceInput" placeholder="" value="" name="deviceInput">
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="bottomBtnHolder">
+      <button class="mpinBtn" id="mp_action_setup">
+          <span class="btnLabel">{{hlp 'setup_button_setup' }}</span>
+      </button>
+  </div>
+
+  {{!-- <info id="info"><i></i>Not sure which option to choose?</info> --}}
+
+</div>
+
+<footer id="mpinFooter">
+    <div id="mpinLogo">
+    </div>
+
+    <div id="poweredBy">
+    </div>
+</footer>

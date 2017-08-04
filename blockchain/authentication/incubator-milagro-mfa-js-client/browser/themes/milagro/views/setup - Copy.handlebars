@@ -1,0 +1,90 @@
+<div class="mpinHeader">
+    <div class="mpinLogo"></div>
+	<div class="mpinHome mpPointer" id="mpin_home"></div>
+</div>
+
+<div class="mpinIdentityRow">
+	<div class="mpinArrowDown mpPointer mpHide" id="show_identity"></div>
+	<div class="mpinIdentity mpLeft20">{{ data.email }}</div>
+</div>
+
+
+<div class="mpinMain mpinPinpad">
+	<div class="mpinInput" id="mpin_input_parent">
+	
+		<div class="mpinInputIn mpHide" id="mpin_input_circle">
+			{{#loop data.pinSize}}
+				<div class="mpinCircle" id="mpin_circle_{{this}}">
+					<div class="mpinCircleOut"></div>
+				</div>
+			{{/loop}}
+		</div>
+		
+		<div class="mpinInputIn mpin80width" id="mpin_input_text">
+			<span class="mpinInputText" id="mpin_inner_text">		
+				Initializing...
+			</span>
+		</div>
+    </div>
+	
+	
+	<div class="mpin-pre-row">
+        <div class="mpin-row">
+            <button class="mpinPadBtn" data-value="1">
+                1
+            </button>
+            <button class="mpinPadBtn" data-value="2">
+                2
+            </button>
+            <button class="mpinPadBtn" data-value="3">
+                3
+            </button>
+        </div>
+    </div>
+    <div class="mpin-pre-row">
+        <div class="mpin-row">
+            <button class="mpinPadBtn" data-value="4">
+                4
+            </button>
+            <button class="mpinPadBtn" data-value="5">
+                5
+            </button>
+            <button class="mpinPadBtn" data-value="6">
+                6
+            </button>
+        </div>
+    </div>
+    <div class="mpin-pre-row">
+        <div class="mpin-row">
+            <button class="mpinPadBtn" data-value="7">
+                7
+            </button>
+            <button class="mpinPadBtn" data-value="8">
+                8
+            </button>
+            <button class="mpinPadBtn" data-value="9">
+                9
+            </button>
+        </div>
+    </div>
+    <div class="mpin-pre-row">
+        <div class="mpin-row mpin-bottom">
+            <button class="mpinPadBtn2 mpinBtnDisabled" data-value="clear" id="mpin_clear">
+				{{txt "pinpad_btn_clear"}}
+            </button>
+            <button class="mpinPadBtn" data-value="0">
+                0
+            </button>
+            <button class="mpinPadBtn2 mpinBtnDisabled" data-value="go" id="mpin_login">
+                {{txt "pinpad_btn_setup"}}
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="mpinFooter">
+	<div class="mpinPowered"></div>
+	<div class="mpinHelpHub"></div>
+</div>

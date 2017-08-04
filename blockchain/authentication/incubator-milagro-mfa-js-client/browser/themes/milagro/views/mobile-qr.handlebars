@@ -1,0 +1,33 @@
+<div class="mpinHeader mpMobileColor">
+    <div class="mpinLogo"></div>
+	<div class="mpinHome mpPointer" id="mpin_home"></div>
+</div>
+
+<div class="mpinHeaderBig mpPaddTop10 mpPaddBot10 mpMobColor">
+	{{txt "scan_mobile_header"}}
+</div>
+
+<div class="mpinMain mpNoHeight">
+	<div class="mpinBtnBox mpNoPadding">
+		
+		<span id="mp_qrcode" class="qrCodeArea">
+		</span>
+		
+		<div class="mpinButton mpinMobileBtn mpinBtnClick" id="mpin_action_setup">
+			{{txt "mobile_button_setup"}}
+		</div>
+		
+		{{#if data.mobileOnly }}
+			<div class="mpinButton mpinButtonDark mpinBtnClick" id="mpin_desktop">
+				{{txt "mobile_button_signin2"}}
+			</div>
+		{{/if}}
+		
+	</div>
+</div>
+
+
+<div class="mpinFooter mpMobileFooter">
+	<div class="mpinPowered"></div>
+	<div class="mpinHelpHub"></div>
+</div>

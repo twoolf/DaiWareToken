@@ -1,0 +1,38 @@
+<div class="mpinHeader mpMobileColor">
+    <div class="mpinLogo"></div>
+	<div class="mpinHome mpPointer" id="mpin_home"></div>
+</div>
+
+<div class="mpinHeaderRow mpMobColor mpHeaderRowThin">
+	{{txt "mobileGet_header2"}}
+</div>
+
+<div class="mpinMain mpNoHeight ">
+	<div class="mpinCenter mpinCenter5">
+		
+		<span id="mpin_qrcode">
+		</span>
+
+		<p class="mpinJustifyTxt">
+			<!-- <i class="mpinInfo"></i> -->
+			{{txt "mobileGet_text1"}}
+		</p>
+		<span class="mpinPurple mpWrapped mpAreaFixed">
+			<a href="#" title="{{ data.mobileAppFullURL }}">{{{ substr data.mobileAppFullURL }}}</a> 
+		</span>
+	</div>
+	
+		<div class="mpinBtnBox mpBtnThin">
+
+			<div class="mpinButton mpinMobileBtn mpinBtnClick" id="mpinbtn_mobile">
+				{{data.mobileButtonText}}
+			</div>
+		</div>
+	
+</div>
+
+
+<div class="mpinFooter mpMobileFooter">
+	<div class="mpinPowered"></div>
+	<div class="mpinHelpHub"></div>
+</div>

@@ -1,0 +1,30 @@
+<div class="mpinHeaderBig">
+	<div id="mpinLogo"></div>
+</div>
+
+<div class="mpinHeaderBig mpPaddTop10 mpPaddBot10">
+	{{txt "home_intro_text2"}}
+</div>
+
+<div class="mpinMain mpPaddTop10">
+	<div class="mpinBtnBox">
+
+		{{#if data.mobileOnly }}
+			<div class="mpinButton mpinButtonDark mpinBtnClick mpinBtnBig" id="mpin_desktop">
+				<div class="mpinBtnIcon mpDesktop"></div>
+				{{txt "signin_btn_desktop3"}}
+			</div>
+		{{/if}}
+		
+		{{#if data.mobileSupport }}
+			<div class="mpinButton mpinMobileBtn mpinBtnClick mpinBtnBig" id="mpin_mobile">
+				<div class="mpinBtnIcon mpMobile"></div>
+				{{txt "signin_mobile_btn_text2"}}
+			</div>
+		{{/if}}
+
+	</div>
+</div>
+
+<div class="mpinFooter mpinFooterHome">
+</div>
