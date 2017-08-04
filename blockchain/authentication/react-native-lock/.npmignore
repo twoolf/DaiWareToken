@@ -1,0 +1,16 @@
+*.yml
+sample-app/
+*.framework
+android/build/
+*.iml
+*.class
+
+ios/A0RNLockCore/
+ios/A0RNLockCore.xcodeproj/
+ios/A0RNLockCore.xcworkspace/
+ios/Podfile
+ios/Podfile.lock
+ios/Pods/
+
+Gemfile
+Gemfile.lock

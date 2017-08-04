@@ -1,0 +1,41 @@
+{
+  "name": "react-native-lock",
+  "version": "0.6.0",
+  "description": "Auth0 Lock for React Native",
+  "main": "auth0-lock.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react-native-auth0": "^0.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0/react-native-lock.git"
+  },
+  "keywords": [
+    "react-native",
+    "auth0",
+    "auth0-lock",
+    "lock",
+    "authentication",
+    "jwt",
+    "ios",
+    "android",
+    "touchid",
+    "passwordless"
+  ],
+  "nativePackage": true,
+  "author": "Auth0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0/react-native-lock/issues"
+  },
+  "homepage": "https://auth0.com/lock",
+  "rnpm": {
+    "commands": {
+      "prelink": "node_modules/react-native-lock/bin/prepare.sh",
+      "postlink": "node_modules/react-native-lock/bin/cocoapods.sh"
+    }
+  }
+}
