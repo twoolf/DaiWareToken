@@ -1,0 +1,41 @@
+<div ng-controller="RulesController">
+  <tabset class="tabs-top">
+    <tab>
+      <tab-heading>
+        {{'home.detailPane.rulesTab.metricAlertRules' | translate}}
+      </tab-heading>
+      <div class="tabs-content">
+        <ng-include src="'app/home/detail/rules/metricAlert/metricAlert.tpl.html'"></ng-include>
+      </div>
+    </tab>
+
+    <tab>
+      <tab-heading>
+        {{'home.detailPane.rulesTab.dataRules' | translate}}
+      </tab-heading>
+      <div class="tabs-content">
+        <ng-include src="'app/home/detail/rules/dataRules/dataRules.tpl.html'"></ng-include>
+      </div>
+    </tab>
+
+    <tab>
+      <tab-heading>
+        {{'home.detailPane.rulesTab.dataDriftRules' | translate}}
+      </tab-heading>
+      <div class="tabs-content">
+        <ng-include src="'app/home/detail/rules/dataDriftRules/dataDriftRules.tpl.html'"></ng-include>
+      </div>
+    </tab>
+
+    <tab select="onTabSelect()">
+      <tab-heading>
+        <i class="fa fa-exclamation-triangle icon-danger"
+           ng-show="showConfigurationWarning()"></i>
+        {{'home.detailPane.notifications' | translate}}
+      </tab-heading>
+      <div class="tabs-content">
+        <ng-include src="'app/home/detail/rules/rulesConfiguration/rulesConfiguration.tpl.html'"></ng-include>
+      </div>
+    </tab>
+  </tabset>
+</div>

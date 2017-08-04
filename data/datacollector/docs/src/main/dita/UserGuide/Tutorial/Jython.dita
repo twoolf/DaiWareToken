@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017 StreamSets Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA General Task//EN" "generalTask.dtd">
+<task id="task_cdx_kfm_ls">
+    <title>Use Jython for Card Typing</title>
+    <shortdesc> Next, we'll evaluate credit card numbers to determine the credit card type. You can
+        use an Expression Evaluator to do the same calculations, but with a short script, the Jython
+        Evaluator is easier.</shortdesc>
+    <taskbody>
+        <context>
+            <p>You can use custom scripts with the JavaScript Evaluator and the Jython Evaluator to
+                perform processing that is not easily performed using other <ph
+                    conref="../Reusable_Content/ReusablePhrases.dita#concept_vhs_5tz_xp/pName-long"
+                /> processors. When using scripts to handle list-map data, the script must treat the
+                data as maps.</p>
+            <p>The Jython script that we provide creates an additional field, credit_card_type, and
+                generates the credit card type by evaluating the first few digits of the credit card
+                number. The script returns an error message if the record has a credit card payment
+                type without a corresponding credit card number. </p>
+        </context>
+        <steps id="steps_lnv_lfm_ls">
+            <step>
+                <cmd>Add a <uicontrol>Jython Evaluator</uicontrol> processor to the canvas and
+                    connect the first output location of the Stream Selector to it.</cmd>
+                <info>This routes records paid by credit card to the Jython Evaluator. </info>
+            </step>
+            <step>
+                <cmd>With the Jython Evaluator selected, in the Properties panel, click the
+                        <wintitle>Jython</wintitle> tab. </cmd>
+            </step>
+            <step>
+                <cmd>Use the default <uicontrol>Batch by Batch</uicontrol> record processing mode to
+                    process data in batches, instead of record by record. </cmd>
+            </step>
+            <step>
+                <cmd>In the <uicontrol>Script</uicontrol> text box, review the information in the
+                    comments, then delete it. Paste in the following script: </cmd>
+                <info>
+                    <codeblock>try: 
+  for record in records:
+    cc = record.value['credit_card']
+    if cc == '':
+      error.write(record, "Payment type was CRD, but credit card was null")
+      continue
+
+    cc_type = ''
+    if cc.startswith('4'):
+      cc_type = 'Visa'
+    elif cc.startswith(('51','52','53','54','55')):
+      cc_type = 'MasterCard'
+    elif cc.startswith(('34','37')):
+      cc_type = 'AMEX'
+    elif cc.startswith(('300','301','302','303','304','305','36','38')):
+      cc_type = 'Diners Club'
+    elif cc.startswith(('6011','65')):
+      cc_type = 'Discover'
+    elif cc.startswith(('2131','1800','35')):
+      cc_type = 'JCB'
+    else:
+      cc_type = 'Other'
+
+    record.value['credit_card_type'] = cc_type
+
+    output.write(record)
+except Exception as e:
+  error.write(record, e.message)</codeblock>
+                    <p>
+                        <note>Incorrect indentation can cause Jython validation errors. For best
+                            results, copy the script from the online help. Copying the script from
+                            the PDF can result in incorrect indentation.<p>To launch
+                                context-sensitive help, click the <uicontrol>Help</uicontrol> icon
+                                in the Properties panel. Then in the table of contents, scroll down
+                                to find the Data Collector Tutorial chapter > Basic Tutorial > Use
+                                Jython for Card Typing. </p></note>
+                    </p>
+                </info>
+            </step>
+        </steps>
+        <result>In the Jython Evaluator, the script should look like this:<p><image
+                    href="../Graphics/Tutorial-Jython.png" id="image_jt1_4ch_4s" scale="60"
+            /></p></result>
+    </taskbody>
+</task>

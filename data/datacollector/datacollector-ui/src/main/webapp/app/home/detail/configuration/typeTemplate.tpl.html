@@ -1,0 +1,658 @@
+<script type="text/ng-template" id="labelConfigurationTemplate">
+  <label class="col-lg-3 col-md-4 control-label">{{configDefinition.label}}
+    <i class="fa fa-info-circle help-icon"
+       tooltip-placement="right"
+       tooltip-append-to-body="false"
+       tooltip="{{configDefinition.description || configDefinition.label}}"
+       tooltip-trigger="mouseenter"></i>
+  </label>
+</script>
+
+<script type="text/ng-template" id="configurationIssuesTemplate">
+  <div class="help-block">
+    <div ng-repeat="issue in getConfigurationIssues(detailPaneConfig, configDefinition)">
+      <span>{{issue.message}}</span>
+      <span ng-show="issue.count > 1" class="badge">{{issue.count}}</span>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="complexConfigurationIssuesTemplate">
+  <div class="help-block">
+    <div ng-repeat="issue in getConfigurationIssues(detailPaneConfig, customFieldConfigDefinition)"
+         ng-if="issue.additionalInfo && issue.additionalInfo.index === configIndex">
+      <span>{{issue.message}}</span>
+      <span ng-show="issue.count > 1" class="badge">{{issue.count}}</span>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="stringConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+
+    <input type="text" class="form-control"
+           name="{{configDefinition.name}}"
+           ng-if="configDefinition.lines === 0"
+           focus-me="{{autoFocusConfigName === configDefinition.name}}"
+           ng-readonly="isPipelineReadOnly || isPipelineRunning"
+           ng-model="detailPaneConfig.configuration[configIndex].value"
+           ng-required="configDefinition.required">
+
+    <textarea class="form-control"
+              name="{{configDefinition.name}}"
+              ng-if="configDefinition.lines > 0"
+              focus-me="{{autoFocusConfigName === configDefinition.name}}"
+              rows="{{configDefinition.lines}}"
+              ng-readonly="isPipelineReadOnly || isPipelineRunning"
+              ng-model="detailPaneConfig.configuration[configIndex].value"
+              ng-required="configDefinition.required"></textarea>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="elStringConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+
+    <div ui-codemirror
+         ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+         focus-me="{{autoFocusConfigName === configDefinition.name}}"
+         ng-model="detailPaneConfig.configuration[configIndex].value"
+         ui-refresh="refreshCodemirror"
+         ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                autofocus: autoFocusConfigName === configDefinition.name,
+                extraKeys: {
+                  'Tab': false,
+                  'Enter': common.ignoreCodeMirrorEnterKey,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+         codemirror-el
+         field-paths="fieldPaths"
+         d-field-paths="dFieldPaths"
+         data-type="configDefinition.type">
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="characterConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8" ng-init="characterModel = getCharacterValue(detailPaneConfig.configuration[configIndex].value)">
+
+    <div class="clearfix">
+      <div class="btn-group pull-left">
+
+        <label class="btn btn-default"
+               ng-model="characterModel"
+               ng-change="detailPaneConfig.configuration[configIndex].value='\t'"
+               btn-radio="'\t'">Tab</label>
+        <label class="btn btn-default"
+               ng-model="characterModel"
+               ng-change="detailPaneConfig.configuration[configIndex].value=';'"
+               btn-radio="';'">Semicolon</label>
+        <label class="btn btn-default"
+               ng-model="characterModel"
+               ng-change="detailPaneConfig.configuration[configIndex].value=','"
+               btn-radio="','">Comma</label>
+        <label class="btn btn-default"
+               ng-model="characterModel"
+               ng-change="detailPaneConfig.configuration[configIndex].value=' '"
+               btn-radio="' '">Space</label>
+        <label class="btn btn-default"
+               ng-model="characterModel"
+               ng-change="detailPaneConfig.configuration[configIndex].value=null"
+               btn-radio="'Other'">Other</label>
+      </div>
+
+      <input type="text" class="form-control character-type pull-left" name="{{configDefinition.name}}"
+             focus-me="{{autoFocusConfigName === configDefinition.name}}"
+             ng-if="characterModel === 'Other'"
+             ng-readonly="isPipelineReadOnly || isPipelineRunning"
+             ng-model="detailPaneConfig.configuration[configIndex].value"
+             ng-required="configDefinition.required">
+
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="booleanConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+    <input type="checkbox" name="{{configDefinition.name}}"
+           ng-disabled="isPipelineReadOnly || isPipelineRunning"
+           ng-model="detailPaneConfig.configuration[configIndex].value">
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="integerConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+    <input type="number" class="form-control" name="{{configDefinition.name}}" min="{{configDefinition.min}}" max="{{configDefinition.max}}"
+           focus-me="{{autoFocusConfigName === configDefinition.name}}"
+           ng-readonly="isPipelineReadOnly || isPipelineRunning"
+           ng-model="detailPaneConfig.configuration[configIndex].value"
+           ng-required="configDefinition.required">
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="listConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8 container-fluid"
+       ng-init="bulkEdit=(detailPaneConfig.configuration[configIndex].value.length > 9)">
+
+    <div class="row map-list-type"
+         ng-if="!bulkEdit"
+         ng-repeat="val in listValue = detailPaneConfig.configuration[configIndex].value track by $index">
+
+      <div class="col-xs-1">
+        <label class="lane-label">{{$index + 1}}</label>
+      </div>
+
+      <div class="col-xs-7">
+        <div ui-codemirror
+             ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+             ng-model="listValue[$index]"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                extraKeys: {
+                  'Tab': false,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+             codemirror-el
+             field-paths="fieldPaths"
+             d-field-paths="dFieldPaths"
+             data-type="'STRING'">
+        </div>
+      </div>
+
+      <div class="col-xs-4 btn-group" role="group" aria-label="Default button group"
+           ng-hide="isPipelineReadOnly || isPipelineRunning">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="removeFromList(detailPaneConfig, detailPaneConfig.configuration[configIndex].value, $index)">
+          <i class="fa fa-minus pointer"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm"
+                ng-show="$last"
+                ng-click="addToList(detailPaneConfig, detailPaneConfig.configuration[configIndex].value)">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <div ui-codemirror
+         ng-if="bulkEdit"
+         class="codemirror-editor"
+         ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+         focus-me="{{autoFocusConfigName === configDefinition.name}}"
+         ng-model="detailPaneConfig.configuration[configIndex].value"
+         ui-refresh="refreshCodemirror"
+         ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                autofocus: autoFocusConfigName === configDefinition.name,
+                lineNumbers: true
+              }, configDefinition)"
+         codemirror-el
+         field-paths="fieldPaths"
+         d-field-paths="dFieldPaths"
+         data-type="'LIST'">
+    </div>
+
+    <div ng-if="detailPaneConfig.configuration[configIndex].value.length === 0 || bulkEdit" class="row"
+         ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <div class="col-md-2 btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="addToList(detailPaneConfig, detailPaneConfig.configuration[configIndex].value)">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="pull-right field-selector-btn" ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <button type="button" class="btn btn-link"
+              ng-click="bulkEdit = !bulkEdit">
+        {{bulkEdit ? ('home.detailPane.configurationTab.switchToSimpleMode' | translate) : ('home.detailPane.configurationTab.switchToBulkMode' | translate)}}
+      </button>
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="mapConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8"
+       ng-init="bulkEdit=(detailPaneConfig.configuration[configIndex].value.length > 9)">
+    <div class="row map-list-type"
+         ng-if="!bulkEdit"
+         ng-repeat="mapObject in detailPaneConfig.configuration[configIndex].value track by $index">
+
+      <div class="col-xs-4">
+        <input type="text" class="form-control input-sm"
+               name="{{configDefinition.name + 'key' + $index}}"
+               placeholder="{{'home.detailPane.configurationTab.enterKey' | translate}}"
+               ng-required="true"
+               ng-readonly="isPipelineReadOnly || isPipelineRunning"
+               ng-model="mapObject.key"/>
+      </div>
+
+      <div class="col-xs-1">:</div>
+
+      <div class="col-xs-5">
+        <div ui-codemirror
+             ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+             ng-model="mapObject.value"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                extraKeys: {
+                  'Tab': false,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+             codemirror-el
+             field-paths="fieldPaths"
+             d-field-paths="dFieldPaths"
+             data-type="'STRING'">
+        </div>
+      </div>
+
+      <div class="btn-group" role="group" aria-label="Default button group"
+           ng-hide="isPipelineReadOnly || isPipelineRunning">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="removeFromMap(detailPaneConfig, detailPaneConfig.configuration[configIndex].value, mapObject, $index)">
+          <i class="fa fa-minus pointer"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm"
+                ng-show="$last"
+                ng-click="addToMap(detailPaneConfig, detailPaneConfig.configuration[configIndex].value)">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <div ui-codemirror
+         ng-if="bulkEdit"
+         class="codemirror-editor"
+         ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+         focus-me="{{autoFocusConfigName === configDefinition.name}}"
+         ng-model="detailPaneConfig.configuration[configIndex].value"
+         ui-refresh="refreshCodemirror"
+         ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                autofocus: autoFocusConfigName === configDefinition.name,
+                lineNumbers: true
+              }, configDefinition)"
+         codemirror-el
+         field-paths="fieldPaths"
+         d-field-paths="dFieldPaths"
+         data-type="'LIST'">
+    </div>
+
+    <div ng-if="detailPaneConfig.configuration[configIndex].value.length === 0 || bulkEdit" class="row"
+         ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <div class="col-md-2 btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="addToMap(detailPaneConfig, detailPaneConfig.configuration[configIndex].value)">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="pull-right field-selector-btn" ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <button type="button" class="btn btn-link"
+              ng-click="bulkEdit = !bulkEdit">
+        {{bulkEdit ? ('home.detailPane.configurationTab.switchToSimpleMode' | translate) : ('home.detailPane.configurationTab.switchToBulkMode' | translate)}}
+      </button>
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="valueChooserConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+   <select class="form-control"
+            name="{{configDefinition.name}}"
+            focus-me="{{autoFocusConfigName === configDefinition.name}}"
+            ng-required="configDefinition.required"
+            ng-disabled="isPipelineReadOnly || isPipelineRunning"
+            ng-model="detailPaneConfig.configuration[configIndex].value">
+      <option ng-repeat="listValue in configDefinition.model.values"
+              value="{{listValue}}"
+              ng-selected="listValue === detailPaneConfig.configuration[configIndex].value">{{configDefinition.model.labels[$index]}}</option>
+    </select>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="multiValueChooserConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+    <ui-select multiple
+               ng-disabled="isPipelineReadOnly || isPipelineRunning"
+               ng-model="detailPaneConfig.configuration[configIndex].value">
+      <ui-select-match class="ui-select-match">
+        {{$item}}
+      </ui-select-match>
+      <ui-select-choices class="ui-select-choices" repeat="listValue in configDefinition.model.values| filter:$select.search">
+        <div ng-bind-html="listValue | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="fieldSelectorMultiValuedConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+    <ui-select multiple
+               tagging
+               tagging-label=" - new field path"
+               ng-disabled="isPipelineReadOnly || isPipelineRunning"
+               tagging-tokens=",|ENTER"
+               ng-model="detailPaneConfig.configuration[configIndex].value">
+      <ui-select-match class="ui-select-match">{{$item}}</ui-select-match>
+      <ui-select-choices class="ui-select-choices"
+        repeat="fieldPath in fieldSelectorPaths.concat(detailPaneConfig.configuration[configIndex].value) | filter:$select.search">
+        <div ng-bind-html="fieldPath | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+
+    <div class="pull-right field-selector-btn" ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <button type="button" class="btn btn-link"
+              translate="home.detailPane.configurationTab.requiredFieldsSelectionButton"
+              ng-click="showFieldSelectorModal(detailPaneConfig.configuration[configIndex])">
+        Select Field Using Preview Data
+      </button>
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="fieldSelectorSingleValuedConfigurationTemplate">
+  <div class="controls col-lg-7 col-md-8">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="detailPaneConfig.configuration[configIndex].value">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li ng-repeat="fieldPath in fieldSelectorPaths track by $index">
+            <a href="#" ng-click="detailPaneConfig.configuration[configIndex].value = fieldPath">{{fieldPath}}</a>
+          </li>
+
+          <li role="presentation" class="dropdown-header"
+              ng-if="fieldPathsFetchInProgress"
+              translate="home.detailPane.configurationTab.loading">Loading...</li>
+
+          <li role="presentation" class="dropdown-header"
+              ng-if="!fieldPathsFetchInProgress && fieldSelectorPaths.length === 0"
+              translate="home.detailPane.configurationTab.noFieldFound">No Field found.</li>
+        </ul>
+      </div>
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+<script type="text/ng-template" id="lanePredicateMappingConfigurationTemplate">
+  <div class="controls col-lg-9 col-md-8">
+    <div class="map-list-type"
+         ng-repeat="lanePredicateMapping in detailPaneConfig.configuration[configIndex].value track by $index">
+
+      <div class="col-xs-1">
+        <!--input type="text" readonly class="form-control input-sm"
+               value="{{$index + 1}}"/-->
+        <label class="lane-label">{{$index + 1}}</label>
+      </div>
+
+      <div class="col-xs-9 expression-language">
+
+        <div ui-codemirror
+             ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning || lanePredicateMapping.predicate === 'default'}"
+             ng-model="lanePredicateMapping.predicate"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning || lanePredicateMapping.predicate === 'default'),
+                extraKeys: {
+                  'Tab': false,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+             codemirror-el
+             field-paths="fieldPaths"
+             d-field-paths="dFieldPaths"
+             data-type="'PREDICATE'">
+        </div>
+
+      </div>
+
+      <div class="col-xs-1" role="group" aria-label="Default button group"
+           ng-hide="isPipelineReadOnly || isPipelineRunning">
+        <button type="button" class="btn btn-default"
+                ng-hide="$last"
+                ng-click="removeLane(detailPaneConfig, detailPaneConfig.configuration[configIndex].value, lanePredicateMapping, $index)">
+          <i class="fa fa-minus pointer"></i>
+        </button>
+        <button type="button" class="btn btn-default"
+                ng-show="$last"
+                ng-click="addLane(detailPaneConfig, detailPaneConfig.configuration[configIndex].value, lanePredicateMapping)">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="stringComplexConfigurationTemplate">
+  <input type="text" class="form-control"
+         name="{{customFieldConfigDefinition.name + $index}}"
+         placeholder="{{customFieldConfigDefinition.label}}"
+         ng-readonly="isPipelineReadOnly || isPipelineRunning"
+         ng-model="customFieldValue[customFieldConfigDefinition.name]"
+         ng-required="customFieldConfigDefinition.required">
+</script>
+
+<script type="text/ng-template" id="booleanComplexConfigurationTemplate">
+  <div class="controls">
+    <input type="checkbox" name="{{customFieldConfigDefinition.name}}"
+           ng-disabled="isPipelineReadOnly || isPipelineRunning"
+           ng-model="customFieldValue[customFieldConfigDefinition.name]">
+  </div>
+</script>
+
+<script type="text/ng-template" id="elStringComplexConfigurationTemplate">
+  <div ui-codemirror
+       ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+       ng-model="customFieldValue[customFieldConfigDefinition.name]"
+       ui-refresh="refreshCodemirror"
+       ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                extraKeys: {
+                  'Tab': false,
+                  'Enter': common.ignoreCodeMirrorEnterKey,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, customFieldConfigDefinition)"
+       codemirror-el="getCodeMirrorHints(customFieldConfigDefinition)"
+       field-paths="fieldPaths"
+       d-field-paths="dFieldPaths"
+       data-type="customFieldConfigDefinition.type">
+  </div>
+</script>
+
+<script type="text/ng-template" id="listComplexConfigurationTemplate">
+  <div class="controls col-lg-12 container-fluid">
+    <div class="row map-list-type"
+         ng-repeat="val in listValue = customFieldValue[customFieldConfigDefinition.name] track by $index">
+
+      <div class="col-xs-1">
+        <label class="lane-label">{{$index + 1}}</label>
+      </div>
+
+      <div class="col-xs-7">
+        <div ui-codemirror
+             ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+             ng-model="listValue[$index]"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                extraKeys: {
+                  'Tab': false,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+             codemirror-el
+             field-paths="fieldPaths"
+             d-field-paths="dFieldPaths"
+             data-type="'STRING'">
+        </div>
+      </div>
+
+      <div class="col-xs-4 btn-group" role="group" aria-label="Default button group"
+           ng-hide="isPipelineReadOnly || isPipelineRunning">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="removeFromList(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name], $index)">
+          <i class="fa fa-minus pointer"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm"
+                ng-show="$last"
+                ng-click="addToList(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name])">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <div ng-if="customFieldValue[customFieldConfigDefinition.name].length === 0" class="row"
+         ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <div class="col-md-2 btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="addToList(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name])">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="mapComplexConfigurationTemplate">
+  <div class="controls col-lg-12">
+    <div class="row map-list-type" ng-repeat="mapObject in customFieldValue[customFieldConfigDefinition.name] track by $index">
+
+      <div class="col-xs-4">
+        <input type="text" class="form-control input-sm"
+               name="{{configDefinition.name + 'key' + $index}}"
+               placeholder="{{'home.detailPane.configurationTab.enterKey' | translate}}"
+               ng-required="true"
+               ng-readonly="isPipelineReadOnly || isPipelineRunning"
+               ng-model="mapObject.key"/>
+      </div>
+
+      <div class="col-xs-1">:</div>
+
+      <div class="col-xs-5">
+        <div ui-codemirror
+             ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+             ng-model="mapObject.value"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                extraKeys: {
+                  'Tab': false,
+                  'Ctrl-Space': 'autocomplete'
+                }
+              }, configDefinition)"
+             codemirror-el
+             field-paths="fieldPaths"
+             d-field-paths="dFieldPaths"
+             data-type="'STRING'">
+        </div>
+      </div>
+
+      <div class="btn-group" role="group" aria-label="Default button group"
+           ng-hide="isPipelineReadOnly || isPipelineRunning">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="removeFromMap(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name], mapObject, $index)">
+          <i class="fa fa-minus pointer"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm"
+                ng-show="$last"
+                ng-click="addToMap(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name])">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <div ng-if="customFieldValue[customFieldConfigDefinition.name].length === 0" class="row"
+         ng-hide="isPipelineReadOnly || isPipelineRunning">
+      <div class="col-md-2 btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm"
+                ng-click="addToMap(detailPaneConfig, customFieldValue[customFieldConfigDefinition.name])">
+          <i class="fa fa-plus pointer"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="textConfigurationTemplate">
+  <div class="controls col-lg-9 col-md-8">
+
+    <div ui-codemirror
+         class="codemirror-editor"
+         ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+         focus-me="{{autoFocusConfigName === configDefinition.name}}"
+         ng-model="detailPaneConfig.configuration[configIndex].value"
+         ui-refresh="refreshCodemirror"
+         ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                mode: {
+                  name: configDefinition.mode
+                },
+                lineNumbers: true
+              }, configDefinition)"
+         codemirror-el
+         field-paths="fieldPaths"
+         d-field-paths="dFieldPaths">
+    </div>
+
+    <ng-include src="'configurationIssuesTemplate'"></ng-include>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="textComplexConfigurationTemplate">
+  <div ui-codemirror
+       class="codemirror-editor"
+       ng-class="{'codemirror-read-only': isPipelineReadOnly || isPipelineRunning}"
+       focus-me="{{autoFocusConfigName === customFieldConfigDefinition.name}}"
+       ng-model="customFieldValue[customFieldConfigDefinition.name]"
+       ui-refresh="refreshCodemirror"
+       ui-codemirror-opts="getCodeMirrorOptions({
+                readOnly: (isPipelineReadOnly || isPipelineRunning),
+                mode: {
+                  name: customFieldConfigDefinition.mode
+                },
+                lineNumbers: true
+              }, customFieldConfigDefinition)"
+       codemirror-el
+       field-paths="fieldPaths"
+       d-field-paths="dFieldPaths">
+  </div>
+</script>

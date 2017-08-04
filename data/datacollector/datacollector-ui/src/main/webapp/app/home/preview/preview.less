@@ -1,0 +1,217 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.preview-pane {
+  height: calc(~"100% - 11px");
+  margin-bottom: 0;
+  border-bottom: none;
+
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  .view-stack-trace {
+    cursor: pointer;
+  }
+
+  .preview-page-detail {
+    padding-right: @defaultPadding;
+  }
+
+  .panel-heading {
+    padding: @smallPadding @smallPadding*3;
+
+    .panel-title {
+      padding-top: @smallPadding;
+      padding-right: @smallPadding;
+    }
+
+    .detail-name-dropdown {
+      .btn {
+        padding-top: @smallPadding * 0.7;
+        padding-bottom: 0;
+        padding-left: @smallPadding * .5;
+      }
+    }
+
+    .preview-toolbar {
+      min-width: 220px;
+    }
+
+    .toggle-toolbar {
+      margin-right: 50px;
+    }
+  }
+
+  .panel-body {
+    padding: 0;
+    height: calc(~"100% - 40px");
+    overflow: auto;
+
+    .preview-tabs-left {
+      height: 100%;
+      padding: 0 @smallPadding * 3;
+
+      >.nav-tabs {
+        min-height: 250px;
+        padding-top: @smallPadding * 3;
+      }
+
+      >.tab-content {
+        padding-top: @smallPadding * 3;
+      }
+    }
+
+    .pipeline-preview {
+      .preview-heading {
+        padding: @defaultPadding @defaultPadding;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .preview-table {
+        table-layout: fixed;
+
+        th, td {
+          padding-left: @smallPadding*3;
+
+          &.from-stage {
+            select {
+              color: @default-pipeline-graph-start-node-color;
+            }
+          }
+
+          &.to-stage {
+            select {
+              color: @default-pipeline-graph-end-node-color;
+            }
+          }
+
+          label {
+            margin-bottom: 0;
+            font-weight: normal;
+            white-space: normal;
+            text-align: left;
+          }
+
+          .label-danger, .label-warning {
+            font-size: 90%;
+          }
+
+          .dirty-icon {
+            font-size: 8px;
+            position: relative;
+            top: -5px;
+            color: gray;
+          }
+
+          &.no-records {
+            text-align: center;
+            padding-top: @defaultPadding * 4;
+          }
+
+          .delete-preview-record {
+            color: @brand-danger;
+            padding-right: @defaultPadding * 2;
+            cursor: pointer;
+          }
+
+        }
+      }
+
+    }
+
+    .preview-config-tab {
+      input[type=checkbox] {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  }
+
+}
+
+.preview-tableview-table {
+  th, td {
+    &.from-stage {
+      color: @default-pipeline-graph-start-node-color;
+      select {
+        color: @default-pipeline-graph-start-node-color;
+      }
+    }
+
+    &.to-stage {
+      color: @default-pipeline-graph-end-node-color;
+      select {
+        color: @default-pipeline-graph-end-node-color;
+      }
+    }
+
+
+    &.value-addition {
+      background-color: #eaffea;
+    }
+
+    &.value-deletion {
+      background-color: #ffecec;
+    }
+
+    &.no-records {
+      text-align: center;
+      padding-top: @defaultPadding * 4;
+    }
+
+    .show-more {
+      a {
+        padding-left: @smallPadding;
+        padding-right: @smallPadding;
+      }
+    }
+
+    .dirty-icon {
+      font-size: 8px;
+      color: @brand-danger;
+    }
+
+    .record-date-toggle {
+      padding-left: @defaultPadding;
+    }
+
+    .number-circle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      background: white;
+      box-shadow: 0 0 2px #888;
+      color: black;
+      margin-right: @smallPadding;
+    }
+  }
+}
+
+.raw-preview-data-modal-form {
+  .codemirror-editor {
+    .CodeMirror {
+      height: 500px;
+    }
+  }
+}

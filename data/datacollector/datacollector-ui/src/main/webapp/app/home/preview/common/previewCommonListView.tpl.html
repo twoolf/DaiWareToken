@@ -1,0 +1,309 @@
+<table class="table preview-table" ng-hide="showLoading">
+  <thead>
+    <tr>
+      <th class="col-md-6">
+        <span class="glyphicon glyphicon-expand pointer"
+              ng-if="!expandAllInputData"
+              ng-click="onExpandAllInputData(stagePreviewData)"></span>
+        <span class="glyphicon glyphicon-collapse-down pointer"
+              ng-if="expandAllInputData"
+              ng-click="onCollapseAllInputData(stagePreviewData)"></span>
+        <span translate="home.previewPane.inputData">Input Data</span>
+      </th>
+
+      <th class="col-md-6">
+        <span class="glyphicon glyphicon-expand pointer"
+              ng-if="!expandAllOutputData"
+              ng-click="onExpandAllOutputData(stagePreviewData)"></span>
+        <span class="glyphicon glyphicon-collapse-down pointer"
+              ng-if="expandAllOutputData"
+              ng-click="onCollapseAllOutputData(stagePreviewData)"></span>
+        <span translate="home.previewPane.outputData">Output Data</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody ng-switch="detailPaneConfig.uiInfo.stageType">
+
+    <tr ng-switch-when="SOURCE">
+      <td>
+        <div ui-codemirror
+             class="codemirror-editor"
+             ng-if="rawDataConfigIndex"
+             ng-model="detailPaneConfig.configuration[rawDataConfigIndex].value"
+             ui-refresh="refreshCodemirror"
+             ui-codemirror-opts="rawDataCodemirrorOptions">
+        </div>
+      </td>
+
+      <td>
+        <table class="table preview-table">
+          <tbody>
+          <tr ng-repeat="record in stagePreviewData.output | limitTo: recordPagination.outputRecords">
+            <td>
+              <div class="pull-right delete-preview-record"
+                   ng-if="previewMode"
+                   ng-click="removeRecord(detailPaneConfig, stagePreviewData.output, record, $index)">
+                <i class="fa fa-trash"></i>
+              </div>
+
+              <record-tree
+                record="record"
+                record-value="record.value"
+                field-name="('global.form.record' | translate)+($index+1)"
+                is-root="true"
+                editable="previewMode"
+                show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+                show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+              </record-tree>
+
+              <div class="show-more" ng-if="$last && recordPagination.outputRecords < stagePreviewData.output.length">
+                <a class="btn btn-link"
+                   ng-click="recordPagination.outputRecords = recordPagination.outputRecords + recordMaxLimit;">Show More...</a>
+
+                <span class="separator">|</span>
+
+                <a class="btn btn-link"
+                   ng-click="recordPagination.outputRecords = stagePreviewData.output.length;">Show All ({{stagePreviewData.output.length}}) ...</a>
+              </div>
+            </td>
+          </tr>
+
+          <tr ng-repeat="record in stagePreviewData.eventRecords | limitTo: recordPagination.eventRecords">
+            <td>
+              <record-tree
+                record="record"
+                record-value="record.value"
+                field-name="('global.form.eventRecord' | translate) + ($index+1) + ' (' + record.header.values['sdc.event.type'] + ')'"
+                is-root="true"
+                editable="previewMode"
+                show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+                show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+              </record-tree>
+
+              <div class="show-more" ng-if="$last && recordPagination.eventRecords < stagePreviewData.eventRecords.length">
+                <a class="btn btn-link"
+                   ng-click="recordPagination.eventRecords = recordPagination.eventRecords + recordMaxLimit;">Show More...</a>
+
+                <span class="separator">|</span>
+
+                <a class="btn btn-link"
+                   ng-click="recordPagination.eventRecords = stagePreviewData.eventRecords.length;">Show All ({{stagePreviewData.eventRecords.length}}) ...</a>
+              </div>
+            </td>
+          </tr>
+
+          <tr ng-repeat="record in stagePreviewData.errorRecords | limitTo: recordPagination.errorRecords">
+            <td>
+              <record-tree
+                record="record"
+                record-value="record.value"
+                field-name="('global.form.record' | translate)+($parent.$index+1) + '-' + ('global.form.errorRecord' | translate) + ' ' + escapeHtml(record.header.errorMessage)"
+                is-root="true"
+                is-error="true"
+                editable="false"
+                show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+                show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+              </record-tree>
+
+              <div class="show-more" ng-if="$last && recordPagination.errorRecords < stagePreviewData.errorRecords.length">
+                <a class="btn btn-link"
+                   ng-click="recordPagination.errorRecords = recordPagination.errorRecords + recordMaxLimit;">Show More...</a>
+
+                <span class="separator">|</span>
+
+                <a class="btn btn-link"
+                   ng-click="recordPagination.errorRecords = stagePreviewData.errorRecords.length;">Show All ({{stagePreviewData.errorRecords.length}}) ...</a>
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr ng-switch-when="PROCESSOR"
+        ng-repeat="inputRecord in stagePreviewData.input | limitTo: recordPagination.inputRecords"
+        ng-init="outputRecords = getOutputRecords(stagePreviewData.output, inputRecord)">
+      <td>
+        <record-tree
+          record="inputRecord"
+          record-value="inputRecord.value"
+          diff-type="'input'"
+          diff-record="outputRecords"
+          diff-record-value="outputRecords[0].value"
+          field-name="('global.form.record' | translate)+($index+1)"
+          is-root="true"
+          editable="previewMode"
+          show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+          show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+        </record-tree>
+
+        <div class="show-more" ng-if="$last && recordPagination.inputRecords < stagePreviewData.input.length">
+          <a class="btn btn-link"
+             ng-click="recordPagination.inputRecords = recordPagination.inputRecords + recordMaxLimit;">Show More...</a>
+
+          <span class="separator">|</span>
+
+          <a class="btn btn-link"
+             ng-click="recordPagination.inputRecords = stagePreviewData.input.length;">Show All ({{stagePreviewData.input.length}}) ...</a>
+        </div>
+      </td>
+      <td>
+        <div ng-repeat="record in outputRecords | limitTo: recordPagination.outputRecords">
+          <record-tree
+            record="record"
+            record-value="record.value"
+            diff-type="'output'"
+            diff-record="inputRecord"
+            diff-record-value="inputRecord.value"
+            field-name="('global.form.record' | translate)+($parent.$index+1) + '-' + ('global.form.outputRecord' | translate) +  ($index + 1) + getRecordAdditionalInfo(detailPaneConfig, record, 'output')"
+            is-root="true"
+            editable="false"
+            show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+            show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+          </record-tree>
+
+          <div class="show-more" ng-if="$last && recordPagination.outputRecords < outputRecords.length">
+            <a class="btn btn-link"
+               ng-click="recordPagination.outputRecords = recordPagination.outputRecords + recordMaxLimit;">Show More...</a>
+
+            <span class="separator">|</span>
+
+            <a class="btn btn-link"
+               ng-click="recordPagination.outputRecords = outputRecords.length;">Show All ({{outputRecords.length}}) ...</a>
+          </div>
+        </div>
+
+        <div ng-repeat="record in errorsRecords = getErrorRecords(stagePreviewData.errorRecords, inputRecord)">
+          <record-tree
+            record="record"
+            record-value="record.value"
+            field-name="('global.form.record' | translate)+($parent.$index+1) + '-' + ('global.form.errorRecord' | translate) + ' ' + escapeHtml(record.header.errorMessage)"
+            is-root="true"
+            is-error="true"
+            editable="false"
+            show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+            show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+          </record-tree>
+        </div>
+
+        <div ng-if="outputRecords.length === 0 && errorsRecords.length === 0">
+          <label class="label label-warning">{{'home.previewPane.noOutputWarning' | translate}}</label>
+        </div>
+
+      </td>
+    </tr>
+
+    <tr ng-if="detailPaneConfig.uiInfo.stageType === 'PROCESSOR' && stagePreviewData.newRecords && stagePreviewData.newRecords.length"
+        ng-repeat="newRecord in stagePreviewData.newRecords | limitTo: recordPagination.newRecords">
+      <td>
+      </td>
+      <td>
+        <div>
+          <record-tree
+            record="newRecord"
+            record-value="newRecord.value"
+            field-name="('global.form.newRecord' | translate) +  ($index + 1) + getRecordAdditionalInfo(detailPaneConfig, newRecord, 'output')"
+            is-root="true"
+            editable="false"
+            show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+            show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+          </record-tree>
+
+          <div class="show-more" ng-if="$last && recordPagination.newRecords < stagePreviewData.newRecords.length">
+            <a class="btn btn-link"
+               ng-click="recordPagination.newRecords = recordPagination.newRecords + recordMaxLimit;">Show More...</a>
+
+            <span class="separator">|</span>
+
+            <a class="btn btn-link"
+               ng-click="recordPagination.newRecords = stagePreviewData.newRecords.length;">Show All ({{stagePreviewData.newRecords.length}}) ...</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr ng-if="detailPaneConfig.uiInfo.stageType === pipelineConstant.TARGET_STAGE_TYPE || detailPaneConfig.uiInfo.stageType === pipelineConstant.EXECUTOR_STAGE_TYPE"
+        ng-repeat="inputRecord in stagePreviewData.input | limitTo: recordPagination.inputRecords">
+      <td>
+        <record-tree
+          record="inputRecord"
+          record-value="inputRecord.value"
+          field-name="('global.form.record' | translate)+($index+1)"
+          is-root="true"
+          editable="false"
+          show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+          show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+        </record-tree>
+
+        <div class="show-more" ng-if="$last && recordPagination.inputRecords < stagePreviewData.input.length">
+          <a class="btn btn-link"
+             ng-click="recordPagination.inputRecords = recordPagination.inputRecords + recordMaxLimit;">Show More...</a>
+
+          <span class="separator">|</span>
+
+          <a class="btn btn-link"
+             ng-click="recordPagination.inputRecords = stagePreviewData.input.length;">Show All ({{stagePreviewData.input.length}}) ...</a>
+        </div>
+      </td>
+      <td>
+        <div ng-repeat="record in errorsRecords = getErrorRecords(stagePreviewData.errorRecords, inputRecord)">
+          <record-tree
+            record="record"
+            record-value="record.value"
+            field-name="('global.form.record' | translate)+($parent.$index+1) + '-' + ('global.form.errorRecord' | translate) + ' ' + escapeHtml(record.header.errorMessage)"
+            is-root="true"
+            is-error="true"
+            editable="false"
+            show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+            show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+          </record-tree>
+        </div>
+      </td>
+    </tr>
+
+    <tr ng-if="detailPaneConfig.uiInfo.stageType === pipelineConstant.TARGET_STAGE_TYPE || detailPaneConfig.uiInfo.stageType === pipelineConstant.EXECUTOR_STAGE_TYPE || detailPaneConfig.uiInfo.stageType === pipelineConstant.PROCESSOR_STAGE_TYPE"
+        ng-repeat="record in stagePreviewData.eventRecords | limitTo: recordPagination.eventRecords">
+      <td>
+      </td>
+      <td>
+        <record-tree
+          record="record"
+          record-value="record.value"
+          field-name="('global.form.eventRecord' | translate) + ($index+1) + ' (' + record.header.values['sdc.event.type'] + ')'"
+          is-root="true"
+          editable="previewMode"
+          show-header="snapshotMode || pipelineConfig.uiInfo.previewConfig.showHeader"
+          show-field-type="snapshotMode || pipelineConfig.uiInfo.previewConfig.showFieldType">
+        </record-tree>
+
+        <div class="show-more" ng-if="$last && recordPagination.eventRecords < stagePreviewData.eventRecords.length">
+          <a class="btn btn-link"
+             ng-click="recordPagination.eventRecords = recordPagination.eventRecords + recordMaxLimit;">Show More...</a>
+
+          <span class="separator">|</span>
+
+          <a class="btn btn-link"
+             ng-click="recordPagination.eventRecords = stagePreviewData.eventRecords.length;">Show All ({{stagePreviewData.eventRecords.length}}) ...</a>
+        </div>
+      </td>
+    </tr>
+
+    <tr ng-if="stagePreviewData.input.length === 0 &&
+                stagePreviewData.output.length === 0 &&
+                stagePreviewData.errorRecords.length === 0 &&
+                (!stagePreviewData.eventRecords || stagePreviewData.eventRecords.length === 0)">
+      <td colspan="2" class="no-records">
+        {{'home.previewPane.noRecords' | translate}}
+
+        <div ng-if="stagePreviewData.stageErrors && stagePreviewData.stageErrors.length">
+          <span translate="home.previewPane.stageErrorsWarning"
+                translate-values="{stageErrorsCount: stagePreviewData.stageErrors.length}"></span>
+        </div>
+
+      </td>
+    </tr>
+  </tbody>
+
+</table>

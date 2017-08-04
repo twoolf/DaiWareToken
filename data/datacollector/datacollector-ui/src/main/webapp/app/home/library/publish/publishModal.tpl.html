@@ -1,0 +1,60 @@
+<form class="publish-modal-form" role="form" name="publishForm" ng-submit="publish()">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title"
+        ng-if="!isList"
+        translate="home.publish.headerLabel">Publish Pipeline</h3>
+    <h3 class="modal-title"
+        ng-if="isList"
+        translate="home.publish.listHeaderLabel">Publish Pipelines</h3>
+  </div>
+  <div class="modal-body">
+
+    <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+    <div ng-if="!isList" class="form-group" show-errors="{ trigger: 'keypress' }">
+      <label class="control-label" translate="global.form.name">Name</label>
+      <i class="fa fa-info-circle help-icon"
+         popover-placement="right"
+         popover-append-to-body="false"
+         popover="{{'home.library.nameValidation' | translate}}"
+         popover-trigger="mouseenter"></i>
+      <input type="text"
+             disabled
+             name="name"
+             class="form-control"
+             ng-required
+             placeholder="{{'home.library.namePlaceholder' | translate}}"
+             ng-model="commitPipelineModel.name"
+             focus-me="true">
+      <p class="help-block">{{'home.library.nameValidation' | translate}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" translate="home.library.commitMessage">Commit Message</label>
+      <textarea autofocus class="form-control" rows="2"
+                required
+                placeholder="{{'home.library.commitMessagePlaceholder' | translate}}"
+                ng-model="commitPipelineModel.commitMessage"></textarea>
+    </div>
+
+    <ul class="properties clearfix">
+      <li class="pull-right">
+        <span class="properties-label">{{'home.publish.pipelineRepository' | translate}}: </span>
+        <span class="properties-value">
+          <a href="{{remoteBaseUrl}}" target="_blank">{{remoteBaseUrl}}</a>
+        </span>
+      </li>
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-default" ng-disabled="publishing" ng-click="cancel()"
+            translate="global.form.cancel">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="publishing || publishForm.$invalid"
+            translate="global.form.publish">Publish</button>
+  </div>
+</form>

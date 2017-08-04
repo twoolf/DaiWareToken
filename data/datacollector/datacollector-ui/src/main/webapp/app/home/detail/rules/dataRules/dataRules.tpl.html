@@ -1,0 +1,188 @@
+<div class="data-rules-tab" ng-controller="DataRulesController">
+  <div class="panel-heading clearfix">
+    <button type="button" class="btn btn-primary btn-sm add-button pull-right"
+            ng-if="!isPipelineRulesReadOnly && pipelineConfig.stages.length"
+            ng-click="createDataRule()">
+      <i class="fa fa-plus"></i> {{'global.form.add' | translate}}
+    </button>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" role="form"
+          ng-class="{'form-group-sm': ($storage.displayDensity === pipelineConstant.DENSITY_COZY || $storage.displayDensity === pipelineConstant.DENSITY_COMPACT)}"
+          name="{{selectedType === pipelineConstant.STAGE_INSTANCE ? 'd' + detailPaneConfig.instanceName : 'pipeline'}}">
+
+      <table class="table table-hover" ng-init="expandAll=false">
+        <thead>
+          <tr>
+            <th class="expand-col">
+              <span class="pointer toggler {{expandAll ? 'open' : ''}}"
+                    ng-click="expandAll = !expandAll">
+              </span>
+            </th>
+            <th class="alert-text-col">{{'home.detailPane.rulesTab.stream' | translate}}</th>
+            <th class="alert-text-col">{{'home.detailPane.rulesTab.label' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.condition' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.enableMeter' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.enableAlert' | translate}}</th>
+            <th class="sendEmail-col">{{'home.detailPane.rulesTab.sendEmail' | translate}}</th>
+            <th class="enabled-col">{{'home.detailPane.rulesTab.enabled' | translate}}</th>
+            <th class="actions-col">{{'global.form.actions' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody ng-hide="showLoading">
+
+        <tr ng-repeat-start="dataRuleDefn in dataRuleDefinitions = getFilteredDataRules()"
+            ng-init="isOpen=false;"
+            ng-click="isOpen = !isOpen"
+            class="pointer {{dataRuleDefn.valid ? '' : 'invalid-rule'}}">
+
+          <td>
+            <span class="toggler {{isOpen || expandAll ? 'open' : ''}}"
+                  ng-click="isOpen = !isOpen; $event.stopPropagation()"></span>
+          </td>
+
+          <td>
+            <span>{{streamLabelMap[dataRuleDefn.lane]}}</span>
+          </td>
+
+          <td>
+            <span>{{dataRuleDefn.label}}</span>
+          </td>
+
+          <td>
+            <span>{{dataRuleDefn.condition}}</span>
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="meterEnabled{{$index}}"
+                   ng-disabled="dataRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataRuleDefn.meterEnabled">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="alertEnabled{{$index}}"
+                   ng-disabled="dataRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataRuleDefn.alertEnabled">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="sendEmail{{$index}}"
+                   ng-if="dataRuleDefn.alertEnabled"
+                   ng-disabled="dataRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataRuleDefn.sendEmail">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="enabled{{$index}}"
+                   ng-disabled="(!dataRuleDefn.valid && dataRuleDefn.enabled === false) || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataRuleDefn.enabled">
+          </td>
+
+          <td>
+            <div ng-show="!dataRuleDefn.enabled" ng-if="!isPipelineRulesReadOnly">
+              <a href="javascript:;" translate="global.form.edit"
+                 ng-click="editDataRule(dataRuleDefn, $index, $event)">Edit</a>
+              <span class="separator-padding">|</span>
+              <a href="javascript:;"  translate="global.form.delete"
+                 ng-click="removeRule(pipelineRules.dataRuleDefinitions, dataRuleDefn, $event)">Delete</a>
+            </div>
+          </td>
+
+        </tr>
+
+        <tr ng-repeat-end ng-if="isOpen || expandAll" class="expand-row" ng-class="dataRuleDefn.valid ? '' : 'invalid-rule'">
+          <td colspan="9">
+            <ul class="table-properties">
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.samplingPercentage' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.samplingPercentage}}
+                </span>
+              </li>
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.samplingRecords' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.samplingRecordsToRetain}}
+                </span>
+              </li>
+
+              <li ng-if="dataRuleDefn.alertEnabled">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.alertText' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.alertText}}
+                </span>
+              </li>
+
+              <li ng-if="dataRuleDefn.alertEnabled">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.thresholdType' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.thresholdType}}
+                </span>
+              </li>
+
+              <li ng-if="dataRuleDefn.alertEnabled">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.thresholdValue' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.thresholdValue}}
+                </span>
+              </li>
+
+              <li ng-if="dataRuleDefn.alertEnabled && dataRuleDefn.thresholdType === 'PERCENTAGE'">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.minVolumePlaceholder' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataRuleDefn.minVolume}}
+                </span>
+              </li>
+
+              <li ng-show="ruleIssues.length">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.issues' | translate}}:
+                </span>
+                <span class="properties-value">
+                  <span ng-repeat="ruleIssue in ruleIssues = (pipelineRules.ruleIssues | filter: {ruleId: dataRuleDefn.id})">
+                    <span>{{ruleIssue.message}}</span>
+                    <span ng-if="ruleIssue.additionalInfo.property === 'emailIds'">{{'home.detailPane.rulesTab.enterEmailIdMsg' | translate}}</span>
+                  </span>
+                </span>
+              </li>
+
+            </ul>
+          </td>
+        </tr>
+
+        <tr ng-if="dataRuleDefinitions.length === 0">
+          <td colspan="9" class="no-records text-center"
+              translate="home.detailPane.rulesTab.noDataRules">No Data Rules to view.</td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      <div show-loading="showLoading"></div>
+
+    </form>
+
+  </div>
+</div>

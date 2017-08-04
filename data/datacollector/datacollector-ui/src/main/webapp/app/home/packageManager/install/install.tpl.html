@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h3 class="modal-title" translate="packageManager.install.title">Install Stage Library</h3>
+</div>
+<div class="modal-body package-manager-modal-body">
+  <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+  <div ng-if="operationStatus === 'complete' && !hasErrors()"
+       class="alert alert-success alert-dismissible" role="alert"
+       translate="packageManager.install.successMessage">
+  </div>
+
+  <div ng-if="operationStatus === 'restarting'"
+       class="alert alert-success alert-dismissible" role="alert"
+       translate="home.restart.successMessage">
+  </div>
+
+  <div ng-if="operationStatus !== 'complete'">
+    <div ng-if="maprStageLib" class="alert alert-info" role="alert">
+      You must perform additional steps to install MapR stage libraries. For more information, see <a href="https://streamsets.com/documentation/datacollector/latest/help/#Installation/MapR-Prerequisites.html" target="_blank">MapR Prerequisites</a>.
+    </div>
+  </div>
+
+  <p translate="packageManager.install.confirmationMessage"></p>
+
+  <ul class="stage-library-labels">
+    <li ng-repeat="library in libraryList">
+      <span class="icon-wrapper">
+        <i ng-if="inStatus(library, 'installing')" class="fa fa-circle-o-notch fa-spin"></i>
+        <i ng-if="inStatus(library, 'installed')" class="fa fa-check"></i>
+        <i ng-if="inStatus(library, 'failed')" class="fa fa-remove"></i>
+      </span>
+      <span>{{library.label}}</span>
+      <a href="#" ng-click="showError(library)" ng-show="hasError(library)">show error</a>
+    </li>
+  </ul>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()"
+          ng-if="operationStatus !== 'installing' && operationStatus !== 'restarting'"
+          translate="global.form.cancel">Cancel</button>
+
+  <button type="button" class="btn btn-primary" ng-click="install()"
+          ng-if="operationStatus === 'incomplete'"
+          translate="global.form.install">Install</button>
+
+  <button type="button" class="btn btn-primary" ng-click="retry()"
+          ng-if="operationStatus === 'complete' && hasErrors()"
+          translate="global.form.retry">Retry</button>
+
+  <button type="button" class="btn btn-primary" disabled
+          ng-if="operationStatus === 'installing'"
+          translate="global.form.installing">Installing...</button>
+
+  <button ng-click="restart()" class="btn btn-primary"
+          ng-if="operationStatus === 'complete'"
+          translate="global.form.restart">Restart</button>
+</div>

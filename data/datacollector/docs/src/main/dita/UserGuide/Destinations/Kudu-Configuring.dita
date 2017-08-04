@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017 StreamSets Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_c4x_tmh_4v">
+    <title>Configuring a Kudu Destination</title>
+    <taskbody>
+        <context>
+            <p><indexterm>Kudu
+                        destination<indexterm>overview</indexterm></indexterm><indexterm>destinations<indexterm>Kudu</indexterm></indexterm>Configure
+                a Kudu destination to write to a Kudu cluster.</p>
+        </context>
+        <steps>
+            <step
+                conref="../Reusable_Content/ReusableSteps.dita#task_kzs_5vz_sq/1stStep-StageLib-ReqField-EHandling">
+                <cmd/>
+            </step>
+            
+            <step>
+                <cmd>On the <wintitle>Kudu</wintitle> tab, configure the following properties:</cmd>
+                <info>
+                    <table frame="all" rowsep="1" colsep="1" id="table_rk2_xqh_4v">
+                        <tgroup cols="2">
+                            <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                            <thead>
+                                <row>
+                                    <entry>Kudu Property</entry>
+                                    <entry>Description</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry>Kudu Masters</entry>
+                                    <entry>Comma-separated list of connection information for the
+                                        Kudu masters to use. Use the following format:
+                                        <codeblock>&lt;host>:&lt;port></codeblock></entry>
+                                </row>
+                                <row>
+                                    <entry>Table Name</entry>
+                                    <entry>Table to write to. Enter one of the following: <p>
+                                            <ul id="ul_ncv_cm4_1w">
+                                                <li>Name of an existing Kudu table. If the table
+                                                  doesn't exist, the pipeline fails to start.</li>
+                                                <li>Expression that evaluates to the name of an
+                                                  existing Kudu table. For example, if the table
+                                                  name is stored in the "tableName" record
+                                                  attribute, enter the following
+                                                  expression:<codeblock>${record:attribute('tableName')}</codeblock>If
+                                                  the table doesn't exist, the records are treated
+                                                  as error records.</li>
+                                            </ul>
+                                        </p><p>
+                                            <note>Impala creates Kudu tables with the following
+                                                naming convention:
+                                                  <codeblock>impala::&lt;table name></codeblock><p>When
+                                                  using a table created by Impala, be sure to use
+                                                  the entire table name. </p></note>
+                                        </p></entry>
+                                </row>
+                                <row>
+                                    <entry>Field to Column Mapping</entry>
+                                    <entry>Use to define specific mappings between record fields and
+                                        Kudu columns. By default, the destination writes field data
+                                        to columns with matching names.</entry>
+                                </row>
+                                <row>
+                                    <entry>Default Operation 
+                                        <xref
+                                            href="Kudu-DefineOperation.dita">
+                                            <image href="../Graphics/icon_moreInfo.png" scale="10"
+                                                id="image_m6p_rfp_vv"/></xref></entry>
+                                    <entry
+                                        conref="../Reusable_Content/ReusableSteps.dita#task_kzs_5vz_sq/entry_DefaultOperation"/>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </info>
+            </step>
+            <step>
+                <cmd>Optionally, click the <wintitle>Advanced</wintitle> tab and configure the
+                    following properties:</cmd>
+                <info>
+                    <table frame="all" rowsep="1" colsep="1" id="table_idr_prh_4v">
+                        <tgroup cols="2">
+                            <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                            <thead>
+                                <row>
+                                    <entry>Advanced Property</entry>
+                                    <entry>Description</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry>External Consistency</entry>
+                                    <entry>External consistency mode used to write to Kudu:<ul
+                                            id="ul_hrm_wsh_4v">
+                                            <li>Client Propagated - Ensures that writes from a
+                                                single client are automatically externally
+                                                consistent. </li>
+
+                                            <li>Commit Wait - An experimental external consistency
+                                                model that tightly synchronizes the clocks on all
+                                                machines in the cluster.</li>
+                                        </ul><p>For more information, see the Kudu
+                                            documentation.</p></entry>
+                                </row>
+                                <row>
+                                    <entry>Mutation Buffer Space</entry>
+                                    <entry>The size of the buffer that Kudu uses to write a single
+                                        batch of data, in records. Should be equal to or greater
+                                        than the number of records in the batch passed from the
+                                            pipeline.<p>Default is 1000 records. </p></entry>
+                                </row>
+                                <row>
+                                    <entry>Operation Timeout (ms)</entry>
+                                    <entry>Number of milliseconds the destination waits to allow an
+                                        operation to complete.</entry>
+                                </row>
+                                <row>
+                                    <entry>Unsupported Operation Handling
+                                        <xref
+                                            href="Kudu-DefineOperation.dita">
+                                            <image href="../Graphics/icon_moreInfo.png" scale="10"
+                                                id="image_m9p_rfp_ov"/></xref></entry>
+                                    <entry
+                                        conref="../Reusable_Content/ReusableSteps.dita#task_kzs_5vz_sq/entry_UnsupportedOperation"/>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </info>
+            </step>
+        </steps>
+    </taskbody>
+</task>

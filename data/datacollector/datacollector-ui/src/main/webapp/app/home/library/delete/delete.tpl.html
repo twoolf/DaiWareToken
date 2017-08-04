@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="no()">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <h3 class="modal-title" translate="home.library.deleteConfirmationTitle">Delete Confirmation</h3>
+</div>
+<div class="modal-body multiple-pipelines-modal-body">
+  <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+  <p ng-if="!isList"
+    translate="home.library.deleteConfirmationMessage" translate-values="{name: pipelineInfo.pipelineId}"></p>
+
+  <div ng-if="isList">
+    <p ng-if="isList"
+       translate="home.library.deletePipelinesConfirmationMessage"></p>
+    <p ng-repeat="pipeline in pipelineInfo">{{pipeline.title}}</p>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="no()" ng-if="!operationInProgress"
+          translate="global.form.no">No</button>
+  <button type="button" class="btn btn-primary" ng-click="yes()" ng-if="!operationInProgress"
+          translate="global.form.yes">Yes</button>
+  <button type="submit" class="btn btn-primary" ng-if="operationInProgress" disabled
+          translate="global.form.deleting">Deleting...</button>
+</div>

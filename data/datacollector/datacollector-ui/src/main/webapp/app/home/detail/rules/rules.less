@@ -1,0 +1,110 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.data-rules-tab, .metric-alert-rules-tab {
+  .panel-heading {
+    span {
+      top: 5px;
+      position: relative;
+    }
+  }
+  .panel-body {
+    padding: @defaultPadding;
+
+    .expand-col {
+      width: 30px;
+    }
+
+    .enabled-col {
+      width: 60px;
+    }
+
+    .actions-col {
+      width: 120px;
+    }
+
+    .no-records {
+      text-align: center;
+      padding-top: @defaultPadding * 4;
+    }
+
+    .separator-padding {
+      padding: 0 @smallPadding;
+    }
+
+    .toggler {
+      font-size: 1em;
+      line-height: 1em;
+      vertical-align: middle;
+      opacity: 0.6;
+      cursor: pointer;
+
+      &:after {
+        display: inline-block;
+        transition: transform @rotate-time ease-in;
+        content: "►";
+      }
+
+      &.open:after{
+        transform: rotate(90deg);
+      }
+    }
+
+    .table-properties {
+      list-style: none;
+      margin: 0;
+      padding-left: 150px;
+
+      li {
+        padding: @smallPadding;
+      }
+
+      .properties-label {
+        display: inline-block;
+        opacity: 0.6;
+        width: 200px;
+        color: #000000;
+      }
+
+      .properties-value {
+
+      }
+    }
+
+    .invalid-rule {
+      color: @brand-danger;
+    }
+
+    .expand-row {
+      td {
+        border-top: 0;
+      }
+    }
+
+  }
+}
+
+.email-IDs-tab {
+  padding-top: @defaultPadding * 2.5;
+  .map-list-type {
+    padding: @smallPadding 0;
+    min-width: 500px;
+  }
+}

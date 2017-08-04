@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="home.detailPane.badRecordsTab.badRecordsHistogram">Records in Error Histogram</div>
+      <div class="panel-body">
+
+        <nvd3 ng-if="errorDataLoaded" options="percentilesChartOptions" data="errorRecordsPercentilesData"
+              config="{ refreshDataOnly: true }"></nvd3>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="home.detailPane.badRecordsTab.badRecordsCounts">Bad Records Count</div>
+      <div class="panel-body">
+
+        <nvd3 ng-if="errorDataLoaded" options="barChartOptions" data="badRecordsChartData"
+              config="{ refreshDataOnly: true }"></nvd3>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="home.detailPane.badRecordsTab.errorsHistogram">Errors Histogram</div>
+      <div class="panel-body">
+
+        <nvd3 ng-if="errorDataLoaded" options="percentilesChartOptions" data="errorsPercentilesData"
+              config="{ refreshDataOnly: true }"></nvd3>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="home.detailPane.badRecordsTab.errorsCount">Errors</div>
+      <div class="panel-body">
+        <nvd3 ng-if="errorDataLoaded" options="barChartOptions" data="errorMessagesChartData"
+              config="{ refreshDataOnly: true }"></nvd3>
+
+      </div>
+    </div>
+  </div>
+</div>

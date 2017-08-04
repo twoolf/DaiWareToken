@@ -1,0 +1,46 @@
+<div class="history-tab" ng-controller="HistoryController">
+
+  <button type="button" class="btn btn-primary btn-sm add-button pull-right"
+          ng-show="isAuthorized([userRoles.admin, userRoles.creator]) && !isPipelineRunning && runHistory.length"
+          ng-click="clearHistory()">
+    <i class="fa fa-trash-o"></i> {{'home.detailPane.historyTab.clearHistory' | translate}}
+  </button>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="col-md-2" translate="global.form.lastStatusChange">Last Status Change</th>
+      <th class="col-md-1" translate="global.form.user">User</th>
+      <th class="col-md-1" translate="global.form.status">Status</th>
+      <th class="col-md-3" translate="global.form.message">Message</th>
+      <th class="col-md-3" translate="global.form.parameters">Parameters</th>
+      <th class="col-md-2" translate="home.detailPane.summary">Summary</th>
+    </tr>
+    </thead>
+    <tbody ng-hide="showLoading">
+    <tr ng-repeat="history in runHistory track by $index">
+      <td>{{history.timeStamp | date:'medium'}}</td>
+      <td>{{history.user}}</td>
+      <td ng-bind="history.status"></td>
+      <td ng-bind="history.message"></td>
+      <td>
+        <span ng-if="history.attributes && history.attributes['RUNTIME_PARAMETERS']">{{history.attributes['RUNTIME_PARAMETERS'] | json}}</span>
+      </td>
+      <td>
+        <a href="javascript:;"
+           ng-if="history.metrics"
+           translate="home.detailPane.historyTab.viewSummary"
+           ng-click="viewSummary(history, $index)">View Summary ...</a>
+      </td>
+    </tr>
+
+    <tr ng-if="runHistory.length === 0">
+      <td colspan="3" class="no-status text-center" translate="home.detailPane.historyTab.noStatus">No Status.</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <div show-loading="showLoading"></div>
+
+</div>

@@ -1,0 +1,8 @@
+<div class="pipeline-preview" ng-controller="PreviewCommonController">
+
+  <div show-loading="showLoading"></div>
+
+  <ng-include ng-if="listView" src="'app/home/preview/common/previewCommonListView.tpl.html'"></ng-include>
+  <ng-include ng-if="!listView" src="'app/home/preview/common/previewCommonTableView.tpl.html'"></ng-include>
+
+ </div>

@@ -1,0 +1,132 @@
+<div class="metric-alert-rules-tab" ng-controller="MetricAlertRulesController">
+  <div class="panel-heading clearfix">
+
+    <button type="button" class="btn btn-primary btn-sm pull-right"
+            ng-if="!isPipelineRulesReadOnly"
+            ng-click="createMetricAlertRule()">
+      <i class="fa fa-plus"></i> {{'global.form.add' | translate}}
+    </button>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" role="form"
+          ng-class="{'form-group-sm': ($storage.displayDensity === pipelineConstant.DENSITY_COZY || $storage.displayDensity === pipelineConstant.DENSITY_COMPACT)}"
+          name="{{selectedType === pipelineConstant.STAGE_INSTANCE ? 'd' + detailPaneConfig.instanceName : 'pipeline'}}">
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="expand-col">
+              <span class="pointer toggler {{expandAll ? 'open' : ''}}"
+                      ng-click="expandAll = !expandAll"></span>
+            </th>
+            <th class="alert-text-col">{{'home.detailPane.rulesTab.alertText' | translate}}</th>
+            <th class="id-col">{{'home.detailPane.rulesTab.metricID' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.condition' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.sendEmail' | translate}}</th>
+            <th class="enabled-col">{{'home.detailPane.rulesTab.enabled' | translate}}</th>
+            <th class="actions-col">{{'global.form.actions' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody ng-hide="showLoading">
+
+        <tr ng-repeat-start="alertRule in metricsRuleDefinitions = (pipelineRules.metricsRuleDefinitions) track by $index"
+            ng-init="isOpen=false;"
+            ng-click="isOpen = !isOpen"
+            class="pointer {{alertRule.valid ? '' : 'invalid-rule'}}">
+
+          <td>
+            <span class="toggler {{isOpen || expandAll ? 'open' : ''}}"
+                  ng-click="isOpen = !isOpen; $event.stopPropagation()"></span>
+          </td>
+
+          <td>
+            {{alertRule.alertText}}
+          </td>
+
+          <td>
+            {{getMetricIdLabel(alertRule)}}
+          </td>
+
+          <td class="expression-language">
+            {{alertRule.condition}}
+          </td>
+
+          <td>
+            <input type="checkbox" name="sendEmail{{$index}}"
+                   ng-disabled="alertRule.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="alertRule.sendEmail">
+          </td>
+
+          <td>
+            <input type="checkbox" name="enabled{{$index}}"
+                   ng-disabled="(!alertRule.valid && alertRule.enabled === false) || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="alertRule.enabled">
+          </td>
+
+          <td>
+            <div ng-show="!alertRule.enabled" ng-if="!isPipelineRulesReadOnly">
+              <a href="javascript:;" translate="global.form.edit"
+                 ng-click="editMetricAlertDataRule(alertRule, $index); $event.stopPropagation()">Edit</a>
+              <span class="separator-padding">|</span>
+              <a href="javascript:;"  translate="global.form.delete"
+                 ng-click="removeRule(pipelineRules.metricsRuleDefinitions, $index); $event.stopPropagation()">Delete</a>
+            </div>
+          </td>
+
+        </tr>
+
+
+        <tr ng-repeat-end ng-if="isOpen || expandAll" class="expand-row" ng-class="alertRule.valid ? '' : 'invalid-rule'">
+          <td colspan="8">
+            <ul class="table-properties">
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.metricType' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{alertRule.metricType}}
+                </span>
+              </li>
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.metricElement' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{getMetricElementLabel(alertRule)}}
+                </span>
+              </li>
+
+              <li ng-show="ruleIssues.length">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.issues' | translate}}:
+                </span>
+                <span class="properties-value">
+                  <span ng-repeat="ruleIssue in ruleIssues = (pipelineRules.ruleIssues | filter: {ruleId: alertRule.id})">
+                    <span>{{ruleIssue.message}}</span>
+                    <span ng-if="ruleIssue.additionalInfo.property === 'emailIds'">{{'home.detailPane.rulesTab.enterEmailIdMsg' | translate}}</span>
+                  </span>
+                </span>
+              </li>
+
+            </ul>
+          </td>
+        </tr>
+
+        <tr ng-if="metricsRuleDefinitions.length === 0">
+          <td colspan="7" class="no-records text-center"
+              translate="home.detailPane.rulesTab.noMetricAlertRules">No Metric Alert Rules to view.</td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      <div show-loading="showLoading"></div>
+
+    </form>
+
+  </div>
+</div>

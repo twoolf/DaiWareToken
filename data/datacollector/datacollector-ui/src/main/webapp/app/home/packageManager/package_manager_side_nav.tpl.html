@@ -1,0 +1,25 @@
+<div class="panel panel-default library-pane">
+  <div class="panel-body">
+    <ul class="list-group predefined-labels">
+
+      <li ng-repeat="navigationItem in navigationItems"
+          class="list-group-item pointer clearfix">
+
+        <div ng-click="onNavigationItemClick(navigationItem)"
+             ng-class="{'active' : selectedNavigationItem === navigationItem}"
+             class="pipeline-details-name list-group-item-wrapper">{{navigationItem}}
+        </div>
+
+      </li>
+
+      <li class="border-list-group-item"></li>
+
+      <li class="list-group-item pointer clearfix">
+        <div ng-class="{'active' : selectedNavigationItem === extrasNavigationItem}"
+             ng-click="onNavigationItemClick(extrasNavigationItem)"
+             class="pipeline-details-name list-group-item-wrapper">{{'packageManager.additionalDrivers' | translate}}
+        </div>
+      </li>
+    </ul>
+  </div>
+ </div>

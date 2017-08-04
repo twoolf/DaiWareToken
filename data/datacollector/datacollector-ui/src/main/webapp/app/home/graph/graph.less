@@ -1,0 +1,94 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.graph-pane {
+  height: 100%;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  .panel-body {
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+
+    .pipeline-graph-div {
+      float: left;
+      height: 100%;
+
+      &.with-stage-library {
+        width: calc(~"100% - 240px");
+      }
+
+      &.with-out-stage-library {
+        width: 100%;
+      }
+    }
+
+    .stage-library-div {
+      float: left;
+      width: 240px;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .alert {
+      position: absolute;
+      width: 100%;
+      margin-bottom: 0;
+      border-radius: 0;
+      z-index: 5;
+      padding-top: @defaultPadding;
+      padding-bottom: @defaultPadding;
+
+      &.alert-select-stage {
+        padding-top: @smallPadding;
+        padding-bottom: @smallPadding;
+        height: 45px;
+        overflow: hidden;
+
+        select {
+          display: inline-block;
+          width: 225px;
+          margin-left: @defaultPadding * 2;
+          margin-right: @defaultPadding * 1.5;
+
+          &.stage-in-between {
+            width: 400px;
+          }
+        }
+
+        button {
+          padding-top: @smallPadding;
+        }
+
+        .dont-show-again {
+          margin-bottom: 0;
+          margin-top: @smallPadding;
+        }
+
+      }
+    }
+
+    .draggable {
+      cursor: pointer;
+    }
+  }
+}

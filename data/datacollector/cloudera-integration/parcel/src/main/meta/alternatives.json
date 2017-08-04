@@ -1,0 +1,8 @@
+{
+  "streamsets-datacollector": {
+    "destination": "/usr/bin/streamsets",
+    "source": "bin/streamsets",
+    "priority": 10,
+    "isDirectory": false
+  }
+}

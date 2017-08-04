@@ -1,0 +1,1022 @@
+{
+  "name": "STREAMSETS",
+  "label": "StreamSets",
+  "description": "StreamSets Continuous Ingest",
+  "version": "${project.version}",
+  "compatibility": {
+    "generation": 1,
+    "cdhVersion": {"min": "5"}
+  },
+  "runAs": {
+    "user": "sdc",
+    "group": "sdc",
+    "principal": "sdc"
+  },
+  "kerberos": "${kerberos.client.enabled}",
+  "parcel": {
+    "repoUrl": "https://archives.streamsets.com/datacollector/latest/parcel/",
+    "requiredTags": ["streamsets"]
+  },
+  "icon": "images/streamsets.png",
+  "parameters" : [
+    {
+      "name" : "kerberos.client.enabled",
+      "label" : "Enable Kerberos Client",
+      "description" : "Runs the Data Collector within a Kerberos session which is propagated to all stagelibs",
+      "required" : "true",
+      "type" : "boolean",
+      "default" : "false"
+    }
+  ],
+  "commands" : [
+    {
+      "name" : "DPMTokenRegen",
+      "label" : "(Re)generate DPM tokens",
+      "description" : "(Re)generate DPM tokens for all SDC instances.",
+      "roleCommand" : "DPMTokenRegen",
+      "roleName" : "DATACOLLECTOR",
+      "runMode" : "all"
+    }
+  ],
+  "rolesWithExternalLinks" : ["DATACOLLECTOR"],
+  "roles": [
+    {
+      "name": "DATACOLLECTOR",
+      "label": "Data Collector",
+      "pluralLabel": "Data Collectors",
+      "startRunner": {
+        "program": "scripts/control.sh",
+        "args": ["start"],
+        "environmentVariables": {
+          "SDC_LOG": "${log_dir}",
+          "SDC_DATA": "${data.directory}",
+          "SDC_RESOURCES": "${resources.directory}",
+          "CONFIGURED_USERS": "${datacollector.users}",
+          "FILE_AUTH_TYPE": "${http.authentication}",
+          "LOGIN_MODULE": "${http.authentication.login.module}",
+          "USE_LDAP_FILE_CONFIG": "${use.ldap.login.file}",
+          "DPM_TOKEN_PATH": "${dpm.authToken.path}",
+          "DPM_BASE_URL": "${dpm.base.url}",
+          "DPM_USER": "${dpm.user}",
+          "DPM_PASSWORD": "${dpm.password}",
+          "SDC_JAVA_OPTS": "${java.opts}",
+          "SDC_CURL_OPTS": "${curl.opts}",
+          "DEBUG": "${debug.control.script}"
+        }
+      },
+      "kerberosPrincipals" : [
+        { "name" : "SDC_PRINCIPAL", "primary" : "${principal}", "instance" : "${host}" }
+      ],
+      "logging": {
+        "dir": "/var/log/sdc",
+        "filename": "sdc.log",
+        "configName": "sdc.log4j.dir",
+        "loggingType": "log4j",
+        "configFilename" : "sdc-log4j.properties",
+        "additionalConfigs" : [
+          {
+            "key" : "log4j.appender.streamsets.File",
+            "value" : "/var/log/sdc/sdc.log"
+          },
+          {
+            "key" : "log4j.appender.streamsets.layout.ConversionPattern",
+            "value" : "%d{ISO8601} [user:%X{s-user}] [pipeline:%X{s-entity}] [runner:%X{s-runner}] [thread:%t] %-5p %c{1} - %m%n"
+          },
+          {
+            "key" : "log4j.appender.RFA.layout.ConversionPattern",
+            "value" : "%d{ISO8601} [user:%X{s-user}] [pipeline:%X{s-entity}] [runner:%X{s-runner}] [thread:%t] %-5p %c{1} - %m%n"
+          }
+        ]
+      },
+      "commands": [
+        {
+          "name": "StreamSetsUpdateUsers",
+          "label": "Update Data Collector Users",
+          "description": "Updates the realm authentication file with the configured users.",
+          "expectedExitCodes": [0],
+          "requiredRoleState": "running",
+          "commandRunner": {
+            "program": "scripts/control.sh",
+            "args": ["update_users"],
+            "environmentVariables": {
+              "CONFIGURED_USERS": "${datacollector.users}",
+              "AUTH_TYPE": "${http.authentication}"
+            }
+          }
+        },
+        {
+          "name": "DPMTokenRegen",
+          "label" : "(Re)generate DPM token",
+          "description" : "(Re)generate DPM token for this SDC instances.",
+          "expectedExitCodes": [0],
+          "requiredRoleState": "stopped",
+          "commandRunner": {
+            "program": "scripts/control.sh",
+            "args": ["dpm"],
+            "environmentVariables": {
+              "SDC_DATA": "${data.directory}",
+              "DPM_TOKEN_PATH": "${dpm.authToken.path}",
+              "DPM_BASE_URL": "${dpm.base.url}",
+              "DPM_USER": "${dpm.user}",
+              "DPM_PASSWORD": "${dpm.password}",
+              "SDC_JAVA_OPTS": "${java.opts}",
+              "SDC_CURL_OPTS": "${curl.opts}",
+              "DEBUG": "${debug.control.script}"
+            }
+          }
+        }
+      ],
+      "externalLink": {
+        "name": "datacollector_web_ui",
+        "label": "Data Collector Web UI",
+        "url": "http://${host}:${http.port}"
+      },
+      "configWriter": {
+        "generators": [
+          {
+            "filename": "sdc.properties",
+            "configFormat": "properties",
+            "kerberosPrincipals" : [
+              {
+                "principalName" : "SDC_PRINCIPAL",
+                "propertyName" : "kerberos.client.principal"
+              }
+            ],
+            "includedParams": [
+              "sdc.base.http.url",
+              "http.port",
+              "https.port",
+              "https.keystore.path",
+              "https.keystore.password",
+              "https.cluster.keystore.path",
+              "https.cluster.keystore.password",
+              "https.truststore.path",
+              "https.truststore.password",
+              "https.cluster.truststore.path",
+              "https.cluster.truststore.password",
+              "http.authentication",
+              "http.authentication.login.module",
+              "http.authentication.ldap.role.mapping",
+              "http.realm.file.permission.check",
+              "http.session.max.inactive.interval",
+              "http.access.control.allow.origin",
+              "http.access.control.allow.headers",
+              "http.access.control.allow.methods",
+              "ui.header.title",
+              "ui.enable.usage.data.collection",
+              "ui.enable.webSocket",
+              "ui.undo.limit",
+              "mail.transport.protocol",
+              "mail.smtp.host",
+              "mail.smtp.port",
+              "mail.smtp.auth",
+              "mail.smtp.starttls.enable",
+              "mail.smtps.host",
+              "mail.smtps.port",
+              "mail.smtps.auth",
+              "xmail.username",
+              "xmail.password",
+              "xmail.from.address",
+              "monitor.memory",
+              "kerberos.client.enabled",
+              "preview.maxBatchSize",
+              "preview.maxBatches",
+              "production.maxBatchSize",
+              "production.maxErrorRecordsPerStage",
+              "production.maxPipelineErrors",
+              "stage.conf_hadoop.always.impersonate.current.user",
+              "ui.enable.webSocket",
+              "ui.enable.usage.data.collection",
+              "dpm.enabled",
+              "dpm.base.url",
+              "dpm.remote.control.job.labels",
+              "dpm.remote.control.ping.frequency",
+              "dpm.remote.control.events.recipient",
+              "pipeline.access.control.enabled",
+              "vault.addr",
+              "vault.app.id",
+              "vault.ssl.enabled.protocols",
+              "vault.ssl.truststore.file",
+              "vault.ssl.truststore.password",
+              "vault.ssl.verify",
+              "vault.ssl.timeout",
+              "vault.timeout",
+              "vault.lease.renewal.interval.sec",
+              "vault.lease.expiration.buffer.sec",
+              "vault.open.timeout",
+              "vault.proxy.address",
+              "vault.proxy.port",
+              "vault.proxy.username",
+              "vault.proxy.password",
+              "vault.read.timeout",
+              "runner.thread.pool.size"
+            ],
+            "excludedParams": [
+              "datacollector.users",
+              "ldap.bindPassword",
+              "ldap.bindDn"
+            ],
+            "additionalConfigs" : [
+              {
+                "key" : "kerberos.client.keytab",
+                "value" : "streamsets.keytab"
+              },
+              {
+                "key" : "clouderaManager.managed",
+                "value" : "true"
+              },
+              {
+                "key" : "ui.local.help.base.url",
+                "value" : "/docs"
+              },
+              {
+                "key" : "ui.refresh.interval.ms",
+                "value" : "2000"
+              },
+              {
+                "key" : "ui.jvmMetrics.refresh.interval.ms",
+                "value" : "4000"
+              }
+            ]
+          },
+          {
+            "filename": "ldap.properties",
+            "configFormat": "properties",
+            "includedParams": [
+              "ldap.debug",
+              "ldap.hostname",
+              "ldap.port",
+              "ldap.useLdaps",
+              "ldap.useStartTLS",
+              "ldap.bindDn",
+              "ldap.bindPassword",
+              "ldap.authenticationMethod",
+              "ldap.forceBindingLogin",
+              "ldap.userBaseDn",
+              "ldap.userRdnAttribute",
+              "ldap.userIdAttribute",
+              "ldap.userPasswordAttribute",
+              "ldap.userObjectClass",
+              "ldap.userFilter",
+              "ldap.roleBaseDn",
+              "ldap.roleFilter",
+              "ldap.roleNameAttribute",
+              "ldap.roleMemberAttribute",
+              "ldap.roleObjectClass"
+            ],
+            "excludedParams": [
+              "http.authentication.ldap.role.mapping",
+              "http.authentication.login.module"
+            ]
+          }
+        ],
+        "auxConfigGenerators": [
+          {
+            "filename": "sdc-security.policy",
+            "sourceFilename": "aux/sdc-security.policy"
+          },
+          {
+            "filename": "sdc-env.sh",
+            "sourceFilename": "aux/sdc-env.sh"
+          },
+          {
+            "filename": "support-bundle-redactor.json",
+            "sourceFilename": "aux/support-bundle-redactor.json"
+          },
+          {
+            "filename": "ldap-login.conf"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "sdc.base.http.url",
+          "label": "Data collector base URL",
+          "description": "The base URL is used in created email alerts. By default value from http.port and machine's hostname will be used.",
+          "type": "string"
+        },
+        {
+          "name": "http.port",
+          "label": "Web UI Port",
+          "description": "The port that will be used for the Data Collector Web UI. If set to 0, port will be selected randomly",
+          "type": "port",
+          "zeroAllowed": "true",
+          "negativeOneAllowed": "true",
+          "default": 18630
+        },
+        {
+          "name": "https.port",
+          "label": "Secure Web UI Port",
+          "description": "The port that will be used for the Data Collector Web UI over HTTPS. If set to a value other than -1, the SDC will run SSL on this port",
+          "type": "port",
+          "zeroAllowed": "true",
+          "negativeOneAllowed": "true",
+          "default": -1
+        },
+        {
+          "name": "http.session.max.inactive.interval",
+          "label": "HTTP Session Timeout",
+          "description": "Max period of inactivity, after which the HTTP session is invalidated, in seconds.",
+          "type": "long",
+          "unit": "seconds",
+          "default": 86400
+        },
+        {
+          "name": "data.directory",
+          "label": "Data directory",
+          "description": "The directory where pipeline metadata will be stored",
+          "type": "path",
+          "default": "/var/lib/sdc/data",
+          "pathType": "localDataDir",
+          "required": "true",
+          "configurableInWizard": true
+        },
+        {
+          "name": "resources.directory",
+          "label": "Resources directory",
+          "description": "The directory where additional resources for the Data Collector will be stored",
+          "type": "path",
+          "default": "/var/lib/sdc/resources",
+          "pathType": "localDataDir",
+          "required": "true",
+          "configurableInWizard": true
+        },
+        {
+          "name": "http.authentication",
+          "label": "HTTP File Authentication Method",
+          "description": "File-based authentication method for the Data Collector HTTP endpoint",
+          "type": "string_enum",
+          "validValues": [
+            "form",
+            "none",
+            "basic",
+            "digest"
+          ],
+          "default": "form"
+        },
+        {
+          "name": "http.authentication.login.module",
+          "label": "HTTP Authentication Login Module",
+          "description": "For 'file', the authentication and role information is read from a property file (etc/basic-realm.properties, etc/digest-realm.properties or etc/form-realm.properties based on the 'http.authentication' value). For 'ldap', the authentication and role information is read from a LDAP or Active Directory server.",
+          "type": "string_enum",
+          "validValues": [
+            "file",
+            "ldap"
+          ],
+          "default": "file"
+        },
+        {
+          "name": "http.authentication.ldap.role.mapping",
+          "label": "HTTP Authentication LDAP Role Mapping",
+          "description": "Mapping between LDAP groups and StreamSets Roles. The mapping is specified as the following pattern: &ltldap-group&gt:&ltsdc-role&gt(,&ltsdc-role&gt)*(;&ltldap-group&gt:&ltsdc-role&gt(,&ltsdc-role&gt)*)*. e.g. Administrator:admin;Manager:manager;DevOP:creator;Tester:guest;",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "ldap.login.module.name",
+          "label": "LDAP Login Module Name",
+          "description": "The login module name that identifies the login module to use for data collector. Assumes 'ldap' if none specified.",
+          "type": "string",
+          "default": "ldap"
+        },
+        {
+          "name": "use.ldap.login.file",
+          "label": "Use Safety Valve to edit LDAP information",
+          "description": "Edit ldap-login.conf directly from Safety Valve instead of entering configuration from Configuration Wizard. If checked, all ldap.* entries are ignored",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "datacollector.users",
+          "label": "Data Collector Users",
+          "description": "Users that should have access to Data Collectors. Only used for file-based authentication. Users are specified in the format  &ltuser&gt: MD5:&ltpassword_hash&gt,user[,&ltrole&gt,&ltrole&gt,...]. Supported roles are: admin, manager, creator, guest.",
+          "type": "string_array",
+          "default": [
+            "admin:   MD5:21232f297a57a5a743894a0e4a801fc3,user,admin",
+            "guest:   MD5:084e0343a0486ff05530df6c705c8bb4,user,guest",
+            "creator: MD5:ee2433259b0fe399b40e81d2c98a38b6,user,creator",
+            "manager: MD5:1d0258c2440a8d19e716292b231e3190,user,manager"
+          ],
+          "separator": ";"
+        },
+        {
+          "name": "https.keystore.path",
+          "label": "Java KeyStore Path",
+          "description": "Path to Java keystore file",
+          "type": "path",
+          "pathType": "serviceSpecific",
+          "default": "keystore.jks"
+        },
+        {
+          "name": "https.keystore.password",
+          "label": "Java KeyStore Password",
+          "description": "Password for Java Keystore file",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "name": "https.cluster.keystore.path",
+          "label": "Java KeyStore Path on Worker node",
+          "description": "Path to keystore file on worker node. This should always be an absolute location.",
+          "type": "path",
+          "pathType": "serviceSpecific",
+          "default": "/opt/security/jks/sdc-keystore.jks"
+        },
+        {
+          "name": "https.cluster.keystore.password",
+          "label": "Java KeyStore Password on Worker node",
+          "description": "Password for keystore file on worker.",
+          "type": "password",
+          "default": "${file(\"/opt/security/jks/keystore-password.txt\")}"
+        },
+        {
+          "name": "https.truststore.path",
+          "label": "Java TrustStore Path",
+          "description": "Java truststore file on gateway sdc which stores certificates to trust identity of workers.",
+          "type": "path",
+          "pathType": "serviceSpecific",
+          "default": ""
+        },
+        {
+          "name": "https.truststore.password",
+          "label": "Java TrustStore Password",
+          "description": "Password for truststore file",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "name": "https.cluster.truststore.path",
+          "label": "Java TrustStore Path on Worker node",
+          "description": "Path to truststore file on worker node. This should always be an absolute location.",
+          "type": "path",
+          "pathType": "serviceSpecific",
+          "default": ""
+        },
+        {
+          "name": "https.cluster.truststore.password",
+          "label": "Java TrustStore Password on Worker node",
+          "description": "Password for truststore file on worker.",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "name": "http.realm.file.permission.check",
+          "label": "HTTP Realm File Permission Check",
+          "description": "Validate that the permissions of the realm file are owner-readable only",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "http.access.control.allow.origin",
+          "label": "HTTP access control origins",
+          "description": "List of domains allowed to access the Data Collector REST API for cross-origin resource sharing (CORS). Default is the asterisk wildcard (*) which means that any domain can access the Data Collector REST API.",
+          "type": "string_array",
+          "default": ["*"]
+        },
+        {
+          "name": "http.access.control.allow.headers",
+          "label": "HTTP access control headers",
+          "description": "List of HTTP headers allowed during a cross-domain request.",
+          "type": "string_array",
+          "default": ["origin", "content-type", "accept", "authorization", "x-requested-by", "x-ss-user-auth-token", "x-ss-rest-call"]
+        },
+        {
+          "name": "http.access.control.allow.methods",
+          "label": "HTTP access control methods",
+          "description": "List of HTTP methods that can be called during a cross-domain request.",
+          "type": "string_array",
+          "default": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"]
+        },
+        {
+          "name": "production.maxBatchSize",
+          "label": "Max Batch Size (Running)",
+          "description": "The maximum batch size while the pipeline is actively running",
+          "type": "long",
+          "default": 1000
+        },
+        {
+          "name": "preview.maxBatchSize",
+          "label": "Max Batch Size (Preview)",
+          "description": "The maximum batch size while the pipeline is in preview mode",
+          "type": "long",
+          "default": 10
+        },
+        {
+          "name": "preview.maxBatches",
+          "label": "Max Batches (Preview)",
+          "description": "The maximum number of batches that can be read in preview mode",
+          "type": "long",
+          "default": 10
+        },
+        {
+          "name": "production.maxErrorRecordsPerStage",
+          "label": "Max Error Records Per Stage",
+          "description": "The max number of error records, per stage, that will be retained in memory when the pipeline is running. If set to zero, error records will not be retained in memory. If the specified limit is reached the oldest records will be discarded to make room for the newest one.The maximum size that the error output file is allowed to reach before being rolled over to backup files",
+          "type": "long",
+          "default": 100
+        },
+        {
+          "name": "production.maxPipelineErrors",
+          "label": "Max Error Records Per Stage",
+          "description": "The max number of errors per pipeline that will be retained in memory when the pipeline is running. If set to zero, error records will not be retained in memory. If the specified limit is reached the oldest records will be discarded to make room for the newest one.The maximum size that the error output file is allowed to reach before being rolled over to backup files",
+          "type": "long",
+          "default": 100
+        },
+        {
+          "name": "stage.conf_hadoop.always.impersonate.current.user",
+          "label": "Hadoop Impersonate current user",
+          "description": "Set to true if SDC should always impersonate authenticated user when writing to or reading from Hadoop components.",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "ldap.hostname",
+          "label": "LDAP Host",
+          "description": "LDAP server host name.",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "ldap.port",
+          "label": "LDAP Port",
+          "description": "LDAP server port. Typically 389 for LDAP and 636 for LDAPS.",
+          "type": "port",
+          "outbound":"true",
+          "default": "389"
+        },
+        {
+          "name": "ldap.useLdaps",
+          "label": "Use LDAPS Protocol",
+          "description": "Enables using LDAP over SSL.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "ldap.useStartTLS",
+          "label": "Use StartTLS",
+          "description": "Enables using LDAP over SSL/TLS.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "ldap.bindDn",
+          "label": "LDAP Bind DN",
+          "description": "The distinguished name to use for binding to LDAP for authentiction.",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "ldap.bindPassword",
+          "label": "LDAP Bind Password",
+          "description": "The password to use for binding to LDAP for authentiction.",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "name": "ldap.authenticationMethod",
+          "label": "LDAP Authentication Method",
+          "description": "Authentication method for LDAP (simple, sasl, tls, etc.)",
+          "type": "string",
+          "default": "simple"
+        },
+        {
+          "name": "ldap.forceBindingLogin",
+          "label": "Force Binding Login for LDAP",
+          "description": "Determines if binding login checks are performed.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "ldap.userBaseDn",
+          "label": "LDAP User Base DN",
+          "description": "Base DN under which user accounts are located.",
+          "type": "string",
+          "default": "ou=people,dc=company"
+        },
+        {
+          "name": "ldap.userRdnAttribute",
+          "label": "LDAP Username Attribute",
+          "description": "Name of the username attribute.",
+          "type": "string",
+          "default": "uid"
+        },
+        {
+          "name": "ldap.userIdAttribute",
+          "label": "LDAP User ID Attribute",
+          "description": "Name of the user ID attribute.",
+          "type": "string",
+          "default": "uid"
+        },
+        {
+          "name": "ldap.userPasswordAttribute",
+          "label": "LDAP User Password Attribute",
+          "description": "Name of the attribute where the user password is stored.",
+          "type": "string",
+          "default": "userPassword"
+        },
+        {
+          "name": "ldap.userObjectClass",
+          "label": "LDAP User Object Class",
+          "description": "Name of the user object class.",
+          "type": "string",
+          "default": "inetOrgPerson"
+        },
+        {
+          "name": "ldap.userFilter",
+          "label": "Filter to search a user",
+          "description": "Filter to be used in ldapsearch query. Default is uid={user}, where {user} will be replaced with the username user entered to login to SDC.",
+          "type": "string",
+          "default": "uid={user}"
+        },
+        {
+          "name": "ldap.roleBaseDn",
+          "label": "LDAP Role Base DN",
+          "description": "Base DN to search for role membership.",
+          "type": "string",
+          "default": "ou=groups,dc=example,dc=com"
+        },
+        {
+          "name": "ldap.roleNameAttribute",
+          "label": "LDAP Role Name Attribute",
+          "description": "Name of the attribute for role names.",
+          "type": "string",
+          "default": "cn"
+        },
+        {
+          "name": "ldap.roleMemberAttribute",
+          "label": "LDAP Role Member Attribute",
+          "description": "Name of the role attribute for user names.",
+          "type": "string",
+          "default": "uniqueMember"
+        },
+        {
+          "name": "ldap.roleObjectClass",
+          "label": "LDAP Role Object Class",
+          "description": "Name of the Role object class.",
+          "type": "string",
+          "default": "groupOfUniqueNames"
+        },
+        {
+          "name": "ldap.roleFilter",
+          "label": "Filter to search roles",
+          "description": "Filter to be used in ldapsearch query. Default is member={dn}, where {dn} will be replaced with user's full DN.",
+          "type": "string",
+          "default": "member={dn}"
+        },
+        {
+          "name": "ldap.debug",
+          "label": "Enable LDAP Debug Logging",
+          "description": "Enable debug logging for LDAP connections.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "ui.header.title",
+          "label": "Header title",
+          "description": "Optional text to display in the Data Collector console next to the StreamSets logo.",
+          "type": "string",
+          "default":  ""
+        },
+        {
+          "name": "ui.enable.usage.data.collection",
+          "label": "Usage collection",
+          "description": "Allows anonymous Google Analytics information to be sent to StreamSets.",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "ui.enable.webSocket",
+          "label": "Enable websockets",
+          "description": "Enables Data Collector to use WebSocket to gather pipeline information.",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "ui.undo.limit",
+          "label": "Undo limit",
+          "description": "Number of recent actions stored so you can undo them.",
+          "type": "long",
+          "default": 10
+        },
+        {
+          "name": "mail.transport.protocol",
+          "label": "Email protocol",
+          "description": "Use smtp or smtps.",
+          "type": "string_enum",
+          "validValues": ["smtp", "smtps"],
+          "default":  "smtp"
+        },
+        {
+          "name": "mail.smtp.host",
+          "label": "SMTP Host name",
+          "description": "Hostname of the SMTP server.",
+          "type": "string",
+          "default": "localhost"
+        },
+        {
+          "name": "mail.smtp.port",
+          "label": "SMTP Port number",
+          "description": "Port of the SMTP server.",
+          "type": "port",
+          "outbound":"true",
+          "default": 25
+        },
+        {
+          "name": "mail.smtp.auth",
+          "label": "SMTP Authentication",
+          "description": "Whether the SMTP host uses authentication. ",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "mail.smtp.starttls.enable",
+          "label": "Enable SMTP TLS",
+          "description": "Whether the SMTP host uses STARTTLS encryption.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "mail.smtps.host",
+          "label": "SMTPS Host name",
+          "description": "Hostname of the SMTPS server.",
+          "type": "string",
+          "default": "localhost"
+        },
+        {
+          "name": "mail.smtps.port",
+          "label": "SMTPS Port number",
+          "description": "Port of the SMTPS server.",
+          "type": "port",
+          "outbound":"true",
+          "default": 25
+        },
+        {
+          "name": "mail.smtps.auth",
+          "label": "SMTPS Authentication",
+          "description": "Whether the SMTPS host uses authentication.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "xmail.username",
+          "label": "Mail username",
+          "description": "User name for the email account to send alert email.",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "xmail.password",
+          "label": "Mail password",
+          "description": "Password for the email account to send alert email.",
+          "type": "password"
+        },
+        {
+          "name": "monitor.memory",
+          "label": "Stage memory monitoring",
+          "description": "Monitor memory of stages. Use only to test real-world load usage in test or production environments.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "runner.thread.pool.size",
+          "label": "Pipeline runner thread pool",
+          "description": "Number of threads that are used for running pipelines.",
+          "type": "long",
+          "default": 50
+        },
+        {
+          "name": "xmail.from.address",
+          "label": "Mail from address",
+          "description": "Email address to send alert email.",
+          "type": "string",
+          "default": "sdc@localhost"
+        },
+        {
+          "name": "store.pipeline.state.cache.maximum.size",
+          "label": "Pipeline State Cache Maximum size",
+          "description": "Specifies the maximum number of pipeline state entries the cache may contain",
+          "type": "long",
+          "default": 100
+        },
+        {
+          "name": "store.pipeline.state.cache.expire.after.access",
+          "label": "Pipeline State Cache Expire Time",
+          "description": "Specifies that each pipeline state entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, the most recent replacement of its value, or its last access. In minutes",
+          "type": "long",
+          "default": 10
+        },
+        {
+          "name": "vault.addr",
+          "type": "string",
+          "label": "Vault Address",
+          "description": "Vault server URL.",
+          "required": "false"
+        },
+        {
+          "name": "vault.app.id",
+          "type": "string",
+          "label": "Vault App ID",
+          "description": "App ID to use for authentication",
+          "required": "false"
+        },
+        {
+          "name": "vault.ssl.enabled.protocols",
+          "type":  "string",
+          "label": "Vault SSL/TLS Protocols Enabled",
+          "description": "TLS versions to allow when connecting to Vault.",
+          "default": "TLSv1.2,TLSv1.3",
+          "required": "false"
+        },
+        {
+          "name": "vault.ssl.truststore.file",
+          "type": "string",
+          "label": "Vault Trust Store",
+          "description": "Trust Store to load for use when connecting to Vault over TLS",
+          "required": "false"
+        },
+        {
+          "name": "vault.ssl.truststore.password",
+          "type": "password",
+          "label": "Vault Trust Store Password",
+          "description": "Password for the Vault Trust Store",
+          "required": "false"
+        },
+        {
+          "name": "vault.ssl.verify",
+          "type": "boolean",
+          "label": "Verify Vault TLS Connections",
+          "description": "Disabling will not verify certificate validity when connecting to Vault over TLS",
+          "required": "false"
+        },
+        {
+          "name": "vault.ssl.timeout",
+          "type": "long",
+          "label": "Vault SSL/TLS Connection Timeout",
+          "description": "Vault SSL/TLS Connection Timeout",
+          "required": "false"
+        },
+        {
+          "name": "vault.timeout",
+          "type": "long",
+          "label": "Vault Timeout",
+          "description": "Vault Timeout",
+          "required": "false"
+        },
+        {
+          "name": "vault.lease.renewal.interval.sec",
+          "type": "long",
+          "label": "Vault Lease Renewal Interval (seconds)",
+          "description": "How often to check whether a lease needs to be renewed",
+          "required": "false"
+        },
+        {
+          "name": "vault.lease.expiration.buffer.sec",
+          "type": "long",
+          "label": "Vault Lease Expiration Buffer (seconds)",
+          "description": "Threshold for when SDC will renew a lease that will expire soon.",
+          "required": "false"
+        },
+        {
+          "name": "vault.open.timeout",
+          "type": "long",
+          "label": "Vault Connection Open Timeout",
+          "description": "Vault Connection Open Timeout",
+          "required": "false"
+        },
+        {
+          "name": "vault.proxy.address",
+          "type": "string",
+          "label": "Vault Proxy Address",
+          "description": "Proxy to use with connections to Vault.",
+          "required": "false"
+        },
+        {
+          "name": "vault.proxy.port",
+          "type": "port",
+          "label": "Vault Proxy Port",
+          "description": "Vault Proxy Port",
+          "required": "false"
+        },
+        {
+          "name": "vault.proxy.username",
+          "type": "string",
+          "label": "Vault Proxy Username",
+          "description": "Vault Proxy Username",
+          "required": "false"
+        },
+        {
+          "name": "vault.proxy.password",
+          "type": "password",
+          "label": "Vault Proxy Password",
+          "description": "Vault Proxy Password",
+          "required": "false"
+        },
+        {
+          "name": "vault.read.timeout",
+          "type": "long",
+          "label": "Vault HTTP Read Timeout (secs)",
+          "description": "Vault HTTP Read Timeout (secs)",
+          "required": "false"
+        },
+        {
+          "name": "dpm.enabled",
+          "type": "boolean",
+          "default": "false",
+          "label": "Enable DPM",
+          "description": "Enable StreamSets Enterprise",
+          "required": "false"
+        },
+        {
+          "name": "dpm.base.url",
+          "type": "uri",
+          "default": "",
+          "label": "DPM URL",
+          "description": "Base URL for DPM.",
+          "required": "false",
+          "conformRegex" : "^.*[^/]$"
+        },
+        {
+          "name": "dpm.user",
+          "type": "string",
+          "default": "",
+          "label": "DPM User ID",
+          "description": "User ID of organization admin that have privileges to register new SDCs.",
+          "required": "false"
+        },
+        {
+          "name": "dpm.password",
+          "type": "password",
+          "default": "",
+          "label": "DPM Password",
+          "description": "Password of organization admin that have privileges to register new SDCs.",
+          "required": "false"
+        },
+        {
+          "name": "dpm.remote.control.job.labels",
+          "type": "string_array",
+          "label": "DPM labels",
+          "description": "Labels that will be reported to DPM.",
+          "default": ["all"],
+          "required": "false"
+        },
+        {
+          "name": "dpm.remote.control.ping.frequency",
+          "type": "long",
+          "label": "DPM Ping Frequency",
+          "description": "Data Collector Ping Frequency to DPM (in milliseconds)",
+          "default": "5000",
+          "required": "false"
+        },
+        {
+          "name": "dpm.remote.control.events.recipient",
+          "type": "string",
+          "label": "DPM Remote control App",
+          "description": "App to send remote control events",
+          "default": "jobrunner-app",
+          "required": "false"
+        },
+        {
+          "name": "dpm.authToken.path",
+          "type": "path",
+          "pathType": "localDataDir",
+          "default": "/etc/cm-sdc-dpm/",
+          "label": "DPM token location",
+          "description": "Location on each machine's local drive where DPM authentication token for SDC will be kept.",
+          "required": "false"
+        },
+        {
+          "name": "debug.control.script",
+          "type": "boolean",
+          "default": "false",
+          "label": "Debug control script",
+          "description": "When enabled the main control script will run with `set -x` and will print each executed command. This is particularly helpful during troubleshooting an issue, however can leak sensitive information and shouldn't be used if not needed.",
+          "required": "false"
+        },
+        {
+          "name": "java.opts",
+          "type": "string",
+          "default": "",
+          "label": "Java options",
+          "description": "Additional configuration for variable SDC_JAVA_OPTS that will be passed down to the JVM running data collector.",
+          "required": "false"
+        },
+        {
+          "name": "curl.opts",
+          "type": "string",
+          "default": "--tlsv1.2",
+          "label": "Curl options",
+          "description": "Additional arguments that should be passed to curl when registering data collectors with DPM.",
+          "required": "false"
+        },
+        {
+          "name": "pipeline.access.control.enabled",
+          "type": "boolean",
+          "default": "false",
+          "label": "Pipeline Sharing / ACLs",
+          "description": "Pipeline Sharing / ACLs",
+          "required": "false"
+        }
+      ]
+    }
+  ]
+}

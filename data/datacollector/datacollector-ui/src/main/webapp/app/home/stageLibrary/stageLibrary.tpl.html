@@ -1,0 +1,65 @@
+<div class="stage-library-pane" ng-controller="StageLibraryController">
+  <form class="form-group-sm">
+
+    <div class="stage-filter">
+      <select class="form-control" name="stageLibrary" ng-model="$storage.stageFilterGroup"
+              ng-change="onStageFilterGroupChange()"
+              ng-options="stageGroup.label group by stageGroup.group for stageGroup in stageGroups track by stageGroup.name">
+        <option value="">{{'global.form.allStages' | translate}}</option>
+      </select>
+    </div>
+
+    <div class="btn-group stage-search" >
+      <input type="search" class="form-control" placeholder="Type to search"
+             ng-model="searchInput"
+             ng-change="onStageFilterGroupChange()">
+      <span class="glyphicon glyphicon-remove-circle search-clear"
+            ng-click="searchInput = '';onStageFilterGroupChange();"></span>
+    </div>
+
+    <div class="stage-list-container">
+      <ul class="stages-list">
+        <li draggable drag-data="stageLibrary"
+            ng-repeat="stageLibrary in filteredStageLibraries | orderBy: 'label'"
+            ng-init="icon=getStageIconURL(stageLibrary)"
+            tooltip-placement="{{$index < filteredStageLibraries.length - 2 ? 'bottom' : 'top'}}"
+            tooltip="{{stageLibrary.description}}"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="500">
+          <a role="menuitem" tabindex="-1" href="/"
+             ng-click="addStageInstance({stage: stageLibrary}, $event)"
+             ng-style="{'background-image': 'url({{icon}})'}">
+            <span>{{stageLibrary.label}}</span>
+            <span
+              ng-if="$storage.stageFilterGroup.group !== 'Type' && stageLibrary.type == 'SOURCE'"
+              class="circle origin">O</span>
+
+            <span
+              ng-if="$storage.stageFilterGroup.group !== 'Type' && stageLibrary.type == 'PROCESSOR'"
+              class="circle processor">P</span>
+
+            <span
+              ng-if="$storage.stageFilterGroup.group !== 'Type' && stageLibrary.type == 'TARGET'"
+              class="circle destination">D</span>
+
+            <span
+              ng-if="$storage.stageFilterGroup.group !== 'Type' && stageLibrary.type == 'EXECUTOR'"
+              class="circle executor">E</span>
+          </a>
+        </li>
+
+        <li tooltip-placement="top"
+            tooltip="{{'packageManager.title' | translate}}"
+            tooltip-append-to-body="true"
+            tooltip-popup-delay="500">
+          <a role="menuitem" tabindex="-1" href="/collector/packageManager"
+             ng-style="{'background-image': 'url(/assets/add.png)'}">
+            <span>{{'global.form.addAndRemoveStages' | translate}}</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </form>
+</div>

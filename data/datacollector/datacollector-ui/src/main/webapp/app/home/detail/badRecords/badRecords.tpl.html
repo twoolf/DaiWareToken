@@ -1,0 +1,8 @@
+<div ng-controller="BadRecordsController"  class="bad-records-tab container-fluid ">
+  <div ng-show="detailPaneConfig.instanceName"
+       ng-include="'app/home/detail/badRecords/stageBadRecords.tpl.html'"></div>
+
+  <div ng-hide="detailPaneConfig.instanceName"
+       ng-include="'app/home/detail/badRecords/pipelineBadRecords.tpl.html'"></div>
+
+</div>

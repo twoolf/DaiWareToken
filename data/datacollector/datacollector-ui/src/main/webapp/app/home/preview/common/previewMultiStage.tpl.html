@@ -1,0 +1,5 @@
+<div class="pipeline-preview" ng-controller="PreviewMultiStageController">
+  <div show-loading="showLoading"></div>
+  <ng-include ng-if="listView" src="'app/home/preview/common/previewMultiStageListView.tpl.html'"></ng-include>
+  <ng-include ng-if="!listView" src="'app/home/preview/common/previewMultiStageTableView.tpl.html'"></ng-include>
+</div>

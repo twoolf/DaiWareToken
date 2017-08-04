@@ -1,0 +1,69 @@
+<form class="download-remote-modal-form" role="form">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title" translate="home.commitPipelineHistory.headerLabel">Pipeline Commit History</h3>
+  </div>
+  <div class="modal-body">
+
+    <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+    <table class="table">
+      <caption>{{pipelineInfo.title}} Commits</caption>
+      <thead>
+      <tr>
+        <th translate="home.downloadRemote.version">Version</th>
+
+        <th translate="home.commitPipelineHistory.commitTime">Commit Time</th>
+
+        <th translate="home.commitPipelineHistory.committer">Committer</th>
+
+        <th translate="home.downloadRemote.commitMessage">Commit Message</th>
+
+        <th translate="home.downloadRemote.actions">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="remotePipeline in pipelinesCommit">
+
+        <td>{{remotePipeline.version}}</td>
+
+        <td>{{remotePipeline.commitTime | date: 'medium'}}</td>
+
+        <td>{{remotePipeline.committer}}</td>
+
+        <td>{{remotePipeline.commitMessage}}</td>
+
+        <td>
+          <a href="javascript:;" translate="global.form.getThisVersion"
+             ng-if="pipelineVersion !== remotePipeline.version && !downloading"
+             ng-click="downloadRemotePipeline(remotePipeline, $index); $event.stopPropagation()">Get</a>
+          <span ng-if="pipelineVersion === remotePipeline.version && !downloading">Current</span>
+        </td>
+      </tr>
+
+      <tr ng-if="pipelinesCommit.length === 0">
+        <td colspan="5" class="no-records text-center"
+            translate="home.commitPipelineHistory.noCommits">No Commits to view.</td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <ul class="properties clearfix">
+      <li class="pull-right">
+        <span class="properties-label">{{'home.publish.pipelineRepository' | translate}}: </span>
+        <span class="properties-value">
+          <a href="{{remoteBaseUrl}}" target="_blank">{{remoteBaseUrl}}</a>
+        </span>
+      </li>
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-default"
+            ng-click="close()">{{((downloading) ? 'global.form.downloading' : 'global.form.close') | translate}}</button>
+  </div>
+</form>

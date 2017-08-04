@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017 StreamSets Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.streamsets</groupId>
+  <artifactId>streamsets-datacollector</artifactId>
+  <version>2.7.0.0-SNAPSHOT</version>
+  <description>StreamSets Data Collector</description>
+  <name>StreamSets Data Collector</name>
+  <packaging>pom</packaging>
+  <url>http://www.streamsets.com</url>
+  <scm>
+    <url>https://github.com/streamsets/datacollector</url>
+  </scm>
+
+  <organization>
+    <name>StreamSets</name>
+    <url>http://www.streamsets.com</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <!-- TODO add rest of team-->
+    <developer>
+      <id>brock</id>
+      <name>Brock Noland</name>
+      <email>brock@streamsets.com</email>
+      <timezone>America/Chicago</timezone>
+    </developer>
+  </developers>
+
+  <properties>
+    <rat-plugin.version>0.12</rat-plugin.version>
+
+    <!--
+         Stage libraries that always built with the data collector (they dont have protolibs)
+
+         IMPORTANT: keep this in alphabetical order
+
+         IMPORTANT: define a property matching the module directory name
+         for every stage library here with the directory name as value
+    -->
+
+    <aws-lib>aws-lib</aws-lib>
+    <basic-lib>basic-lib</basic-lib>
+    <bigtable-lib>bigtable-lib</bigtable-lib>
+    <dev-lib>dev-lib</dev-lib>
+    <google-cloud-lib>google-cloud-lib</google-cloud-lib>
+    <influxdb_0_9-lib>influxdb_0_9-lib</influxdb_0_9-lib>
+    <jks-credentialstore-lib>jks-credentialstore-lib</jks-credentialstore-lib>
+    <jdbc-lib>jdbc-lib</jdbc-lib>
+    <jms-lib>jms-lib</jms-lib>
+    <mysql-binlog-lib>mysql-binlog-lib</mysql-binlog-lib>
+    <omniture-lib>omniture-lib</omniture-lib>
+    <rabbitmq-lib>rabbitmq-lib</rabbitmq-lib>
+    <redis-lib>redis-lib</redis-lib>
+    <salesforce-lib>salesforce-lib</salesforce-lib>
+    <stats-lib>stats-lib</stats-lib>
+
+  </properties>
+
+  <!-- StreamSets Data Collector API being used -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.streamsets</groupId>
+        <artifactId>streamsets-datacollector-api</artifactId>
+        <version>2.7.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.streamsets</groupId>
+        <artifactId>streamsets-datacollector-spark-api</artifactId>
+        <version>2.7.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.0.41.Final</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+
+    <!-- IMPORTANT: The main section of the POM must not include any stage library module -->
+
+    <module>rbgen-maven-plugin</module>
+    <module>root-proto</module>
+    <module>root</module>
+    <module>testing</module>
+    <module>bootstrap</module>
+    <module>utils</module>
+    <module>sso</module>
+    <module>common</module>
+    <module>container-common</module>
+    <module>google-common</module>
+    <module>json-dto</module>
+    <module>messaging-client</module>
+    <module>container</module>
+    <module>miniSDC</module>
+    <module>sdk</module>
+    <module>stage-lib-archetype</module>
+    <module>hadoop-common</module>
+    <module>mapr-common</module>
+
+    <module>root-lib</module>
+
+    <module>commonlib</module>
+    <module>httpcommonlib</module>
+    <module>net-commonlib</module>
+
+    <module>navigator-protolib</module>
+
+    <module>lookup-protolib</module>
+
+    <module>hdfs-protolib</module>
+    <module>mapreduce-protolib</module>
+    <module>maprfs-protolib</module>
+    <module>maprdb-protolib</module>
+    <module>mapr_json-protolib</module>
+    <module>hive-protolib</module>
+
+    <module>sdc-kafka-api</module>
+    <module>sdc-kafka_0_8</module>
+    <module>sdc-kafka_0_9-common</module>
+    <module>sdc-kafka_0_9</module>
+    <module>sdc-kafka_0_9_mapr_5_1</module>
+    <module>sdc-kafka_0_10</module>
+    <module>kafka-common</module>
+    <module>kafka_source-protolib</module>
+    <module>kafka_target-protolib</module>
+    <module>maprstreams-common</module>
+    <module>maprstreams-target-protolib</module>
+    <module>maprstreams-source-protolib</module>
+    <module>jython-protolib</module>
+    <module>groovy-protolib</module>
+
+    <module>elasticsearch-protolib</module>
+
+    <module>solr-protolib</module>
+
+    <module>cassandra-protolib</module>
+
+    <module>mongodb-protolib</module>
+
+    <module>flume-protolib</module>
+
+    <module>cluster-hdfs-protolib</module>
+    <module>hbase-protolib</module>
+    <module>kudu-protolib</module>
+    <module>cluster-common</module>
+    <module>cluster-kafka-protolib</module>
+    <module>cluster-bootstrap-api</module>
+    <module>cluster-bootstrap</module>
+    <module>mapr-cluster-bootstrap</module>
+    <module>mesos-bootstrap</module>
+    <module>client-api</module>
+    <module>cli</module>
+    <module>common-ui</module>
+    <module>sdc-solr-api</module>
+    <module>sdc-solr_cdh_4</module>
+    <module>sdc-solr_6</module>
+    <module>spark-executor-protolib</module>
+    <module>spark-processor-protolib</module>
+
+    <!--
+         Stage libraries that always built with the data collector (they dont have protolibs)
+
+         IMPORTANT: keep this in alphabetical order
+
+         IMPORTANT: define a property matching the module directory name
+         for every stage library here with the directory name as value
+    -->
+    <module>aws-lib</module>
+    <module>azure-lib</module>
+    <module>basic-lib</module>
+    <module>bigtable-lib</module>
+    <module>dev-lib</module>
+    <module>google-cloud-lib</module>
+    <module>influxdb_0_9-lib</module>
+    <module>jks-credentialstore-lib</module>
+    <module>jdbc-lib</module>
+    <module>jms-lib</module>
+    <module>mysql-binlog-lib</module>
+    <module>omniture-lib</module>
+    <module>rabbitmq-lib</module>
+    <module>redis-lib</module>
+    <module>salesforce-lib</module>
+    <module>stats-lib</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>${rat-plugin.version}</version>
+        <configuration>
+          <excludeSubProjects>false</excludeSubProjects>
+          <excludes>
+            <exclude>CHANGES.txt</exclude>
+            <!-- Eclipse -->
+            <exclude>**/.settings/*</exclude>
+            <exclude>**/.classpath</exclude>
+            <exclude>**/.project</exclude>
+            <!-- IntelliJ IDE -->
+            <exclude>**/.idea/**</exclude>
+            <exclude>**/*.iml</exclude>
+
+            <!-- Git -->
+            <exclude>**/.gitignore</exclude>
+            <exclude>.gitreview</exclude>
+            <exclude>.git/**</exclude>
+
+            <!-- Maven -->
+            <exclude>**/target/**</exclude>
+            <exclude>.m2/**</exclude> <!-- maven on jenkins -->
+
+            <!-- Node.js Modules -->
+            <exclude>**/node_modules/**</exclude>
+
+            <!-- Bower -->
+            <exclude>**/.bowerrc</exclude>
+
+            <!-- Files that do not support comments, cannot have Licence header -->
+            <exclude>**/META-INF/services/**</exclude>
+            <exclude>sdk/src/main/services/**</exclude>
+            <exclude>**/*.conf</exclude>
+            <exclude>**/*.svg</exclude>
+            <exclude>**/MANIFEST.MF</exclude>
+            <exclude>**/service.sdl</exclude>
+            <exclude>**/*.avro</exclude>
+            <exclude>**/*.db</exclude>
+            <exclude>**/*.csv</exclude>
+            <exclude>**/*.txt</exclude>
+            <exclude>**/*.json</exclude>
+            <exclude>**/*.log</exclude>
+            <exclude>**/*.html</exclude>
+            <exclude>common/src/main/resources/*</exclude>
+            <exclude>**/*.desc</exclude>
+            <exclude>**/*.proto</exclude>
+            <exclude>**/*.md</exclude>
+            <!-- Protobuf generated files which are checked in for testing-->
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/EmployeeProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/EngineerProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/ExecutiveProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/ExtensionsProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/PersonProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/RepeatedProto.java</exclude>
+            <exclude>commonlib/src/test/java/com/streamsets/pipeline/lib/util/OneofProto.java</exclude>
+            <exclude>commonlib/src/test/resources/*.ser</exclude>
+            <exclude>commonlib/src/main/resources/*</exclude>
+            <exclude>basic-lib/src/test/resources/*.ser</exclude>
+            <exclude>**/id_rsa_test</exclude>
+            <exclude>**/*.pub</exclude>
+
+            <!-- TestOverrunStreamingXmlParser relies on this file being small, cannot add license header -->
+            <exclude>common/src/test/resources/TestStreamingXmlParser-records.xml</exclude>
+
+            <!-- Modules to exclude (for now), not java stuff -->
+            <exclude>python/**</exclude>
+            <exclude>docs/**</exclude>
+            <exclude>cloudera-integration/csd/**</exclude>
+            <exclude>common-ui/src/main/webapp/common/directives/**</exclude>
+
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.8</version>
+        <configuration>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>rat-check</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>!skipRat</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <!-- Run apache-rat as part of every build, at root level only -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+              <execution>
+                <id>rat-report</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <echo file="${project.build.directory}/apache-rat.sh">#!/bin/bash
+                      if [ "${project.artifactId}" == "streamsets-datacollector" ];
+                      then
+                      mvn apache-rat:check -N
+                      exit $?
+                      fi
+                    </echo>
+                    <exec executable="/bin/bash" dir="${basedir}" failonerror="true">
+                      <arg line="${project.build.directory}/apache-rat.sh"/>
+                    </exec>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>all-libs</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <properties>
+        <!--
+             IMPORTANT: keep this in alphabetical order
+
+             IMPORTANT: define a property matching the module directory name
+             for every stage library here with the directory name as value
+        -->
+        <apache-kafka_0_10-lib>apache-kafka_0_10-lib</apache-kafka_0_10-lib>
+        <apache-kafka_0_8_1-lib>apache-kafka_0_8_1-lib</apache-kafka_0_8_1-lib>
+        <apache-kafka_0_8_2-lib>apache-kafka_0_8_2-lib</apache-kafka_0_8_2-lib>
+        <apache-kafka_0_9-lib>apache-kafka_0_9-lib</apache-kafka_0_9-lib>
+        <apache-kudu_1_0-lib>apache-kudu_1_0-lib</apache-kudu_1_0-lib>
+        <apache-kudu_1_1-lib>apache-kudu_1_1-lib</apache-kudu_1_1-lib>
+        <apache-kudu_1_2-lib>apache-kudu_1_2-lib</apache-kudu_1_2-lib>
+        <apache-kudu_1_3-lib>apache-kudu_1_3-lib</apache-kudu_1_3-lib>
+        <apache-solr_6_1_0-lib>apache-solr_6_1_0-lib</apache-solr_6_1_0-lib>
+        <cassandra_3-lib>cassandra_3-lib</cassandra_3-lib>
+        <cdh_5_2-lib>cdh_5_2-lib</cdh_5_2-lib>
+        <cdh_5_3-lib>cdh_5_3-lib</cdh_5_3-lib>
+        <cdh_5_4-cluster-cdh_kafka_1_2-lib>cdh_5_4-cluster-cdh_kafka_1_2-lib</cdh_5_4-cluster-cdh_kafka_1_2-lib>
+        <cdh_5_4-cluster-cdh_kafka_1_3-lib>cdh_5_4-cluster-cdh_kafka_1_3-lib</cdh_5_4-cluster-cdh_kafka_1_3-lib>
+        <cdh_5_4-lib>cdh_5_4-lib</cdh_5_4-lib>
+        <cdh_5_5-cluster-cdh_kafka_1_3-lib>cdh_5_5-cluster-cdh_kafka_1_3-lib</cdh_5_5-cluster-cdh_kafka_1_3-lib>
+        <cdh_5_5-lib>cdh_5_5-lib</cdh_5_5-lib>
+        <cdh_5_7-cluster-cdh_kafka_2_0-lib>cdh_5_7-cluster-cdh_kafka_2_0-lib</cdh_5_7-cluster-cdh_kafka_2_0-lib>
+        <cdh_5_7-lib>cdh_5_7-lib</cdh_5_7-lib>
+        <cdh_5_8-cluster-cdh_kafka_2_0-lib>cdh_5_8-cluster-cdh_kafka_2_0-lib</cdh_5_8-cluster-cdh_kafka_2_0-lib>
+        <cdh_5_8-lib>cdh_5_8-lib</cdh_5_8-lib>
+        <cdh_5_9-cluster-cdh_kafka_2_0-lib>cdh_5_9-cluster-cdh_kafka_2_0-lib</cdh_5_9-cluster-cdh_kafka_2_0-lib>
+        <cdh_5_9-lib>cdh_5_9-lib</cdh_5_9-lib>
+        <cdh_5_10-cluster-cdh_kafka_2_1-lib>cdh_5_10-cluster-cdh_kafka_2_1-lib</cdh_5_10-cluster-cdh_kafka_2_1-lib>
+        <cdh_5_10-lib>cdh_5_10-lib</cdh_5_10-lib>
+        <cdh_5_11-cluster-cdh_kafka_2_1-lib>cdh_5_11-cluster-cdh_kafka_2_1-lib</cdh_5_11-cluster-cdh_kafka_2_1-lib>
+        <cdh_5_11-lib>cdh_5_11-lib</cdh_5_11-lib>
+        <cdh_5_12-cluster-cdh_kafka_2_1-lib>cdh_5_12-cluster-cdh_kafka_2_1-lib</cdh_5_12-cluster-cdh_kafka_2_1-lib>
+        <cdh_5_12-lib>cdh_5_12-lib</cdh_5_12-lib>
+        <cdh_kafka_1_2-lib>cdh_kafka_1_2-lib</cdh_kafka_1_2-lib>
+        <cdh_kafka_1_3-lib>cdh_kafka_1_3-lib</cdh_kafka_1_3-lib>
+        <cdh_kafka_2_0-lib>cdh_kafka_2_0-lib</cdh_kafka_2_0-lib>
+        <cdh_kafka_2_1-lib>cdh_kafka_2_1-lib</cdh_kafka_2_1-lib>
+        <cdh_spark_2_1_r1-lib>cdh_spark_2_1_r1-lib</cdh_spark_2_1_r1-lib>
+        <elasticsearch_5-lib>elasticsearch_5-lib</elasticsearch_5-lib>
+        <groovy_2_4-lib>groovy_2_4-lib</groovy_2_4-lib>
+        <hdp_2_2-lib>hdp_2_2-lib</hdp_2_2-lib>
+        <hdp_2_3-lib>hdp_2_3-lib</hdp_2_3-lib>
+        <hdp_2_4-lib>hdp_2_4-lib</hdp_2_4-lib>
+        <hdp_2_5-lib>hdp_2_5-lib</hdp_2_5-lib>
+        <hdp_2_6-lib>hdp_2_6-lib</hdp_2_6-lib>
+        <jython_2_7-lib>jython_2_7-lib</jython_2_7-lib>
+        <mapr_5_0-lib>mapr_5_0-lib</mapr_5_0-lib>
+        <mapr_5_1-lib>mapr_5_1-lib</mapr_5_1-lib>
+        <mapr_5_2-lib>mapr_5_2-lib</mapr_5_2-lib>
+        <mapr_spark_2_1_mep_3_0-lib>mapr_spark_2_1_mep_3_0-lib</mapr_spark_2_1_mep_3_0-lib>
+        <mongodb_3-lib>mongodb_3-lib</mongodb_3-lib>
+      </properties>
+      <modules>
+        <!--
+             IMPORTANT: keep this in alphabetical order
+
+             IMPORTANT: the modules for all stage libraries
+        -->
+        <module>apache-kafka_0_10-lib</module>
+        <module>apache-kafka_0_8_1-lib</module>
+        <module>apache-kafka_0_8_2-lib</module>
+        <module>apache-kafka_0_9-lib</module>
+        <module>apache-kudu_1_0-lib</module>
+        <module>apache-kudu_1_1-lib</module>
+        <module>apache-kudu_1_2-lib</module>
+        <module>apache-kudu_1_3-lib</module>
+        <module>apache-solr_6_1_0-lib</module>
+        <module>cassandra_3-lib</module>
+        <module>cdh_5_2-lib</module>
+        <module>cdh_5_3-lib</module>
+        <module>cdh_5_4-cluster-cdh_kafka_1_2-lib</module>
+        <module>cdh_5_4-cluster-cdh_kafka_1_3-lib</module>
+        <module>cdh_5_4-lib</module>
+        <module>cdh_5_5-cluster-cdh_kafka_1_3-lib</module>
+        <module>cdh_5_5-lib</module>
+        <module>cdh_5_7-cluster-cdh_kafka_2_0-lib</module>
+        <module>cdh_5_7-lib</module>
+        <module>cdh_5_8-cluster-cdh_kafka_2_0-lib</module>
+        <module>cdh_5_8-lib</module>
+        <module>cdh_5_9-cluster-cdh_kafka_2_0-lib</module>
+        <module>cdh_5_9-lib</module>
+        <module>cdh_5_10-cluster-cdh_kafka_2_1-lib</module>
+        <module>cdh_5_10-lib</module>
+        <module>cdh_5_11-cluster-cdh_kafka_2_1-lib</module>
+        <module>cdh_5_11-lib</module>
+        <module>cdh_5_12-cluster-cdh_kafka_2_1-lib</module>
+        <module>cdh_5_12-lib</module>
+        <module>cdh_kafka_1_2-lib</module>
+        <module>cdh_kafka_1_3-lib</module>
+        <module>cdh_kafka_2_0-lib</module>
+        <module>cdh_kafka_2_1-lib</module>
+        <module>cdh_spark_2_1_r1-lib</module>
+        <module>elasticsearch_5-lib</module>
+        <module>groovy_2_4-lib</module>
+        <module>hdp_2_2-lib</module>
+        <module>hdp_2_3-lib</module>
+        <module>hdp_2_4-lib</module>
+        <module>hdp_2_5-lib</module>
+        <module>hdp_2_6-lib</module>
+        <module>jython_2_7-lib</module>
+        <module>mapr_5_0-lib</module>
+        <module>mapr_5_1-lib</module>
+        <module>mapr_5_2-lib</module>
+        <module>mapr_spark_2_1_mep_3_0-lib</module>
+        <module>mongodb_3-lib</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>sample-dev-libs</id>
+      <activation>
+        <property>
+          <name>!protolibs-only</name>
+        </property>
+      </activation>
+      <properties>
+        <!--
+             Use only the latest versions here. If new version needs to be added, move the older version in all-libs
+
+             IMPORTANT: keep this in alphabetical order
+
+             IMPORTANT: define a property matching the module directory name
+             for all the sample dev stage libraries here with the directory name as value
+        -->
+        <apache-kafka_0_10-lib>apache-kafka_0_10-lib</apache-kafka_0_10-lib>
+        <apache-kudu_1_3-lib>apache-kudu_1_3-lib</apache-kudu_1_3-lib>
+        <apache-solr_6_1_0-lib>apache-solr_6_1_0-lib</apache-solr_6_1_0-lib>
+        <cassandra_3-lib>cassandra_3-lib</cassandra_3-lib>
+        <cdh_5_12-cluster-cdh_kafka_2_1-lib>cdh_5_12-cluster-cdh_kafka_2_1-lib</cdh_5_12-cluster-cdh_kafka_2_1-lib>
+        <cdh_5_12-lib>cdh_5_12-lib</cdh_5_12-lib>
+        <cdh_kafka_2_0-lib>cdh_kafka_2_0-lib</cdh_kafka_2_0-lib>
+        <cdh_spark_2_1_r1-lib>cdh_spark_2_1_r1-lib</cdh_spark_2_1_r1-lib>
+        <elasticsearch_5-lib>elasticsearch_5-lib</elasticsearch_5-lib>
+        <groovy_2_4-lib>groovy_2_4-lib</groovy_2_4-lib>
+        <hdp_2_6-lib>hdp_2_6-lib</hdp_2_6-lib>
+        <jython_2_7-lib>jython_2_7-lib</jython_2_7-lib>
+        <mapr_5_2-lib>mapr_5_2-lib</mapr_5_2-lib>
+        <mapr_spark_2_1_mep_3_0-lib>mapr_spark_2_1_mep_3_0-lib</mapr_spark_2_1_mep_3_0-lib>
+        <mongodb_3-lib>mongodb_3-lib</mongodb_3-lib>
+        <azure-lib>azure_lib</azure-lib>
+      </properties>
+      <modules>
+        <!--
+             Use only the latest versions here. If new version needs to be added, move the older version in all-libs
+
+             IMPORTANT: keep this in alphabetical order
+
+             IMPORTANT: the modules for the sample dev stage libraries
+        -->
+        <module>apache-kafka_0_10-lib</module>
+        <module>apache-kudu_1_3-lib</module>
+        <module>apache-solr_6_1_0-lib</module>
+        <module>cassandra_3-lib</module>
+        <module>cdh_5_12-cluster-cdh_kafka_2_1-lib</module>
+        <module>cdh_5_12-lib</module>
+        <module>cdh_kafka_2_0-lib</module>
+        <module>cdh_spark_2_1_r1-lib</module>
+        <module>elasticsearch_5-lib</module>
+        <module>groovy_2_4-lib</module>
+        <module>hdp_2_6-lib</module>
+        <module>jython_2_7-lib</module>
+        <module>mapr_5_2-lib</module>
+        <module>mapr_spark_2_1_mep_3_0-lib</module>
+        <module>mongodb_3-lib</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>archetype</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>stage-lib-archetype</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- IMPORTANT: keep the following profiles at the end -->
+
+    <!--
+         Some maven plugins don't work properly unless the stage-lib-parent is being
+         build as well. Example is mvn version:set command.
+     -->
+    <profile>
+      <id>stage-lib-parent</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <modules>
+        <module>stage-lib-parent</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>ui</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <modules>
+        <module>datacollector-ui</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>docs</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <modules>
+        <module>docs</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>dist</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <modules>
+        <module>dist</module>
+        <module>cloudera-integration</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>miniIT</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>miniIT</name>
+        </property>
+      </activation>
+      <modules>
+        <module>miniIT</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <modules>
+        <module>release</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>rpm</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>release</name>
+        </property>
+      </activation>
+      <modules>
+        <module>rpm</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>java-src</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <!--<version>2.6</version>-->
+            <inherited>false</inherited>
+            <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
+              <attach>false</attach>
+              <tarLongFileMode>gnu</tarLongFileMode>
+              <finalName>streamsets-datacollector-java-src-${project.version}</finalName>
+              <descriptors>
+                <descriptor>release/src/main/assemblies/java-src.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <repositories>
+    <repository>
+      <id>cdh.repo</id>
+      <url>https://repository.cloudera.com/content/groups/cloudera-repos</url>
+      <name>Cloudera Repositories</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>confluent</id>
+      <url>http://packages.confluent.io/maven/</url>
+    </repository>
+    <repository>
+      <id>elasticsearch-releases</id>
+      <url>https://artifacts.elastic.co/maven</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>mapr-releases</id>
+      <url>http://repository.mapr.com/maven/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+      <id>HDPReleases</id>
+      <name>HDP Releases</name>
+      <url>http://repo.hortonworks.com/content/repositories/releases/</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+      <id>HDPRehosted</id>
+      <name>HDP Releases</name>
+      <url>http://repo.hortonworks.com/content/repositories/re-hosted/</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+      <id>HDPJetty</id>
+      <name>HDP Jetty</name>
+      <url>http://repo.hortonworks.com/content/repositories/jetty-hadoop/</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
+      <id>snapshots-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+</project>

@@ -1,0 +1,236 @@
+<div class="panel panel-default preview-pane"
+     ng-controller="PreviewController"
+     ng-if="previewMode">
+
+  <div class="panel-heading clearfix">
+
+    <h3 class="panel-title pull-left">
+      <span ng-if="!previewMultipleStages">{{'home.previewPane.previewStage' | translate}}: </span>
+      <span ng-if="previewMultipleStages">{{'home.previewPane.previewMultipleStages' | translate}}</span>
+      <span ng-if="!previewMultipleStages">{{detailPaneConfig.uiInfo.label}}</span>
+    </h3>
+
+    <div class="pull-right size-toolbar">
+
+      <div class="btn-group pull-left detail-settings-dropdown" ng-if="!$storage.dontShowRESTResponseMenu">
+        <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+           tooltip-placement="top"
+           tooltip="{{'home.header.more' | translate}}"
+           tooltip-popup-delay="500">
+          <span class="fa fa-ellipsis-h fa-14x pointer"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+
+          <li role="presentation" class="dropdown-header"
+              translate="home.detailPane.restURL">REST URL {{currentPreviewerId}}</li>
+
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1"
+               ng-click="viewRawPreviewData()">{{'home.detailPane.pipelinePreviewJSONData' | translate}}</a>
+          </li>
+
+        </ul>
+      </div>
+
+      <span class="fa fa-question-circle fa-14x pointer"
+            tooltip-placement="top"
+            tooltip="{{'global.form.help' | translate}}"
+            tooltip-popup-delay="500"
+            ng-click="launchHelp('pipeline-preview')"></span>
+
+      <span class="glyphicon pointer"
+            tooltip-placement="top"
+            tooltip="{{!$storage.minimizeDetailPane ? 'global.form.minimizePane' : 'global.form.maximizePane' | translate}}"
+            tooltip-popup-delay="1000"
+            ng-hide="$storage.maximizeDetailPane"
+            ng-class="{'glyphicon-minus' : !$storage.minimizeDetailPane , 'glyphicon-resize-full': $storage.minimizeDetailPane}"
+            ng-click="onMinimizeDetailPane()"></span>
+
+      <span class="glyphicon pointer"
+            tooltip-placement="top"
+            tooltip="{{!$storage.maximizeDetailPane ? 'global.form.maximizePane' : 'global.form.minimizePane' | translate}}"
+            tooltip-popup-delay="1000"
+            ng-hide="$storage.minimizeDetailPane"
+            ng-class="{'glyphicon-fullscreen' : !$storage.maximizeDetailPane , 'glyphicon-resize-small': $storage.maximizeDetailPane}"
+            ng-click="onMaximizeDetailPane()"></span>
+    </div>
+
+
+    <!-- Buttons for Single Stage Preview -->
+
+    <div class="pull-right preview-toolbar" ng-if="showLoading">
+      <a type="button" class="btn btn-danger btn-sm"
+         ng-click="cancelPreview()">{{ 'home.previewPane.cancelPreview' | translate }}</a>
+    </div>
+
+    <div class="pull-right preview-toolbar btn-group" ng-if="!showLoading">
+
+      <div ng-if="!previewMultipleStages && previousStageInstances.length > 1" class="dropdown pull-left btn-group">
+        <a type="button" class="btn btn-default btn-sm"
+           tooltip-placement="bottom" tooltip="{{'global.form.previousStage' | translate}}"
+           tooltip-popup-delay="500"
+           tooltip-append-to-body="true"
+           data-toggle="dropdown">
+          <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+          <li ng-repeat="previousStageInstance in previousStageInstances">
+            <a href="#" ng-click="previousStagePreview(previousStageInstance)">
+              {{previousStageInstance.uiInfo.label}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <a role="button" type="button" class="btn btn-default btn-sm"
+         ng-if="!previewMultipleStages && previousStageInstances.length <= 1"
+         tooltip-placement="bottom" tooltip="{{'global.form.previousStage' | translate}}"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true"
+         ng-click="previousStageInstances.length === 0 || previousStagePreview(previousStageInstances[0])"
+         ng-disabled="previousStageInstances.length === 0">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+      </a>
+
+      <div ng-if="!previewMultipleStages && nextStageInstances.length > 1" class="dropdown pull-left btn-group">
+        <a type="button" class="btn btn-default btn-sm"
+           tooltip-placement="bottom" tooltip="{{'global.form.nextStage' | translate}}"
+           tooltip-popup-delay="500"
+           tooltip-append-to-body="true"
+           data-toggle="dropdown">
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+          <li ng-repeat="nextStageInstance in nextStageInstances">
+            <a href="#" ng-click="nextStagePreview(nextStageInstance, stagePreviewData.output)">
+              {{nextStageInstance.uiInfo.label}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <a type="button" class="btn btn-default btn-sm"
+         ng-if="!previewMultipleStages && nextStageInstances.length <= 1"
+         tooltip-placement="bottom" tooltip="{{'global.form.nextStage' | translate}}"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true"
+         ng-disabled="nextStageInstances.length === 0"
+         ng-click="nextStageInstances.length === 0 || nextStagePreview(nextStageInstances[0], stagePreviewData.output)">
+        <span class="glyphicon glyphicon-arrow-right"></span>
+      </a>
+
+      <a type="button" class="btn btn-default btn-sm"
+         tooltip-placement="bottom" tooltip="{{'home.header.refreshPreview' | translate}}"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true"
+         ng-click="previewPipeline(true)">
+        <span class="fa fa-refresh"></span>
+      </a>
+
+      <a type="button" class="btn btn-default btn-sm"
+         tooltip-placement="bottom" tooltip="{{'global.form.step' | translate}}"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true"
+         ng-disabled="!previewDataUpdated && !pipelineConfigUpdated"
+         ng-click="(!previewDataUpdated && !pipelineConfigUpdated) || stepPreview(detailPaneConfig, stagePreviewData.input)">
+        <span class="fa fa-refresh"></span> *
+      </a>
+
+      <a type="button" class="btn btn-default btn-sm"
+         tooltip-placement="bottom" tooltip="{{'global.form.revertChanges' | translate}}"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true"
+         ng-click="!previewDataUpdated || revertChanges()"
+         ng-disabled="!previewDataUpdated">
+        <span class="fa fa-undo"></span>
+      </a>
+
+    </div>
+
+    <div class="pull-right btn-group toggle-toolbar" ng-show="!showLoading">
+      <label class="btn btn-default btn-sm" ng-model="listView" btn-radio="true"
+             tooltip-placement="bottom"
+             tooltip-append-to-body="true"
+             tooltip="{{'global.form.listView' | translate}}">
+        <i class="fa fa-list fa-12x"/>
+      </label>
+      <label class="btn btn-default btn-sm" ng-model="listView" btn-radio="false"
+             tooltip-placement="bottom"
+             tooltip-append-to-body="true"
+             tooltip="{{'global.form.tableView' | translate}}">
+        <i class="fa fa-table fa-12x"/>
+      </label>
+    </div>
+
+    <div class="pull-right btn-group toggle-toolbar" ng-show="!showLoading && hasMultipleStages()">
+      <label class="btn btn-default btn-sm" ng-model="previewMultipleStages" btn-radio="false">Single</label>
+      <label class="btn btn-default btn-sm" ng-model="previewMultipleStages" btn-radio="true">Multiple</label>
+    </div>
+
+  </div>
+
+  <div class="panel-body">
+    <tabset class="preview-tabs-left tabs-left icon-only">
+
+      <tab active="recordsTabActive" select="onRecordsTabSelect()">
+        <tab-heading tooltip-placement="right" tooltip="{{ 'global.form.records' | translate }}">
+          <i class="fa fa-list-ul fa-12x"></i>
+        </tab-heading>
+        <ng-include ng-if="recordsTabActive && !previewMultipleStages" src="'app/home/preview/common/previewCommon.tpl.html'"></ng-include>
+        <ng-include ng-if="recordsTabActive && previewMultipleStages" src="'app/home/preview/common/previewMultiStage.tpl.html'"></ng-include>
+      </tab>
+
+      <tab active="configurationTabActive">
+        <tab-heading tooltip-placement="right" tooltip="{{ 'home.previewPane.stageConfigTitle' | translate }}">
+          <i class="fa fa-gear fa-12x"></i>
+        </tab-heading>
+        <ng-include ng-show="configurationTabActive" src="'app/home/detail/configuration/configuration.tpl.html'"></ng-include>
+      </tab>
+
+      <tab active="previewConfigTabActive">
+        <tab-heading tooltip-placement="right" tooltip="{{ 'home.previewPane.configTitle' | translate }}">
+          <i class="fa fa-eye fa-12x"></i>
+        </tab-heading>
+        <ng-include ng-if="previewConfigTabActive" src="'app/home/preview/configuration/previewConfig.tpl.html'"></ng-include>
+      </tab>
+
+      <tab  active="errorsTabActive" ng-if="stagePreviewData.stageErrors && stagePreviewData.stageErrors.length">
+        <tab-heading tooltip-placement="right" tooltip="{{ 'global.form.errors' | translate }}">
+          <i class="fa fa-exclamation-triangle icon-danger fa-12x"></i>
+        </tab-heading>
+        <div ng-if="errorsTabActive">
+          <table class="table table-hover">
+            <caption>
+              <label translate="global.form.errorMessages">Error Messages</label>
+            </caption>
+            <thead>
+            <tr>
+              <th class="col-md-3" translate="global.form.timestamp">Timestamp</th>
+              <th class="col-md-2" translate="global.form.errorCode">Error Code</th>
+              <th class="col-md-7" translate="global.form.errorMessage"> Error Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="errorMessage in stagePreviewData.stageErrors">
+              <td>{{errorMessage.timestamp | date:'medium'}}</td>
+              <td ng-bind="errorMessage.errorCode"> </td>
+              <td>
+                <span ng-bind="errorMessage.localized"></span>
+                <a class="view-stack-trace"
+                   ng-if="errorMessage.errorStackTrace"
+                   ng-click="showStackTrace(errorMessage)">
+                  ( <span translate="home.graphPane.viewStackTrace">View Stack Trace</span>... )
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+    </tabset>
+
+
+  </div>
+
+</div>

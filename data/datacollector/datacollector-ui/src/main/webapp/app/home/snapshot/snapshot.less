@@ -1,0 +1,109 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.snapshot-pane {
+  height: calc(~"100% - 11px");
+  margin-bottom: 0;
+  border-bottom: none;
+
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+
+  .preview-page-detail {
+    padding-right: @defaultPadding;
+  }
+
+  .panel-heading {
+    padding: @smallPadding @smallPadding*3;
+
+    .panel-title {
+      padding-top: @smallPadding;
+    }
+
+    .preview-toolbar {
+      min-width: 220px;
+    }
+
+    .toggle-toolbar {
+      margin-right: 50px;
+    }
+  }
+
+  .panel-body {
+    padding: 0;
+    height: calc(~"100% - 40px");
+    overflow: auto;
+
+    .preview-tabs-left {
+      height: 100%;
+      padding: 0 @smallPadding * 3;
+
+      >.nav-tabs {
+        min-height: 250px;
+        padding-top: @smallPadding * 3;
+      }
+
+      >.tab-content {
+        padding-top: @smallPadding * 3;
+      }
+    }
+
+    .pipeline-preview {
+      .preview-heading {
+        padding: @defaultPadding @defaultPadding;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+
+      th, td {
+        padding-left: @smallPadding*3;
+
+        &.from-stage {
+          select {
+            color: @default-pipeline-graph-start-node-color;
+          }
+        }
+
+        &.to-stage {
+          select {
+            color: @default-pipeline-graph-end-node-color;
+          }
+        }
+
+        label {
+          margin-bottom: 0px;
+          font-weight: normal;
+        }
+
+        .label-danger, .label-warning {
+          font-size: 90%;
+        }
+
+        &.no-records {
+          text-align: center;
+          padding-top: @defaultPadding * 4;
+        }
+
+      }
+    }
+  }
+}

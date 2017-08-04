@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017 StreamSets Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_scs_3hh_tx">
+ <title>Logical Pairings</title>
+ <conbody>
+  <p><indexterm>event generating stages<indexterm>pairing with destinations and
+                    executors</indexterm></indexterm><indexterm>event framework<indexterm>logical
+                    pairings</indexterm></indexterm>Some origins and destinations can generate
+            events, and executors and destinations can consume events. You can use event generating
+            stages and event records in any way that works for your needs.</p>
+        <p>The following tables outline some logical pairings of event generating stages with
+            executors and destinations:<table frame="all" rowsep="1" colsep="1"
+                id="table_pwj_d4p_1y">
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                    <thead>
+                        <row>
+                            <entry>Event Generating Origin</entry>
+                            <entry>Event Consumer</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>Directory</entry>
+                            <entry>
+                                <ul id="ul_wvy_h4p_1y">
+                                    <li>Email executor to send email each time the origin starts or
+                                        completes processing a file. </li>
+                                    <li>Pipeline Finisher executor to stop the pipeline after
+                                        processing all available files.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>File Tail</entry>
+                            <entry>
+                                <ul id="ul_hgh_34p_1y">
+                                    <li>Email executor to send email each time the origin starts or
+                                        completes processing a file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Google BigQuery</entry>
+                            <entry>
+                                <ul>
+                                    <li>Email executor to send email each time the origin
+                                        successfully completes a query.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>JDBC Multitable Consumer</entry>
+                            <entry>
+                                <ul id="ul_a1m_jx5_lz">
+                                    <li>Pipeline Finisher executor to stop the pipeline after
+                                        processing queried data from all tables.</li>
+                                    <li>Email executor to send email when the origin completes
+                                        processing all data returned by queries.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>JDBC Query Consumer</entry>
+                            <entry>
+                                <ul id="ul_pn2_csc_yz">
+                                    <li>Route the no-more-data event to the Pipeline Finisher
+                                        executor to stop the pipeline after processing queried
+                                        data.</li>
+                                    <li>Email executor to send email each time the origin
+                                        successfully completes a query, fails to complete a query,
+                                        or completes processing all available data.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Oracle CDC Client</entry>
+                            <entry>
+                                <ul id="ul_xdj_1x1_vy">
+                                    <li>Email executor to send email each time it reads DDL
+                                        statements in the redo logs.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Salesforce</entry>
+                            <entry>
+                                <ul>
+                                    <li>Pipeline Finisher executor to stop the pipeline after
+                                        processing queried data.</li>
+                                    <li>Email executor to send email when the origin completes
+                                        processing all data returned by a query.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table><table frame="all" rowsep="1" colsep="1" id="table_mc4_dfc_yz">
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                    <thead>
+                        <row>
+                            <entry>Event Generating Processor</entry>
+                            <entry>Event Consumer</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>Groovy Evaluator</entry>
+                            <entry>
+                                <ul id="ul_qpx_jfc_yz">
+                                    <li>Any logical executor. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>JavaScript Evaluator</entry>
+                            <entry>
+                                <ul id="ul_xsy_kfc_yz">
+                                    <li>Any logical executor. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Jython Evaluator</entry>
+                            <entry>
+                                <ul id="ul_gl1_lfc_yz">
+                                    <li>Any logical executor. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table><table frame="all" rowsep="1" colsep="1" id="table_r5m_b3h_tx">
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                    <thead>
+                        <row>
+                            <entry>Event Generating Destination</entry>
+                            <entry>Event Consumer</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>Amazon S3 </entry>
+                            <entry>
+                                <ul id="ul_tyv_24p_1y">
+                                    <li>Amazon S3 executor to add tags to closed objects or whole
+                                        files.</li>
+                                    <li>Spark executor to run a Spark application after closing an
+                                        object or whole file. </li>
+                                    <li>Email executor to send email after closing an object or
+                                        whole file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Azure Data Lake Store</entry>
+                            <entry>
+                                <ul>
+                                    <li>Email executor to send email each time the destination
+                                        closes a file or streams a whole file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Hadoop FS</entry>
+                            <entry>
+                                <ul id="ul_hbx_blh_tx">
+                                    <li>HDFS File Metadata executor to change file metadata for
+                                        closed files.</li>
+                                    <li>Hive Query executor to run Hive or Impala queries after
+                                        closing a file. <p>Particularly useful when using the Drift
+                                            Synchronization Solution for Hive with Impala. </p></li>
+                                    <li>MapReduce executor to run a MapReduce job after closing a
+                                        file.</li>
+                                    <li>Spark executor to run a Spark application after closing a
+                                        file. </li>
+                                    <li>Email executor to send email each time the destination
+                                        closes a file or streams a whole file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Hive Metastore </entry>
+                            <entry>
+                                <ul id="ul_kkj_dlh_tx">
+                                    <li>Hive Query executor to run Hive or Impala queries after
+                                        changing table structures. <p>Particularly useful when using
+                                            the Drift Synchronization Solution for Hive with Impala.
+                                        </p></li>
+                                    <li>HDFS File Metadata executor to move or update permissions on
+                                        Avro schema files. </li>
+                                    <li>Email executor to send email each time the destination
+                                        changes the Hive metastore.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Local FS</entry>
+                            <entry>
+                                <ul id="ul_p3l_glh_tx">
+                                    <li>HDFS File Metadata executor to change file metadata for
+                                        closed files.</li>
+                                    <li>Email executor to send email each time the destination
+                                        closes a file or streams a whole file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>MapR FS</entry>
+                            <entry>
+                                <ul id="ul_rvh_dsq_tx">
+                                    <li>HDFS File Metadata executor to change file metadata for
+                                        closed files.</li>
+                                    <li>MapReduce executor to run a MapReduce job after closing a
+                                        file.</li>
+                                    <li>Spark executor to run a Spark application after closing a
+                                        file. </li>
+                                    <li>Email executor to send email each time the destination
+                                        closes a file or streams a whole file. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table><table frame="all" rowsep="1" colsep="1" id="table_sc4_4nh_tx">
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="c2" colnum="2" colwidth="3.5*"/>
+                    <thead>
+                        <row>
+                            <entry>Event Generating Executor</entry>
+                            <entry>Event Consumer</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>HDFS File Metadata executor</entry>
+                            <entry>
+                                <ul id="ul_i4j_wfc_yz">
+                                    <li>Email executor to send email each time the executor changes
+                                        file metadata.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Hive Query executor</entry>
+                            <entry>
+                                <ul id="ul_xmw_dk3_xz">
+                                    <li>Email executor to send email when a query succeeds or
+                                        fails.</li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>MapReduce executor</entry>
+                            <entry>
+                                <ul>
+                                    <li>Email executor to send email each time the executor starts a
+                                        MapReduce job. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Spark executor</entry>
+                            <entry>
+                                <ul id="ul_hf4_sk3_xz">
+                                    <li>Email executor to send email each time the Spark executor
+                                        starts a Spark application. </li>
+                                    <li>Any destination for event storage.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table></p>
+ </conbody>
+</concept>

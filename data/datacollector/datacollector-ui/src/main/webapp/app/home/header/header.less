@@ -1,0 +1,195 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.header-pane {
+  margin-top: 50px;
+
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  .panel-heading {
+    height: 45px;
+    padding: @smallPadding @smallPadding*3;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+
+    .navbar-toggle {
+      display: block;
+      float: left;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      &:hover {
+        background-color: #ddd;
+      }
+
+      .icon-bar {
+        background-color: #888;
+      }
+
+      &.selected {
+        .icon-bar {
+          background-color: #2BB8E9;
+        }
+      }
+    }
+
+    .panel-title {
+
+      h3 {
+        padding-top: @smallPadding;
+        margin: 0;
+        font-size: 20px;
+        padding-right: @defaultPadding;
+      }
+
+      h3[contenteditable="true"]:hover {
+        border: 1px solid #ddd;
+      }
+
+      .version-text {
+        opacity: 0.4;
+      }
+
+      .dirty-icon {
+        color: @brand-danger;
+      }
+
+      .all-pipelines-link {
+        color: rgba(0,0,0,0.3);
+      }
+
+      .pipeline-status {
+        margin-top: 6px;
+        margin-left: 10px;
+        display: inline-block;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 6px;
+        font-size: 0.9em;
+
+        &.RUNNING,
+        &.STARTING,
+        &.FINISHING,
+        &.CONNECTING {
+          background: @brand-success;
+        }
+
+        &.STOPPING,
+        &.START_ERROR,
+        &.STARTING_ERROR,
+        &.RUNNING_ERROR,
+        &.STOP_ERROR,
+        &.STOPPING_ERROR,
+        &.RETRY,
+        &.DISCONNECTING,
+        &.CONNECT_ERROR {
+          background: @brand-danger;
+        }
+      }
+
+      i {
+        margin-left: @defaultPadding;
+
+        &.green-color {
+          color: @brand-success;
+        }
+
+        &.red-color {
+          color: @brand-danger;
+        }
+
+      }
+    }
+
+    .issues-dropdown, .notifications-dropdown {
+      padding-left: @smallPadding;
+      height: 30px;
+
+      .btn {
+        padding-bottom: 0;
+        padding-top: 0;
+        margin: 0;
+        color: @streamsets-icon-btn-color;
+        width: 40px;
+
+        &:hover {
+          color: @streamsets-icon-btn-hover-color;
+        }
+
+        .fa-bell, .fa-exclamation-triangle {
+          position: absolute;
+          top: 5px;
+          right: 15px;
+        }
+
+        .badge {
+          position: absolute;
+          top: -2px;
+          right: 2px;
+          color: #fff;
+          background-color: #d9534f;
+          font-size: .7em;
+        }
+      }
+
+      li {
+        a {
+          white-space: normal;
+          width: 400px;
+        }
+
+        &.dropdown-header {
+          text-transform: capitalize;
+        }
+      }
+
+
+    }
+
+    .stage-dropdown {
+      padding-right: @smallPadding;
+    }
+
+    .pipelineAgent-status {
+      padding: @defaultPadding @defaultPadding*2;
+      color: #ACACAC;
+      font-size: 12px;
+    }
+
+    .icon-button {
+      padding: 5px 8px;
+
+      &.btn[disabled] {
+        opacity: 0.35;
+      }
+
+      &.btn-success {
+        color: @brand-success;
+      }
+
+
+      &.btn-selected {
+        color: @streamsets-color;
+      }
+    }
+
+  }
+}

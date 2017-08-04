@@ -1,0 +1,249 @@
+<table class="table table-bordered table-striped preview-tableview-table" ng-hide="showLoading" ng-controller="PreviewCommonTableViewController">
+  <thead>
+  <tr>
+    <th class="from-stage" ng-if="inputFieldPaths.length || detailPaneConfig.uiInfo.stageType === pipelineConstant.PROCESSOR_STAGE_TYPE"
+        colspan="{{inputLimit ? inputLimit : 1}}">
+      <span translate="home.previewPane.inputData">Input Data</span>
+    </th>
+
+    <th class="to-stage" colspan="{{outputLimit ? outputLimit : 1}}">
+      <span translate="home.previewPane.outputData">Output Data</span>
+    </th>
+
+  </tr>
+
+  <tr>
+    <th class="from-stage" ng-repeat="fieldPath in inputFieldPaths | limitTo: inputLimit">
+      <span>{{fieldPath}}</span>
+
+      <div class="show-more pull-right" ng-if="$last && inputLimit < inputFieldPaths.length">
+        (<a href="btn btn-link" href=""
+           ng-click="onShowMoreInputClick($event);">Show More...</a>
+
+        <span class="separator">|</span>
+
+        <a href="btn btn-link" href=""
+           ng-click="onShowAllInputClick($event);">Show All...</a>)
+      </div>
+
+    </th>
+
+    <th class="to-stage" ng-repeat="fieldPath in outputFieldPaths | limitTo: outputLimit">
+      <span>{{fieldPath}}</span>
+
+      <div class="show-more pull-right" ng-if="$last && outputLimit < outputFieldPaths.length">
+        (<a href="btn btn-link" href=""
+           ng-click="onShowMoreOutputClick($event);">Show More...</a>
+
+        <span class="separator">|</span>
+
+        <a href="btn btn-link" href=""
+           ng-click="onShowAllOutputClick($event);">Show All...</a>)
+      </div>
+
+    </th>
+  </tr>
+
+  </thead>
+  <tbody>
+
+  <tr ng-repeat-start="inputRecord in stagePreviewData.input"
+      ng-init="
+      outputRecords = getOutputRecords(stagePreviewData.output, inputRecord);
+      errorsRecords = getErrorRecords(stagePreviewData.errorRecords, inputRecord);
+      flattenInputRecord = getFlattenRecord(inputRecord);
+      flattenOutputRecord = getFlattenRecord(outputRecords[0])">
+
+    <!--Input -->
+
+    <td ng-repeat="fieldPath in inputFieldPaths | limitTo: inputLimit"
+        ng-switch="flattenInputRecord[fieldPath].type"
+        ng-class="{
+          'value-deletion': detailPaneConfig.uiInfo.stageType === pipelineConstant.PROCESSOR_STAGE_TYPE &&
+              (flattenInputRecord[fieldPath].value !== flattenOutputRecord[fieldPath].value ||
+              flattenInputRecord[fieldPath].type !== flattenOutputRecord[fieldPath].type)
+          }">
+
+      <span class="pull-right glyphicon glyphicon-asterisk dirty-icon" ng-if="flattenInputRecord[fieldPath].dirty"></span>
+
+
+      <div ng-switch-when="DATETIME" class="clearfix">
+
+        <span class="field-value pull-left {{flattenInputRecord[fieldPath].type}}"
+              ng-class="{'value-addition' : (diffType === 'output' && updatedValue), 'value-deletion' : (diffType === 'input' && updatedValue)}"
+          >{{flattenInputRecord[fieldPath].value + '' | date:'medium'}} </span>
+
+        <div class="dropdown pull-left" ng-show="previewMode"
+             ng-init="dateRecordValue = flattenInputRecord[fieldPath].value; dropdownSelector = 'dropdownSelector' + $parent.$index + $parent.$parent.$index">
+          <a class="record-date-toggle dropdown-toggle {{dropdownSelector}}" role="button" data-toggle="dropdown" data-target="#" href="">
+            <i class="fa fa-calendar"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="dateRecordValue"
+                            data-on-set-time="recordDateValueUpdated(inputRecord, flattenInputRecord[fieldPath], dateRecordValue)"
+                            data-datetimepicker-config="{ dropdownSelector: '.' + dropdownSelector }"></datetimepicker>
+          </ul>
+        </div>
+      </div>
+
+      <div ng-switch-when="DATE" class="clearfix">
+
+        <span class="field-value pull-left {{flattenInputRecord[fieldPath].type}}"
+              ng-class="{'value-addition' : (diffType === 'output' && updatedValue), 'value-deletion' : (diffType === 'input' && updatedValue)}"
+        >{{flattenInputRecord[fieldPath].value + '' | date:'mediumDate'}} </span>
+
+        <div class="dropdown pull-left" ng-show="previewMode"
+             ng-init="dateRecordValue = flattenInputRecord[fieldPath].value; dropdownSelector = 'dropdownSelector' + $parent.$index + $parent.$parent.$index">
+          <a class="record-date-toggle dropdown-toggle {{dropdownSelector}}" role="button" data-toggle="dropdown" data-target="#" href="">
+            <i class="fa fa-calendar"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="dateRecordValue"
+                            data-on-set-time="recordDateValueUpdated(inputRecord, flattenInputRecord[fieldPath], dateRecordValue)"
+                            data-datetimepicker-config="{ dropdownSelector: '.' + dropdownSelector, minView: 'day' }"></datetimepicker>
+          </ul>
+        </div>
+      </div>
+
+      <div ng-switch-when="TIME" class="clearfix">
+
+        <span class="field-value pull-left {{flattenInputRecord[fieldPath].type}}"
+              ng-class="{'value-addition' : (diffType === 'output' && updatedValue), 'value-deletion' : (diffType === 'input' && updatedValue)}"
+        >{{flattenInputRecord[fieldPath].value + '' | date:'mediumTime'}} </span>
+
+        <div class="dropdown pull-left" ng-show="previewMode"
+             ng-init="dateRecordValue = flattenInputRecord[fieldPath].value; dropdownSelector = 'dropdownSelector' + $parent.$index + $parent.$parent.$index">
+          <a class="record-date-toggle dropdown-toggle {{dropdownSelector}}" role="button" data-toggle="dropdown" data-target="#" href="">
+            <i class="fa fa-calendar"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="dateRecordValue"
+                            data-on-set-time="recordDateValueUpdated(inputRecord, flattenInputRecord[fieldPath], dateRecordValue)"
+                            data-datetimepicker-config="{ dropdownSelector: '.' + dropdownSelector, startView: 'hour' }"></datetimepicker>
+          </ul>
+        </div>
+      </div>
+
+      <div ng-switch-default
+           contenteditable="{{previewMode}}"
+           ng-model="flattenInputRecord[fieldPath].value"
+           ng-change="recordValueUpdated(inputRecord, flattenInputRecord[fieldPath])"
+           class="field-value {{flattenInputRecord[fieldPath].value != null ? flattenInputRecord[fieldPath].type : ''}}">
+      </div>
+
+    </td>
+
+
+    <!--Output -->
+
+    <td ng-if="flattenOutputRecord"
+        ng-repeat="fieldPath in outputFieldPaths | limitTo: outputLimit"
+        ng-switch="flattenOutputRecord[fieldPath].type"
+        ng-class="{
+          'value-addition': flattenInputRecord[fieldPath].value !== flattenOutputRecord[fieldPath].value ||
+          flattenInputRecord[fieldPath].type !== flattenOutputRecord[fieldPath].type
+          }">
+
+      <span class="number-circle" ng-if="$index === 0 && laneMap"
+        tooltip="{{('home.previewPane.streamCondition' | translate ) + ': ' + laneMap[outputRecords[0].laneName].condition}}">{{laneMap[outputRecords[0].laneName].index}}</span>
+
+      <span ng-switch-when="DATETIME"
+            class="field-value {{flattenOutputRecord[fieldPath].value != null ? flattenOutputRecord[fieldPath].type : ''}}">{{(flattenOutputRecord[fieldPath].value + '' | date:'medium')}}</span>
+      <span ng-switch-when="DATE"
+            class="field-value {{flattenOutputRecord[fieldPath].value != null ? flattenOutputRecord[fieldPath].type : ''}}">{{(flattenOutputRecord[fieldPath].value + '' | date:'mediumDate')}}</span>
+      <span ng-switch-when="TIME"
+            class="field-value {{flattenOutputRecord[fieldPath].value != null ? flattenOutputRecord[fieldPath].type : ''}}">{{(flattenOutputRecord[fieldPath].value + '' | date:'mediumTime')}}</span>
+      <span ng-switch-default
+            class="field-value {{flattenOutputRecord[fieldPath].value != null ? flattenOutputRecord[fieldPath].type : ''}}">{{(flattenOutputRecord[fieldPath].value + '')}}</span>
+
+    </td>
+
+    <td colspan="{{outputLimit}}" ng-if="errorsRecords && errorsRecords.length > 0">
+      <label class="label label-danger">
+        {{('global.form.record' | translate)+($parent.$index+1) + '-' + ('global.form.errorRecord' | translate) + ' ' +
+        escapeHtml(errorsRecords[0].header.errorMessage)}}
+      </label>
+    </td>
+
+    <td colspan="{{outputLimit}}"
+        ng-if="outputRecords.length === 0 && errorsRecords.length === 0 && detailPaneConfig.uiInfo.stageType !== pipelineConstant.TARGET_STAGE_TYPE && detailPaneConfig.uiInfo.stageType !== pipelineConstant.EXECUTOR_STAGE_TYPE">
+      <label class="label label-warning">{{'home.previewPane.noOutputWarning' | translate}}</label>
+    </td>
+
+  </tr>
+
+  <tr ng-repeat-end
+      ng-repeat="outputRecord in outputRecords"
+      ng-if="$index > 0"
+      ng-init="flattenRecord = getFlattenRecord(outputRecord)">
+    <td colspan="{{inputLimit}}"></td>
+
+    <td ng-repeat="fieldPath in outputFieldPaths | limitTo: outputLimit"
+        ng-switch="flattenRecord[fieldPath].type">
+      <span ng-switch-when="DATETIME"
+        class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'medium')}}</span>
+      <span ng-switch-when="DATE"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumDate')}}</span>
+      <span ng-switch-when="TIME"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumTime')}}</span>
+      <span ng-switch-default
+        class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '')}}</span>
+    </td>
+  </tr>
+
+  <tr ng-if="detailPaneConfig.uiInfo.stageType === pipelineConstant.SOURCE_STAGE_TYPE"
+      ng-repeat="record in stagePreviewData.output"
+      ng-init="flattenRecord = getFlattenRecord(record)">
+    <td ng-repeat="fieldPath in inputFieldPaths | limitTo: inputLimit"
+        class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}"
+      >{{flattenRecord[fieldPath].value + ''}}</td>
+    <td ng-repeat="fieldPath in outputFieldPaths | limitTo: outputLimit"
+        ng-switch="flattenRecord[fieldPath].type">
+      <span ng-switch-when="DATETIME"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'medium')}}</span>
+      <span ng-switch-when="DATE"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumDate')}}</span>
+      <span ng-switch-when="TIME"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumTime')}}</span>
+      <span ng-switch-default
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '')}}</span>
+    </td>
+  </tr>
+
+
+  <tr ng-if="detailPaneConfig.uiInfo.stageType === 'PROCESSOR' && stagePreviewData.newRecords && stagePreviewData.newRecords.length"
+      ng-repeat="outputRecord in stagePreviewData.newRecords"
+      ng-init="flattenRecord = getFlattenRecord(outputRecord)">
+    <td colspan="{{inputLimit}}"></td>
+
+    <td ng-repeat="fieldPath in outputFieldPaths | limitTo: outputLimit"
+        ng-switch="flattenRecord[fieldPath].type">
+      <span ng-switch-when="DATETIME"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'medium')}}</span>
+      <span ng-switch-when="DATE"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumDate')}}</span>
+      <span ng-switch-when="TIME"
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '' | date:'mediumTime')}}</span>
+      <span ng-switch-default
+            class="field-value {{flattenRecord[fieldPath].value != null ? flattenRecord[fieldPath].type : ''}}">{{(flattenRecord[fieldPath].value + '')}}</span>
+    </td>
+  </tr>
+
+
+
+  <tr ng-if="stagePreviewData.input.length === 0 &&
+                stagePreviewData.output.length === 0 &&
+                stagePreviewData.errorRecords.length === 0">
+    <td colspan="2" class="no-records">
+      {{'home.previewPane.noRecords' | translate}}
+
+      <div ng-if="stagePreviewData.stageErrors && stagePreviewData.stageErrors.length">
+          <span translate="home.previewPane.stageErrorsWarning"
+                translate-values="{stageErrorsCount: stagePreviewData.stageErrors.length}"></span>
+      </div>
+
+    </td>
+  </tr>
+  </tbody>
+
+</table>

@@ -1,0 +1,169 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@rotate-time: 10ms;
+
+.record-list {
+  padding-left: 0;
+  margin-bottom: 0;
+
+  ul {
+    //padding-left: @smallPadding * 4;
+  }
+
+  .record-list-item {
+    clear: left;
+    list-style: none;
+    padding: @smallPadding/2 @smallPadding/2 @smallPadding/2 @smallPadding * 4;
+
+
+    &.is-root {
+      padding: @smallPadding/2;
+    }
+
+    &.field-addition {
+      background-color: #eaffea;
+
+      &.is-root {
+        background-color: inherit;
+        .root-label {
+          .field-name {
+            background-color: #eaffea;
+          }
+        }
+      }
+    }
+
+    .value-addition {
+      background-color: #a6f3a6;
+    }
+
+    &.field-deletion {
+      background-color: #ffecec;
+      &.is-root {
+        background-color: inherit;
+
+        .root-label {
+          .field-name {
+            background-color: #ffecec;
+          }
+        }
+      }
+    }
+
+    .value-deletion {
+      background-color: #f8cbcb;
+    }
+
+    label {
+      margin-bottom: 0;
+    }
+
+    .field-name {
+      //display: inline-block;
+
+      .lane-label, .predicate-label {
+        opacity: 0.6;
+      }
+
+      .lane-value {
+        color: blue;
+      }
+
+      .predicate-value {
+        color: #008000;
+      }
+    }
+
+    .view-stack-trace {
+      color: white;
+      cursor: pointer;
+    }
+
+    .field-type {
+      padding-left: @defaultPadding;
+      opacity: 0.4;
+
+      &:before {
+        content: '{';
+      }
+
+      &:after {
+        content: '}';
+      }
+    }
+
+    .field-index {
+      padding-right: @defaultPadding;
+      opacity: 0.4;
+
+      &:before {
+        content: '[';
+      }
+
+      &:after {
+        content: ']';
+      }
+    }
+
+    .dirty {
+      color: @brand-danger;
+      font-style: italic;
+    }
+
+    .toggler {
+      font-size: 1em;
+      line-height: 1em;
+      vertical-align: middle;
+      opacity: 0.6;
+      cursor: pointer;
+
+      &:after {
+        display: inline-block;
+        transition: transform @rotate-time ease-in;
+        content: "►";
+      }
+
+      &.open:after{
+        transform: rotate(90deg);
+      }
+    }
+
+    .array-length {
+      color: blue;
+    }
+
+
+    .record-date-toggle {
+      padding-left: @defaultPadding;
+    }
+
+    .show-more {
+      a:first-child {
+        padding-left: @defaultPadding * 2;
+      }
+
+      span {
+        padding-left: @defaultPadding;
+        padding-right: @defaultPadding;
+      }
+    }
+  }
+}

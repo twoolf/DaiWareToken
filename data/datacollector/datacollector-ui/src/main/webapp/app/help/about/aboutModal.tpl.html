@@ -1,0 +1,30 @@
+<script type="text/ng-template" id="aboutModalContent.html">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title" translate="about.title"></h3>
+  </div>
+  <div class="modal-body">
+
+    <div>
+      <label translate="about.version">Version:</label>
+      <div>
+        {{'about.productName' | translate}} {{buildInfo.version}} ( {{'about.builtBy' | translate}} {{buildInfo.builtBy}} {{'about.on' | translate}} {{buildInfo.builtDate}} git: <a href="https://github.com/streamsets/datacollector/commit/{{buildInfo.builtRepoSha}}" target="_blank">{{buildInfo.builtRepoSha}}</a>)
+      </div>
+    </div>
+
+    <br>
+
+    <div>
+      <span ng-bind-html="'about.copyrightText' | translate"></span>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-primary" ng-click="cancel()" translate="global.form.close">
+      Close
+    </button>
+  </div>
+</script>

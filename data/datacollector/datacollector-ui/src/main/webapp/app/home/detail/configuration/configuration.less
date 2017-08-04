@@ -1,0 +1,147 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.configuration-tab {
+
+  .panel-body {
+    padding: @smallPadding * 3;
+    overflow: auto;
+  }
+
+
+  .tabs-content {
+    //border-left: 1px solid #ddd;
+    //border-right: 1px solid #ddd;
+    //border-bottom: 1px solid #ddd;
+
+    padding: @defaultPadding * 2 @defaultPadding;
+    min-height: 300px;
+  }
+
+  .input-sm, .form-group-sm .form-control {
+    font-size: 14px;
+  }
+
+  input[type=checkbox] {
+    margin-left: 0;
+    margin-top: 9px;
+  }
+
+  .ui-select-multiple.ui-select-bootstrap {
+    min-height: 30px;
+  }
+
+  .attribute-type {
+    height: 24px;
+  }
+
+  .table {
+    input[type=checkbox] {
+      //margin-top: 0;
+    }
+
+    margin-bottom: @smallPadding;
+  }
+
+  .tooltip {
+    width : 800px;
+    z-index   : 1060;
+  }
+
+  .lane-label {
+    float: right;
+    padding-top: 4px;
+  }
+
+  .map-list-type {
+    padding: @smallPadding 0;
+    clear: both;
+    //min-width: 500px;
+
+    .lane-number {
+      float: left;
+      width: 40px;
+    }
+
+    .btn-group {
+      min-width: 50px;
+    }
+  }
+
+  .source-preview {
+    pre {
+      height: 500px;
+      word-break: normal;
+      word-wrap: normal;
+    }
+  }
+
+  .field-selector-single-value {
+    padding-left: @smallPadding * 3;
+    padding-right: @smallPadding * 3;
+  }
+
+  .field-selector-btn {
+    padding-top: @defaultPadding;
+  }
+
+  .custom-field-property {
+    min-width: 180px;
+  }
+
+  .custom-field-buttons {
+    min-width: 100px;
+  }
+
+  .has-error {
+    .help-block {
+      .badge {
+        background-color: #a94442;
+      }
+    }
+  }
+}
+
+.field-selector-modal-body {
+  height: 400px;
+  overflow: auto;
+
+  .loading-screen-display-box {
+    left: 35%;
+  }
+}
+
+
+.compact-density {
+  .configuration-tab {
+    input[type=checkbox] {
+      margin-left: 0;
+      margin-top: 5px;
+    }
+  }
+
+  .map-list-type {
+    padding: @smallPadding * 0.5 0;
+  }
+
+  .field-selector-btn {
+    padding-top: @defaultPadding * 0.5;
+  }
+}

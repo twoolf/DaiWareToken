@@ -1,0 +1,194 @@
+<div class="panel panel-default detail-pane" ng-if="(!previewMode && !snapshotMode)" ng-controller="DetailController">
+
+  <div class="panel-heading clearfix">
+
+    <h3 class="panel-title pull-left"
+        ng-if="isPipelineRunning && selectedType !== pipelineConstant.LINK">{{'home.detailPane.monitoring' | translate}}:</h3>
+
+    <h3 class="panel-title pull-left"
+        ng-if="isPipelineRunning && selectedType === pipelineConstant.LINK">{{'home.detailPane.inspectingData' | translate}}:</h3>
+
+    <div class="btn-group pull-left detail-name-dropdown">
+      <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+        <span>{{getDetailPaneLabel()}}</span>
+
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+        <li role="presentation" class="dropdown-header"
+            translate="global.form.pipeline">Pipeline</li>
+
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#"
+             ng-click="changeStageSelection({selectedObject: undefined, type: pipelineConstant.PIPELINE})">{{pipelineConfig.info.title}}</a>
+        </li>
+
+        <li role="presentation" class="divider"></li>
+
+        <li role="presentation" class="dropdown-header"
+            translate="global.form.stage">Stage</li>
+
+        <li role="presentation"
+            ng-repeat="stageInstance in pipelineConfig.stages">
+          <a role="menuitem" tabindex="-1" href="#"
+             ng-click="changeStageSelection({selectedObject: stageInstance, type: pipelineConstant.STAGE_INSTANCE})">{{stageInstance.uiInfo.label}}</a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="pull-right size-toolbar">
+
+      <div class="btn-group pull-left detail-settings-dropdown"
+           ng-if="!$storage.dontShowRESTResponseMenu || isPipelineRunning">
+        <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+           tooltip-placement="top"
+           tooltip="{{'home.header.more' | translate}}"
+           tooltip-popup-delay="500">
+          <span class="fa fa-ellipsis-h fa-14x pointer"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+
+          <li role="presentation" class="dropdown-header"
+              ng-if="!$storage.dontShowRESTResponseMenu"
+              translate="home.detailPane.restURL">REST URL</li>
+
+          <li role="presentation" ng-if="isPipelineRunning && !$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/pipeline/{{pipelineConfig.info.pipelineId}}/metrics?rev=0"
+               target="_blank">{{'home.detailPane.monitoringJSONData' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/pipeline/{{pipelineConfig.info.pipelineId}}"
+               target="_blank">{{'home.detailPane.pipelineConfigJSONData' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/pipeline/{{pipelineConfig.info.pipelineId}}/rules"
+               target="_blank">{{'home.detailPane.pipelineRulesJSONData' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/pipeline/{{pipelineConfig.info.pipelineId}}/status?rev=0"
+               target="_blank">{{'home.detailPane.pipelineStatusJSONData' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/definitions"
+               target="_blank">{{'home.detailPane.definitionsJSONData' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/{{common.apiVersion}}/pipeline/{{pipelineConfig.info.pipelineId}}/committedOffsets"
+               target="_blank">{{'home.detailPane.committedOffsets' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="isPipelineRunning && activeDetailTab.name == 'summary'"
+              ng-if="!$storage.dontShowRESTResponseMenu"
+              class="divider"></li>
+
+          <li role="presentation" ng-if="isPipelineRunning && activeDetailTab.name == 'summary'">
+            <a role="menuitem" tabindex="-1" href="#"
+               ng-click="launchSettings()">{{'global.form.settings' | translate}}</a>
+          </li>
+
+        </ul>
+      </div>
+
+      <span class="fa fa-question-circle fa-14x pointer"
+            tooltip-placement="top"
+            tooltip="{{'global.form.help' | translate}}"
+            tooltip-popup-delay="500"
+            ng-click="launchHelp()"></span>
+
+      <span class="glyphicon pointer"
+            tooltip-placement="top"
+            tooltip="{{!$storage.minimizeDetailPane ? 'global.form.minimizePane' : 'global.form.maximizePane' | translate}}"
+            tooltip-popup-delay="1000"
+            ng-hide="$storage.maximizeDetailPane"
+            ng-class="{'glyphicon-minus' : !$storage.minimizeDetailPane , 'glyphicon-resize-full': $storage.minimizeDetailPane}"
+            ng-click="onMinimizeDetailPane()"></span>
+
+      <span class="glyphicon pointer"
+            tooltip-placement="top"
+            tooltip="{{!$storage.maximizeDetailPane ? 'global.form.maximizePane' : 'global.form.minimizePane' | translate}}"
+            tooltip-popup-delay="1000"
+            ng-hide="$storage.minimizeDetailPane"
+            ng-class="{'glyphicon-fullscreen' : !$storage.maximizeDetailPane , 'glyphicon-resize-small': $storage.maximizeDetailPane}"
+            ng-click="onMaximizeDetailPane()"></span>
+    </div>
+
+    <div class="btn-group pull-right detail-time-range-dropdown"
+         ng-if="common.isMetricsTimeSeriesEnabled && isPipelineRunning && activeDetailTab.name == 'summary'">
+
+      <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+        <i class="fa fa-clock-o"></i>
+        <span>{{getTimeRangeLabel()}}</span>
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu pull-left" role="menu" aria-labelledby="dropdownMenu1">
+
+        <li role="presentation" ng-repeat="timeOption in timeOptions">
+          <a role="menuitem" tabindex="-1" href="#"
+             ng-click="changeTimeRange(timeOption)">{{'home.detailPane.' + timeOption | translate}}</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="panel-body">
+    <tabset class="detail-tabs-left tabs-left" ng-if="detailPaneConfigDefn">
+      <tab ng-repeat="tab in detailPaneTabs track by $index" active="tab.active" disable="tab.disabled"
+           select="onTabSelect(tab)">
+        <tab-heading>  <!--tooltip-placement="right" tooltip="{{tab.label}}" -->
+          <i class="fa fa-exclamation-triangle icon-danger"
+             ng-show="showWarning(tab)"></i>
+
+          <i class="{{tab.iconClass}}"
+             ng-hide="showWarning(tab)"></i>
+
+          <span>{{'home.detailPane.' + tab.name | translate}}</span>
+        </tab-heading>
+        <div ng-if="tab.active" ng-include="tab.template"></div>
+      </tab>
+    </tabset>
+
+    <div class="row" ng-if="detailPaneConfig && !detailPaneConfigDefn">
+
+      <div class="row">
+        <div class="col-md-12" >
+          <div class="alert alert-danger" role="alert">
+            <i class="fa fa-exclamation-triangle"></i>
+            <span translate="home.detailPane.noStageDefinitionFound" translate-values="{stageName: detailPaneConfig.stageName, library: detailPaneConfig.library}"></span>
+          </div>
+        </div>
+
+        <div class="col-md-2 col-md-offset-1" >
+          <button class="btn btn-primary" ng-click="onInstallMissingLibraryClick(detailPaneConfig.library)">Install Missing Stage Library</button>
+        </div>
+
+        <div class="form-group col-md-6" ng-if="selectedType === pipelineConstant.STAGE_INSTANCE && stageLibraryList.length > 0">
+          <p class="col-md-1">OR</p>
+          <label class="col-lg-3 col-md-4 control-label" translate="home.detailPane.configurationTab.changeStageLibrary">Change Stage Library</label>
+          <div class="controls col-lg-7 col-md-8">
+            <select class="form-control"
+                    name="stageLibrary"
+                    ng-disabled="isPipelineReadOnly || isPipelineRunning"
+                    ng-model="detailPaneConfig.library"
+                    ng-options="item.library as item.libraryLabel for item in stageLibraryList">
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<ng-include src="'app/home/detail/configuration/fieldSelector/fieldSelectorModal.tpl.html'"></ng-include>

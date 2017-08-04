@@ -1,0 +1,37 @@
+<script type="text/ng-template" id="fieldSelectorModalContent.html">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title">Field Selector</h3>
+  </div>
+  <div class="modal-body field-selector-modal-body">
+    <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+    <div show-loading="showLoading"></div>
+
+    <div ng-if="!showLoading">
+      <record-tree
+        record="recordObject"
+        record-value="recordObject.value"
+        field-name="('global.form.record' | translate)"
+        is-root="true"
+        editable="false"
+        selectable="true"
+        selected-path="selectedPath">
+      </record-tree>
+    </div>
+
+    <label class="label-warning"
+           ng-show="noPreviewRecord"
+           translate="home.detailPane.configurationTab.noRecord">No Preview Record</label>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary"
+            ng-hide="showLoading || noPreviewRecord" ng-click="save()" translate="global.form.save">Save</button>
+    <button type="reset" class="btn btn-default"
+            ng-click="close()" translate="global.form.close">Close</button>
+  </div>
+</script>

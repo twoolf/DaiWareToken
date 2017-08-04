@@ -1,0 +1,161 @@
+<div class="data-rules-tab" ng-controller="DataDriftRulesController">
+  <div class="panel-heading clearfix">
+    <button type="button" class="btn btn-primary btn-sm add-button pull-right"
+            ng-if="!isPipelineRulesReadOnly && pipelineConfig.stages.length"
+            ng-click="createDataRule()">
+      <i class="fa fa-plus"></i> {{'global.form.add' | translate}}
+    </button>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" role="form"
+          ng-class="{'form-group-sm': ($storage.displayDensity === pipelineConstant.DENSITY_COZY || $storage.displayDensity === pipelineConstant.DENSITY_COMPACT)}"
+          name="{{selectedType === pipelineConstant.STAGE_INSTANCE ? 'd' + detailPaneConfig.instanceName : 'pipeline'}}">
+
+      <table class="table table-hover" ng-init="expandAll=false">
+        <thead>
+          <tr>
+            <th class="expand-col">
+              <span class="pointer toggler {{expandAll ? 'open' : ''}}"
+                    ng-click="expandAll = !expandAll">
+              </span>
+            </th>
+            <th class="alert-text-col">{{'home.detailPane.rulesTab.stream' | translate}}</th>
+            <th class="alert-text-col">{{'home.detailPane.rulesTab.label' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.condition' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.enableMeter' | translate}}</th>
+            <th class="condition-col">{{'home.detailPane.rulesTab.enableAlert' | translate}}</th>
+            <th class="sendEmail-col">{{'home.detailPane.rulesTab.sendEmail' | translate}}</th>
+            <th class="enabled-col">{{'home.detailPane.rulesTab.enabled' | translate}}</th>
+            <th class="actions-col">{{'global.form.actions' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody ng-hide="showLoading">
+
+        <tr ng-repeat-start="dataDriftRuleDefn in dataDriftRuleDefinitions = getFilteredDataDriftRules()"
+            ng-init="isOpen=false;"
+            ng-click="isOpen = !isOpen"
+            class="pointer {{dataDriftRuleDefn.valid ? '' : 'invalid-rule'}}">
+
+          <td>
+            <span class="toggler {{isOpen || expandAll ? 'open' : ''}}"
+                  ng-click="isOpen = !isOpen; $event.stopPropagation()"></span>
+          </td>
+
+          <td>
+            <span>{{streamLabelMap[dataDriftRuleDefn.lane]}}</span>
+          </td>
+
+          <td>
+            <span>{{dataDriftRuleDefn.label}}</span>
+          </td>
+
+          <td>
+            <span>{{dataDriftRuleDefn.condition}}</span>
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="meterEnabled{{$index}}"
+                   ng-disabled="dataDriftRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataDriftRuleDefn.meterEnabled">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="alertEnabled{{$index}}"
+                   ng-disabled="dataDriftRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataDriftRuleDefn.alertEnabled">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="sendEmail{{$index}}"
+                   ng-if="dataDriftRuleDefn.alertEnabled"
+                   ng-disabled="dataDriftRuleDefn.enabled || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataDriftRuleDefn.sendEmail">
+          </td>
+
+          <td>
+            <input type="checkbox"
+                   name="enabled{{$index}}"
+                   ng-disabled="(!dataDriftRuleDefn.valid && dataDriftRuleDefn.enabled === false) || isPipelineRulesReadOnly"
+                   ng-click="$event.stopPropagation()"
+                   ng-model="dataDriftRuleDefn.enabled">
+          </td>
+
+          <td>
+            <div ng-show="!dataDriftRuleDefn.enabled" ng-if="!isPipelineRulesReadOnly">
+              <a href="javascript:;" translate="global.form.edit"
+                 ng-click="editDataRule(dataDriftRuleDefn, $index, $event)">Edit</a>
+              <span class="separator-padding">|</span>
+              <a href="javascript:;"  translate="global.form.delete"
+                 ng-click="removeRule(pipelineRules.driftRuleDefinitions, dataDriftRuleDefn, $event)">Delete</a>
+            </div>
+          </td>
+
+        </tr>
+
+        <tr ng-repeat-end ng-if="isOpen || expandAll" class="expand-row" ng-class="dataDriftRuleDefn.valid ? '' : 'invalid-rule'">
+          <td colspan="9">
+            <ul class="table-properties">
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.samplingPercentage' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataDriftRuleDefn.samplingPercentage}}
+                </span>
+              </li>
+
+              <li>
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.samplingRecords' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataDriftRuleDefn.samplingRecordsToRetain}}
+                </span>
+              </li>
+
+              <li ng-if="dataDriftRuleDefn.alertEnabled">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.alertText' | translate}}:
+                </span>
+                <span class="properties-value">
+                  {{dataDriftRuleDefn.alertText}}
+                </span>
+              </li>
+
+              <li ng-show="ruleIssues.length">
+                <span class="properties-label">
+                  {{'home.detailPane.rulesTab.issues' | translate}}:
+                </span>
+                <span class="properties-value">
+                  <span ng-repeat="ruleIssue in ruleIssues = (pipelineRules.ruleIssues | filter: {ruleId: dataDriftRuleDefn.id})">
+                    <span>{{ruleIssue.message}}</span>
+                    <span ng-if="ruleIssue.additionalInfo.property === 'emailIds'">{{'home.detailPane.rulesTab.enterEmailIdMsg' | translate}}</span>
+                  </span>
+                </span>
+              </li>
+
+            </ul>
+          </td>
+        </tr>
+
+        <tr ng-if="dataDriftRuleDefinitions.length === 0">
+          <td colspan="9" class="no-records text-center"
+              translate="home.detailPane.rulesTab.noDataDriftRules">No Data Drift Rules to view.</td>
+        </tr>
+
+        </tbody>
+      </table>
+
+      <div show-loading="showLoading"></div>
+
+    </form>
+
+  </div>
+</div>

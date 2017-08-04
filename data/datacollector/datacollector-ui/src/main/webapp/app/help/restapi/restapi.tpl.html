@@ -1,0 +1,54 @@
+<div class="panel panel-default page-panel sdc-restapi-page">
+
+  <div show-loading="fetching"></div>
+
+  <div class="panel-heading clearfix">
+    <div class="panel-title size-toolbar">
+      <h3 class="pull-left" translate="restapi.title">Data Collector RESTful API</h3>
+
+      <div class="btn-group pull-right settings-dropdown">
+        <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+           tooltip-placement="top"
+           tooltip="{{'home.header.more' | translate}}"
+           tooltip-popup-delay="500">
+          <span class="fa fa-gear fa-14x pointer"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/rest/swagger.json"
+               target="_blank">swagger.json</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-body" ng-style="{'height': (windowHeight - 60 - 51) + 'px', 'width': (windowWidth) + 'px'}" resize>
+    <div swagger-ui url="swaggerURL" api-explorer="true"></div>
+
+    <div class="alert alert-info" ng-if="!fetching">
+      <strong>Note!</strong> Custom HTTP header attribute (X-Requested-By) is required for all POST/PUT/DELETE REST API requests.
+      <pre>curl -u username:password -X DELETE https://localhost:18630/rest/v1/pipeline/samplepipeline -H "X-Requested-By:sdc"</pre>
+    </div>
+
+    <div class="alert alert-info" ng-if="!fetching">
+      Sample script for calling SDC REST API when DPM is enabled:
+      <pre>
+# login to DPM security app
+curl -X POST -d '{"userName":"DPMUserID", "password": "DPMUserPassword"}' https://cloud.streamsets.com/security/public-rest/v1/authentication/login --header "Content-Type:application/json" --header "X-Requested-By:SDC" -c cookie.txt
+
+# generate auth token from security app
+sessionToken=$(cat cookie.txt | grep SSO | rev | grep -o '^\S*' | rev)
+echo "Generated session token : $sessionToken"
+
+touch /tmp/authToken.txt
+
+# Call SDC REST APIs using auth token
+curl -X GET http://localhost:18630/rest/v1/pipelines --header "Content-Type:application/json" --header "X-Requested-By:SDC" --header "X-SS-REST-CALL:true" --header "X-SS-User-Auth-Token:$sessionToken" -i
+      </pre>
+    </div>
+  </div>
+
+</div>

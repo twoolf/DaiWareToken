@@ -1,0 +1,230 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.library-pane {
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.4);
+    box-shadow: 0 0 1px rgba(255,255,255,.4);
+  }
+
+  height: calc(~"100% - 2px");
+  box-sizing: border-box;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-bottom: 0;
+
+  .loading-screen-display-box {
+    position: static;
+  }
+
+  .panel-heading {
+    padding: @smallPadding @smallPadding*3;
+    height: 45px;
+
+    .panel-title {
+      padding-top: 5px;
+      font-size: 20px;
+    }
+
+    button {
+      margin-top: 2px;
+    }
+  }
+
+  .panel-body {
+    box-sizing: border-box;
+    height: calc(~"100% + 20px");
+    overflow: scroll;
+    padding: @defaultPadding 0 0 0;
+
+    .create-pipeline-btn-group {
+      margin: @defaultPadding 0 @defaultPadding @defaultPadding*3.5;
+    }
+
+    .list-group {
+      box-sizing: border-box;
+      margin-bottom: 0;
+
+      .label-filter-wrapper {
+        padding: 5px 10px;
+        position: relative;
+        width: 100%;
+      }
+
+      .label-filter-input {
+        &.loading-labels {
+          opacity: .5;
+          pointer-events: none;
+        }
+      }
+
+      .label-filter-icon {
+        color: #ccc;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+
+        &.glyphicon-remove-circle:hover {
+          color: @streamsets-icon-btn-hover-color;
+          cursor: pointer;
+        }
+      }
+
+      .border-list-group-item {
+        border-top: 1px solid #ddd;
+        margin: 5px 12px 0px 12px;
+        padding: 10px 0px 0px 2px;
+        color: @streamsets-color;
+        text-transform: uppercase;
+        list-style: none;
+      }
+
+      .list-group-item {
+        border: 0;
+        border-radius: 0;
+        padding: 0 0 0 10px;
+
+        .highlight {
+          background: yellow;
+        }
+
+        .list-group-children {
+          padding: 0;
+        }
+
+        .list-group-item-wrapper {
+          border-left: 5px solid #ffffff;
+          padding: @smallPadding 0 @smallPadding 10px;
+          margin: 0 0 0 -10px;
+
+          &:hover,
+          &:focus {
+            text-decoration: none;
+            background-color: #f5f5f5;
+            border-left: 5px solid #808080;
+
+            .action-menu {
+              visibility: visible;
+            }
+          }
+
+          &.active {
+            color: @streamsets-color;
+            border-left: 5px solid @streamsets-color;
+            background-color: #ffffff;
+
+            p {
+              color: @brand-primary;
+            }
+
+            &:focus {
+              border-color: #e7e7e7;
+            }
+
+            .action-menu {
+              visibility: visible;
+            }
+          }
+
+          .list-group-icon-wrapper {
+            display: inline-block;
+            width: 10px;
+          }
+        }
+
+        .pipeline-details {
+          width: 76%;
+          word-break: break-word;
+          max-height: 54px;
+          overflow: hidden;
+
+          .list-group-item-text {
+            font-size: 0.9em;
+          }
+        }
+
+        .action-menu {
+          &:hover,
+          &:focus {
+            color: @brand-primary;
+            visibility: visible;
+          }
+
+          visibility: hidden;
+          padding: 0;
+          color: #8A8787;
+          .dropdown-toggle {
+            padding: @defaultPadding;
+          }
+        }
+
+        .running {
+          color: @brand-success;
+        }
+      }
+
+      .label-border {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+}
+
+.create-pipeline-modal-form {
+  .source-dropdown {
+    .btn {
+      text-align: left;
+    }
+  }
+}
+
+.multiple-pipelines-modal-body {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.publish-modal-form {
+  .properties {
+    list-style: none;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      padding-left: @defaultPadding;
+    }
+
+    .properties-label {
+      opacity: 0.6;
+    }
+
+    .properties-value {
+
+    }
+  }
+}

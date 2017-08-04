@@ -1,0 +1,34 @@
+<div class="panel panel-default page-panel sdc-configuration-page">
+
+  <div class="panel-heading clearfix">
+    <div class="panel-title">
+      <h3 translate="sdcConfiguration.title">Data Collector Configuration</h3>
+    </div>
+  </div>
+
+  <div class="panel-body"  ng-style="{'height': (windowHeight - 60 - 51) + 'px', 'width': (windowWidth) + 'px'}" resize>
+
+    <div class="alert alert-info" role="alert">
+      <i class="fa fa-info-circle"></i>
+      <span translate="sdcConfiguration.infoMessage"></span>
+    </div>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th translate="sdcConfiguration.configuration">Configuration</th>
+          <th translate="sdcConfiguration.value">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="configKey in configKeys">
+          <td><label>{{configKey}}</label></td>
+          <td>{{sdcConfiguration[configKey]}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+</div>

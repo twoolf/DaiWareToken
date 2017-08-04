@@ -1,0 +1,130 @@
+<div class="panel panel-default graph-pane"
+     ng-controller="GraphController">
+
+  <div class="panel-body" droppable drop="stageDrop">
+
+    <div ng-if="!sourceExists && pipelineConfig && !isPipelineReadOnly && !$storage.maximizeDetailPane && !$storage.dontShowHelpAlert"
+         class="alert alert-dismissible alert-warning alert-select-stage" role="alert">
+
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+      </button>
+
+      <span  class="validation-message">{{'home.graphPane.originMissing' | translate}}</span>
+
+      <select class="form-control" name="newPipelineSource"
+          ng-options="(stage.label + ' - ' +  stage.libraryLabel) for stage in sources | orderBy: 'label'"
+          ng-model="selectedSource.selected"
+          ng-change="onSelectSourceChange()">
+        <option value="">
+          {{'home.library.sourcePlaceholder' | translate}}
+        </option>
+      </select>
+
+      <div class="pull-right checkbox dont-show-again">
+        <label>
+          <input type="checkbox" name="dontShowHelpAgain"
+                 ng-model="$storage.dontShowHelpAlert">  {{'home.graphPane.dontShowAgain' | translate}}
+        </label>
+      </div>
+
+    </div>
+
+
+    <div class="alert alert-dismissible alert-warning alert-select-stage" role="alert"
+         ng-if="!isPipelineReadOnly && pipelineConfig && firstOpenLane.stageInstance &&
+         common.errors.length === 0 && !previewMode && !$storage.maximizeDetailPane">
+
+      <button type="button" class="close" ng-click="firstOpenLane.stageInstance = undefined">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+      </button>
+
+      <span class="validation-message" ng-if="!firstOpenLane.isEventLane">
+        {{firstOpenLane.stageInstance.uiInfo.label}} has open stream {{(firstOpenLane.stageInstance.outputLanes.length > 1) ?
+        ': stream ' + (firstOpenLane.laneIndex + 1) : ''}}
+      </span>
+
+
+      <span class="validation-message" ng-if="firstOpenLane.isEventLane">
+        {{firstOpenLane.stageInstance.uiInfo.label}} has open event stream
+      </span>
+
+      <select class="form-control" name="newPipelineProcessor"
+              ng-options="(stage.label + ' - ' +  stage.libraryLabel) for stage in processors | orderBy: 'label'"
+              ng-model="connectStage.selected"
+              ng-change="onConnectStageChange()">
+        <option value="">
+          {{'home.graphPane.selectProcessor' | translate}}
+        </option>
+      </select>
+
+      <span class="pull-left123"> Or </span>
+
+      <select class="form-control" name="newPipelineTarget"
+              ng-options="(stage.label + ' - ' +  stage.libraryLabel) for stage in targets | orderBy: 'label'"
+              ng-model="connectStage.selected"
+              ng-change="onConnectStageChange()">
+        <option value="">
+          {{'home.graphPane.selectTarget' | translate}}
+        </option>
+      </select>
+
+      <span ng-if="firstOpenLane.isEventLane" class="pull-left123"> Or </span>
+
+      <select class="form-control" name="newPipelineExecutor"
+              ng-if="firstOpenLane.isEventLane"
+              ng-options="(stage.label + ' - ' +  stage.libraryLabel) for stage in executors | orderBy: 'label'"
+              ng-model="connectStage.selected"
+              ng-change="onConnectStageChange()">
+        <option value="">
+          {{'home.graphPane.selectExecutor' | translate}}
+        </option>
+      </select>
+
+      <div class="pull-right checkbox dont-show-again">
+        <label>
+          <input type="checkbox" name="dontShowHelpAgain"
+                 ng-model="$storage.dontShowHelpAlert">  {{'home.graphPane.dontShowAgain' | translate}}
+        </label>
+      </div>
+
+    </div>
+
+    <div class="alert alert-dismissible alert-info alert-select-stage" role="alert"
+         ng-if="!isPipelineRunning && !isPipelineReadOnly && pipelineConfig && selectedType === pipelineConstant.LINK &&
+         !previewMode && !$storage.maximizeDetailPane && !$storage.dontShowHelpAlert">
+
+      <button type="button" class="close" ng-click="$storage.dontShowHelpAlert = !$storage.dontShowHelpAlert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+      </button>
+
+
+      <select class="form-control stage-in-between" name="newPipelineProcessor"
+              ng-options="(stage.label + ' - ' +  stage.libraryLabel) for stage in processors | orderBy: 'label'"
+              ng-model="insertStage.selected"
+              ng-change="onInsertStageChange()">
+        <option value="">
+          {{'home.graphPane.selectProcessorToAddInBetween' | translate}}
+        </option>
+      </select>
+
+
+      <div class="pull-right checkbox dont-show-again">
+        <label>
+          <input type="checkbox" name="dontShowHelpAgain"
+                 ng-model="$storage.dontShowHelpAlert">  {{'home.graphPane.dontShowAgain' | translate}}
+        </label>
+      </div>
+    </div>
+
+    <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'" ng-if="!$storage.maximizeDetailPane"></ng-include>
+    <ng-include src="'app/home/alerts/info/infoAlert.tpl.html'" ng-if="!$storage.maximizeDetailPane"></ng-include>
+    <ng-include src="'app/home/alerts/success/successAlert.tpl.html'" ng-if="!$storage.maximizeDetailPane"></ng-include>
+
+    <pipeline-graph ng-show="pipelineConfig" graph-value="pipelineConfig" ></pipeline-graph>
+
+  </div>
+</div>

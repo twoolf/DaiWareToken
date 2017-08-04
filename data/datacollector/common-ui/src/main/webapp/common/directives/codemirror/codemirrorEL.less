@@ -1,0 +1,126 @@
+/**
+ * Copyright 2015 StreamSets Inc.
+ *
+ * Licensed under the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.CodeMirror-EL-completion {
+  padding-left: 22px;
+  position: relative;
+}
+.CodeMirror-EL-completion:before {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  height: 15px;
+  width: 15px;
+  line-height: 16px;
+  text-align: center;
+  color: white;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.CodeMirror-EL-completion-keyword:before {
+  content: "K";
+  background: #4bb;
+}
+.CodeMirror-EL-completion-object:before {
+  content: "O";
+  background: #77c;
+}
+.CodeMirror-EL-completion-fn:before {
+  content: "M";
+  background: #7c7;
+}
+.CodeMirror-EL-completion-array:before {
+  content: "A";
+  background: #c66;
+}
+.CodeMirror-EL-completion-number:before {
+  content: "1";
+  background: #999;
+}
+.CodeMirror-EL-completion-string:before {
+  content: "S";
+  background: #999;
+}
+.CodeMirror-EL-completion-bool:before {
+  content: "B";
+  background: #999;
+}
+
+.CodeMirror-EL-completion-user-constant:before {
+  content: "P";
+  background: #77c;
+}
+
+.CodeMirror-EL-completion-constant:before {
+  content: "C";
+  background: #c66;
+}
+
+.CodeMirror-EL-completion-runtime-config:before {
+  content: "R";
+  background: #999;
+}
+
+.CodeMirror-EL-completion-field-path:before {
+  content: "F";
+  background: #4bb;
+}
+
+.CodeMirror-EL-completion-guess {
+  color: #999;
+}
+
+.CodeMirror-EL-tooltip {
+  border: 1px solid silver;
+  border-radius: 3px;
+  color: #444;
+  padding: 2px 5px;
+  font-size: 90%;
+  font-family: monospace;
+  background-color: white;
+  white-space: pre-wrap;
+
+  max-width: 40em;
+  position: absolute;
+  z-index: 1490;
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+
+  transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  -o-transition: opacity 1s;
+  -ms-transition: opacity 1s;
+}
+
+.CodeMirror-EL-hint-doc {
+  max-width: 25em;
+  margin-top: -3px;
+}
+
+.CodeMirror-EL-fname { color: black; }
+.CodeMirror-EL-farg { color: #70a; }
+.CodeMirror-EL-farg-current { text-decoration: underline; }
+.CodeMirror-EL-type { color: #07c; }
+.CodeMirror-EL-fhint-guess { opacity: .7; }

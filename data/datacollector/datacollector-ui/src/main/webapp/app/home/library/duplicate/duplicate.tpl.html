@@ -1,0 +1,46 @@
+<form class="duplicate-modal-form" role="form" ng-submit="save()">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title" translate="home.library.duplicatePipelineDefinition">Duplicate Pipeline Definition</h3>
+  </div>
+  <div class="modal-body">
+
+    <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+
+    <div class="form-group">
+      <label class="control-label" translate="global.form.title">Title</label>
+      <input type="text" class="form-control" required
+             ng-disabled="operationInProgress"
+             placeholder="{{'home.library.namePlaceholder' | translate}}"
+             ng-model="newConfig.title"
+             focus-me="true">
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" translate="global.form.description">Description</label>
+      <textarea class="form-control" rows="2"
+                ng-disabled="operationInProgress"
+                placeholder="{{'home.library.descriptionPlaceholder' | translate}}"
+                ng-model="newConfig.description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" translate="global.form.numberOfCopies">Number of Copies</label>
+      <input type="number" class="form-control"
+             ng-disabled="operationInProgress"
+             required min="1" max="1000" ng-model="newConfig.numberOfCopies">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-default" ng-click="cancel()" ng-if="!operationInProgress"
+            translate="global.form.cancel">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="!newConfig.title" ng-if="!operationInProgress"
+            translate="global.form.duplicate">Duplicate</button>
+    <button type="submit" class="btn btn-primary" ng-if="operationInProgress" disabled
+            translate="global.form.duplicating">Duplicating...</button>
+  </div>
+</form>

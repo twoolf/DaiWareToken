@@ -1,0 +1,191 @@
+#!/bin/bash
+#
+#
+# Licensed under the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+#
+
+# resolve links - $0 may be a softlink
+PRG="${0}"
+
+run() {
+  "${@}"
+  ret=$?
+  if [ $ret != 0 ]; then
+    echo
+    echo "Failed!"
+    echo
+    exit $ret
+  fi
+}
+
+while [ -h "${PRG}" ]; do
+  ls=`ls -ld "${PRG}"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "${PRG}"`/"$link"
+  fi
+done
+
+BASEDIR=`dirname ${PRG}`
+BASEDIR=`cd ${BASEDIR}/..;pwd`
+
+SDC_DIST=${BASEDIR}
+
+SDC_HOME=""
+SDC_HTTP_PORT=""
+SDC_HTTPS_PORT=""
+while test $# -gt 0; do
+  case "$1" in
+    -home=*)
+      SDC_HOME=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -httpPort=*)
+      SDC_HTTP_PORT=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -httpsPort=*)
+      SDC_HTTPS_PORT=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -conf=*)
+      SDC_CONF_TEMP=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -help)
+      echo ""
+      echo "streamsets create-dc -home=<SDC_HOME_DIR> (-httpPort=<SDC_HTTP_PORT> | -httpsPort=<SDC_HTTPS_PORT>) [-conf=<SDC_CONF_DIR>]"
+      echo ""
+      echo "  The <SDC_HOME_DIR> directory must not exist."
+      echo ""
+      echo "  The default value for <SDC_CONF_DIR> is '${SDC_DIST}/etc'"
+      echo ""
+      exit 0
+      ;;
+    *)
+      echo ""
+      echo "Invalid arguments, run 'streamsets create-dc -help'"
+      echo ""
+      $0 -help
+      exit 1
+      ;;
+  esac
+done
+
+if [[ -z "${SDC_HOME}" ]]
+then
+  echo ""
+  echo "Missing arguments, run 'streamsets create-dc -help'"
+  echo ""
+  $0 -help
+  exit 1
+fi
+
+if [[ -z "${SDC_HTTP_PORT}" && -z "${SDC_HTTPS_PORT}" ]]
+then
+  echo ""
+  echo "Missing arguments, run 'streamsets create-dc -help'"
+  echo ""
+  $0 -help
+  exit 1
+fi
+
+if [ -d "${SDC_HOME}" ]
+then
+  echo ""
+  echo "The specified home directory must not exist"
+  echo ""
+  exit 1
+fi
+
+if [[ -z "${SDC_CONF_TEMP}" ]]
+then
+  SDC_CONF_TEMP=${SDC_DIST}/etc
+fi
+
+SDC_HTTP_PORT=${SDC_HTTP_PORT:="-1"}
+SDC_HTTPS_PORT=${SDC_HTTPS_PORT:="-1"}
+
+
+run mkdir "${SDC_HOME}"
+SDC_HOME=`cd ${SDC_HOME};pwd`
+
+run mkdir "${SDC_HOME}/bin"
+run mkdir "${SDC_HOME}/etc"
+run mkdir "${SDC_HOME}/libexec"
+
+SCRIPT="${SDC_HOME}/bin/streamsets"
+
+run echo "#!/bin/bash" > ${SCRIPT}
+run echo "#" >> ${SCRIPT}
+run echo "# (c) 2014 StreamSets, Inc. All rights reserved. May not" >> ${SCRIPT}
+run echo "# be copied, modified, or distributed in whole or part without" >> ${SCRIPT}
+run echo "# written consent of StreamSets, Inc." >> ${SCRIPT}
+run echo "#" >> ${SCRIPT}
+run echo "if [[ \"\$1\" == \"\" ]]" >> ${SCRIPT}
+run echo "then" >> ${SCRIPT}
+run echo "  echo """ >> ${SCRIPT}
+run echo "  echo \"Missing sub-command, 'dc' sub-command is required from instance directories\"" >> ${SCRIPT}
+run echo "  echo """ >> ${SCRIPT}
+run echo "  exit 1" >> ${SCRIPT}
+run echo "fi" >> ${SCRIPT}
+run echo "" >> ${SCRIPT}
+run echo "if [[ \"\$1\" != \"dc\" ]]" >> ${SCRIPT}
+run echo "then" >> ${SCRIPT}
+run echo "  echo """ >> ${SCRIPT}
+run echo "  echo \"Invalid sub-command, only 'dc' sub-command is supported from instance directories\"" >> ${SCRIPT}
+run echo "  echo """ >> ${SCRIPT}
+run echo "  exit 1" >> ${SCRIPT}
+run echo "fi" >> ${SCRIPT}
+run echo "" >> ${SCRIPT}
+run echo "shift" >> ${SCRIPT}
+run echo "export SDC_HOME=${SDC_HOME}" >> ${SCRIPT}
+run echo "exec ${SDC_DIST}/bin/streamsets dc \"\$@\"" >> ${SCRIPT}
+run echo "" >> ${SCRIPT}
+
+
+run chmod a+x ${SCRIPT}
+run cp -r -p "${SDC_CONF_TEMP}/"* "${SDC_HOME}/etc/"
+run cp -p "${SDC_DIST}/libexec/"*".sh" "${SDC_HOME}/libexec/"
+run rm "${SDC_HOME}/etc/sdc.properties"
+
+SED_OPTIONS=""
+if [ -n "${SDC_HTTP_PORT}" ]
+then
+  SED_OPTIONS="-e s|http.port=.*$|http.port=${SDC_HTTP_PORT}|"
+fi
+
+if [ -n "${SDC_HTTPS_PORT}" ]
+then
+  SED_OPTIONS="${SED_OPTIONS} -e s|https.port=.*$|https.port=${SDC_HTTPS_PORT}|"
+fi
+
+run sed ${SED_OPTIONS} < "${SDC_CONF_TEMP}/sdc.properties" > "${SDC_HOME}/etc/sdc.properties"
+
+# drop SDC_CONF_TEMP
+unset -v SDC_CONF_TEMP
+
+echo ""
+echo "New Data Collector created at ${SDC_HOME} on HTTP port ${SDC_HTTP_PORT} and HTTPS port ${SDC_HTTPS_PORT}"
+echo ""
+echo "Use '${SDC_HOME}/bin/streamsets dc' to run the new Data Collector"
+echo ""
+exit 0

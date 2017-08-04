@@ -1,0 +1,82 @@
+<div class="panel panel-default page-panel jvm-metrics-page">
+
+  <div class="panel-heading clearfix">
+    <div class="panel-title size-toolbar">
+      <h3 class="pull-left" translate="jvmMetrics.title">JVM Metrics</h3>
+
+      <div class="btn-group pull-right jvm-metrics-settings-dropdown">
+        <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+           tooltip-placement="top"
+           tooltip="{{'home.header.more' | translate}}"
+           tooltip-popup-delay="500">
+          <span class="fa fa-ellipsis-h fa-14x pointer"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" role="menu">
+
+          <li role="presentation" ng-if="isAuthorized(userRoles.admin)">
+            <a role="menuitem" tabindex="-1" href="#"
+               ng-click="launchThreadDump()">{{'jvmMetrics.threads.threadDump' | translate}}</a>
+          </li>
+
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#"
+               ng-click="launchSettings()">{{'global.form.settings' | translate}}</a>
+          </li>
+
+          <li role="presentation" class="divider" ng-if="!$storage.dontShowRESTResponseMenu"></li>
+
+          <li role="presentation" class="dropdown-header"
+              ng-if="!$storage.dontShowRESTResponseMenu"
+              translate="home.detailPane.restURL">REST URL</li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu">
+            <a role="menuitem" tabindex="-1" href="/rest/v1/system/jmx"
+               target="_blank">{{'jvmMetrics.title' | translate}}</a>
+          </li>
+
+          <li role="presentation" ng-if="!$storage.dontShowRESTResponseMenu && isAuthorized(userRoles.admin)">
+            <a role="menuitem" tabindex="-1" href="/rest/v1/system/threads"
+               target="_blank">{{'jvmMetrics.threads.threadDump' | translate}}</a>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel-body"  ng-style="{'height': (windowHeight - 60 - 51) + 'px', 'width': (windowWidth) + 'px'}" resize>
+    <div class="row">
+      <div class="col-sm-4" ng-repeat="chart in chartList | filter: filterChart" ng-init="chartOptions=getChartOptions(chart)">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span ng-bind-html="chart.label"></span>
+            <span ng-if="chart.name === 'threads' && isAuthorized(userRoles.admin)"
+              > ( <a href="#" ng-click="launchThreadDump()">{{'jvmMetrics.threads.viewThreadDump' | translate}} </a> ) </span>
+            <button type="button" class="close" aria-label="Close" ng-click="removeChart(chart, chartIndex)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="panel-body">
+
+            <nvd3 options="chartOptions" data="chart.values" config="{ refreshDataOnly: false }"></nvd3>
+
+            <ul class="properties">
+              <li ng-repeat="value in chart.values">
+                <span class="properties-label"> {{value.key}}:</span>
+                <span class="properties-value">{{formatValue(value.values[value.values.length - 1][1], chart)}}</span>
+              </li>
+
+              <li ng-repeat="value in chart.displayProperties">
+                <span class="properties-label"> {{value.key}}:</span>
+                <span class="properties-value">{{formatValue(value.value, chart)}}</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,30 @@
+<ng-include src="'app/home/home_empty.tpl.html'"></ng-include>
+
+<div show-loading="fetching" ng-if="totalPipelinesCount == 0"></div>
+
+<div class="panel panel-default page-panel home-page" ng-show="totalPipelinesCount > 0">
+  <ng-include src="'app/home/home_header.tpl.html'"></ng-include>
+
+  <div class="home-bg-splitter" ng-cloak>
+    <bg-splitter orientation="horizontal" class="library-splitter"
+                 ng-class="{'hide-library-panel': hideLibraryPanel}">
+
+      <bg-pane min-size="0">
+        <ng-include src="'app/home/library/library.tpl.html'"></ng-include>
+      </bg-pane>
+
+      <bg-pane min-size="0">
+        <div class="home-page-body">
+          <ng-include src="'app/home/alerts/error/errorModal.tpl.html'"></ng-include>
+          <ng-include src="'app/home/alerts/error/errorAlert.tpl.html'"></ng-include>
+          <ng-include src="'app/home/alerts/success/successAlert.tpl.html'"></ng-include>
+          <ng-include src="'app/home/alerts/info/infoAlert.tpl.html'"></ng-include>
+          <ng-include src="'app/home/home_grid_view.tpl.html'"></ng-include>
+          <ng-include src="'app/home/home_list_view.tpl.html'"></ng-include>
+        </div>
+      </bg-pane>
+
+    </bg-splitter>
+  </div>
+
+</div>
