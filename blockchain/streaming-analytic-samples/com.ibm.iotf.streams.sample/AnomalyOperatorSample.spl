@@ -1,0 +1,113 @@
+/**
+ *****************************************************************************
+ Copyright (c) 2016 IBM Corporation and other Contributors.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ Contributors:
+ Sathiskumar Palaniappan - Initial Contribution
+ *****************************************************************************
+ *
+ **/
+ 
+namespace com.ibm.iotf.streams.sample;
+
+use com.ibm.streams.timeseries.analysis::AnomalyDetector ;
+use com.ibm.streamsx.iot::*;
+
+//type Info = rstring reason;
+//dtype AddInfo = rstring component, rstring reason;
+
+//type FluidData = tuple<int32 count, int32 hardness, int32 temperature, int32 fluidrate,  rstring fluidlevel>;
+
+//type DrumData = tuple<int32 count, int32 speed>;
+//type VoltageData = tuple<int32 count, int32 voltage, int32 frequency>;
+
+type Schema = rstring reason, list<float64> subsequence, uint64 startTime, uint64 endTime, float64 score;
+
+
+public composite AnomalyOperatorSample {
+     graph
+
+      // Subscribe to all events.
+      stream<DeviceEvent> Events = EventsSubscribe() {}
+
+      stream<DeviceEventTs, FluidData> DeviceFluidData = DeviceEventExtractData(Events) {
+           param
+              dataType: FluidData;
+              events: eventId == "fluid";
+      }
+      
+      stream<rstring deviceId, rstring typeId, float64 hardness> HardnessData = Functor(DeviceFluidData)
+      {
+          output HardnessData:
+          hardness = (float64)hardness,
+          deviceId = deviceId,
+          typeId = typeId;
+      }
+      
+	  (stream<list<float64> subsequence, uint64 startTime, uint64 endTime,
+			float64 score, rstring deviceId, rstring typeId> AnomalyDetector_2_out0) as AnomalyDetector_2 =
+			AnomalyDetector(Functor_4_out0 as inPort0Alias)
+	  {
+	      param
+				referenceLength : 50ul ;
+				inputTimeseries : hardness ;
+				patternLength : 10ul ;
+				inputTimestamp : t ;
+				confidence : 8E5;
+			output
+				AnomalyDetector_2_out0 : 
+				subsequence = getSubsequence(), 
+				startTime =	getStartTime(), 
+				endTime = getEndTime(), 
+				score = getScore(),
+				typeId = typeId,
+				deviceId = deviceId;
+		}
+
+		(stream<uint64 t, float64 hardness, rstring deviceId, rstring typeId> Functor_4_out0) as Functor_4 =
+			Functor(HardnessData)
+		{
+			logic
+				state :
+				{
+					mutable uint64 cnt = 0ul ;
+				}
+
+				onTuple HardnessData :
+				{
+					cnt ++ ;
+				}
+
+			output
+				Functor_4_out0 : t = cnt ;
+		}
+		
+		() as AnomalySequence = Custom(AnomalyDetector_2_out0) {                                            
+      		logic onTuple AnomalyDetector_2_out0 : printStringLn((rstring)AnomalyDetector_2_out0);                         
+      	}
+      	
+      	
+      
+      // Convert them into device commands with command Id "eventCount"
+       stream<DeviceCmdId, tuple<Schema schema>> StopCommands = Functor(AnomalyDetector_2_out0)
+       {
+           output StopCommands:
+              cmdId = "stop-drum",
+              schema = {reason = "anomaly detected in fluid hardness", subsequence = subsequence, startTime=startTime, endTime=endTime, score=score};
+       }
+       
+      
+       // Convert them into the required schema
+       stream<DeviceCmd> StopCommandsJson = CommandTupleToPayload(StopCommands)
+       {
+             param
+               payload: schema;
+       }
+       
+       // And then publish them
+       () as PublishCmds = CommandPublish(StopCommandsJson) {}  
+}
+

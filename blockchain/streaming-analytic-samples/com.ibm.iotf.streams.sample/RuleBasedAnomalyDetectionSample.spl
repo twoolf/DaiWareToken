@@ -1,0 +1,128 @@
+/**
+ *****************************************************************************
+ Copyright (c) 2016 IBM Corporation and other Contributors.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ Contributors:
+ Sathiskumar Palaniappan - Initial Contribution
+ *****************************************************************************
+ *
+ **/
+ 
+ namespace com.ibm.iotf.streams.sample;
+
+use com.ibm.streamsx.iot::*;
+
+type Info = rstring reason;
+type AddInfo = rstring component, rstring reason;
+
+//type FluidData = tuple<int32 count, int32 hardness, int32 temperature, int32 fluidrate,  rstring fluidlevel>;
+
+//type DrumData = tuple<int32 count, int32 speed>;
+//type VoltageData = tuple<int32 count, int32 voltage, int32 frequency>;
+
+/**
+ * One can use the Filter operator to detect the threshold based deviations. 
+ * The Filter operator removes tuples from a stream by passing along only those 
+ * tuples that satisfy a user-specified condition. 
+ * 
+ * To demonstrate the Rule based anomaly detection, we define the following rules,
+ * 
+ *   1. Send a stop-drum command along with reason when the voltage crosses 240 Volt.
+ *   2. Send a stop-drum command when the drum speed crosses 1200 spin speed.
+ *   3. Send a command to add fluid softner when the hardness of the water is more than 100 ppm
+ */
+composite RuleBasedAnomalyDetectionSample {
+     graph
+
+      // Subscribe to all events.
+      stream<DeviceEvent> Events = EventsSubscribe() {}
+
+      // Extract the voltage events
+      stream<DeviceEventTs, VoltageData> DeviceVoltageData = DeviceEventExtractData(Events) {
+           param
+              dataType: VoltageData;
+              events: eventId == "voltage";
+      }
+      
+      // Extract the Drum events
+      stream<DeviceEventTs, DrumData> DeviceDrumData = DeviceEventExtractData(Events) {
+           param
+              dataType: DrumData;
+              events: eventId == "drum";
+      }
+      
+      // Extract Fluid events
+      stream<DeviceEventTs, FluidData> DeviceFluidData = DeviceEventExtractData(Events) {
+           param
+              dataType: FluidData;
+              events: eventId == "fluid";
+      }
+      
+      // Get voltage tuples greater than 250
+      stream<DeviceEventTs, VoltageData> VoltageAnamoly = Filter(DeviceVoltageData)
+      {
+          param filter : voltage > 250;
+      }
+      
+      // Get speed tuples greater than 1200
+      stream<DeviceEventTs, DrumData> DrumAnamoly = Filter(DeviceDrumData)
+      {
+          param filter : speed > 1200;
+      }
+      
+      // Get hardness tuples greater than 100
+      stream<DeviceEventTs, FluidData> FluidAnamoly = Filter(DeviceFluidData)
+      {
+          param filter : hardness > 100;
+      }
+      
+      // Convert them into device commands with command Id "stop-drum"
+       stream<DeviceCmdId, tuple<Info info>> VoltageCommands = Functor(VoltageAnamoly)
+       {
+           output VoltageCommands:
+              cmdId = "stop-drum",
+              info = {reason = "Voltage " + (rstring)voltage +" is great than 250"};
+       }
+       
+       // Convert them into device commands with command Id "stop-drum"
+       stream<DeviceCmdId, tuple<Info info>> DrumCommands = Functor(DrumAnamoly)
+       {
+           output DrumCommands:
+              cmdId = "stop-drum",
+              info = {reason = "drum speed " + (rstring)speed +" is great than 1200"};
+       }
+       
+       // Convert them into device commands with command Id "add"
+       stream<DeviceCmdId, tuple<AddInfo info>> FluidCommands = Functor(FluidAnamoly)
+       {
+           output FluidCommands:
+              cmdId = "add",
+              info = {component = "fluid-softener", reason = "Water hardness " + (rstring)hardness +" is great than 100"};
+       }
+       
+       stream<DeviceCmdId, tuple<Info info>> DrumStopCommands = Union(VoltageCommands; DrumCommands) {}
+       
+       // Convert them into the required schema
+       stream<DeviceCmd> StopCommandsJson = CommandTupleToPayload(DrumStopCommands)
+       {
+             param
+               payload: info;
+       }
+ 
+       // Convert them into the required schema
+       stream<DeviceCmd> AddCommandsJson = CommandTupleToPayload(FluidCommands)
+       {
+             param
+               payload: info;
+       }
+       
+       stream<DeviceCmd> Commands = Union(StopCommandsJson; AddCommandsJson) {}
+       
+       // And then publish them
+       () as PublishCmds = CommandPublish(Commands) {}
+           
+}
+
