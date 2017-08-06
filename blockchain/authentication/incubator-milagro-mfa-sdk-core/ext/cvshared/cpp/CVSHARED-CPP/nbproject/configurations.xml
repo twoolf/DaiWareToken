@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="84">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="json" projectFiles="true">
+        <itemPath>../json/elements.h</itemPath>
+        <itemPath>../json/elements.inl</itemPath>
+        <itemPath>../json/reader.h</itemPath>
+        <itemPath>../json/reader.inl</itemPath>
+        <itemPath>../json/visitor.h</itemPath>
+        <itemPath>../json/writer.h</itemPath>
+        <itemPath>../json/writer.inl</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="mongoose" projectFiles="true">
+        <itemPath>../mongoose/mongoose.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="xml" projectFiles="true">
+        <itemPath>../xml/rapidxml.hpp</itemPath>
+        <itemPath>../xml/rapidxml_iterators.hpp</itemPath>
+        <itemPath>../xml/rapidxml_print.hpp</itemPath>
+        <itemPath>../xml/rapidxml_utils.hpp</itemPath>
+      </logicalFolder>
+      <itemPath>../include/CvCommon.h</itemPath>
+      <itemPath>../include/CvCondVar.h</itemPath>
+      <itemPath>../include/CvCouchDb.h</itemPath>
+      <itemPath>../include/CvFileSystem.h</itemPath>
+      <itemPath>../include/CvHttpCommon.h</itemPath>
+      <itemPath>../include/CvHttpRequest.h</itemPath>
+      <itemPath>../include/CvHttpRequestAsync.h</itemPath>
+      <itemPath>../include/CvHttpServer.h</itemPath>
+      <itemPath>../include/CvHttpServerMg.h</itemPath>
+      <itemPath>../include/CvHttpServerUv.h</itemPath>
+      <itemPath>../include/CvLdapConnection.h</itemPath>
+      <itemPath>../include/CvLogger.h</itemPath>
+      <itemPath>../include/CvMutex.h</itemPath>
+      <itemPath>../include/CvQueue.h</itemPath>
+      <itemPath>../include/CvRabbitMq.h</itemPath>
+      <itemPath>../include/CvSemaphore.h</itemPath>
+      <itemPath>../include/CvStateMachine.h</itemPath>
+      <itemPath>../include/CvString.h</itemPath>
+      <itemPath>../include/CvThread.h</itemPath>
+      <itemPath>../include/CvTime.h</itemPath>
+      <itemPath>../include/CvTimer.h</itemPath>
+      <itemPath>../include/CvXcode.h</itemPath>
+      <itemPath>../include/CvXml.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="mongoose" projectFiles="true">
+        <itemPath>../mongoose/mongoose.c</itemPath>
+      </logicalFolder>
+      <itemPath>../linux/CvCondVar.cpp</itemPath>
+      <itemPath>../CvCouchDb.cpp</itemPath>
+      <itemPath>../linux/CvFileSystem.cpp</itemPath>
+      <itemPath>../linux/CvHttpRequest.cpp</itemPath>
+      <itemPath>../CvHttpRequestAsync.cpp</itemPath>
+      <itemPath>../CvHttpServer.cpp</itemPath>
+      <itemPath>../CvHttpServerMg.cpp</itemPath>
+      <itemPath>../CvHttpServerUv.cpp</itemPath>
+      <itemPath>../linux/CvLdapConnection.cpp</itemPath>
+      <itemPath>../linux/CvLogger.cpp</itemPath>
+      <itemPath>../linux/CvMutex.cpp</itemPath>
+      <itemPath>../linux/CvRabbitMq.cpp</itemPath>
+      <itemPath>../linux/CvSemaphore.cpp</itemPath>
+      <itemPath>../CvStateMachine.cpp</itemPath>
+      <itemPath>../CvString.cpp</itemPath>
+      <itemPath>../linux/CvThread.cpp</itemPath>
+      <itemPath>../CvTime.cpp</itemPath>
+      <itemPath>../linux/CvTimer.cpp</itemPath>
+      <itemPath>../CvXcode.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>../README.txt</itemPath>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>..</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../include</pElem>
+            <pElem>..</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../include</pElem>
+            <pElem>..</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -1,0 +1,46 @@
+/**
+ *****************************************************************************
+ Copyright (c) 2016 IBM Corporation and other Contributors.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ Contributors:
+ Sathiskumar Palaniappan - Initial Contribution
+ *****************************************************************************
+ *
+ **/
+ 
+namespace com.ibm.iotf.streams.sample;
+
+use com.ibm.streamsx.iot::*;
+
+type FluidData = tuple<int32 count, int32 hardness, int32 flowrate, int32 temperature, rstring fuildlevel>;
+
+public composite ViewEventsSample {
+	graph
+		
+	// Subscribe to all events.
+    stream<DeviceEvent> Events = EventsSubscribe() {}
+	
+	@view(name = "DrumEvents", port = DeviceDrumData, sampleSize = 5, bufferSize = 50)
+	stream<DeviceEventTs, DrumData> DeviceDrumData = DeviceEventExtractData(Events) {
+           param
+              dataType: DrumData;
+              events: eventId == "drum";
+    }
+    
+    @view(name = "FluidEvents", port = DeviceFluidData, sampleSize = 5, bufferSize = 50)
+	stream<DeviceEventTs, FluidData> DeviceFluidData = DeviceEventExtractData(Events) {
+           param
+              dataType: FluidData;
+              events: eventId == "fluid";
+    }
+    
+    @view(name = "VoltageEvents", port = DeviceVoltageData, sampleSize = 5, bufferSize = 50)
+	stream<DeviceEventTs, VoltageData> DeviceVoltageData = DeviceEventExtractData(Events) {
+           param
+              dataType: VoltageData;
+              events: eventId == "voltage";
+    }
+}

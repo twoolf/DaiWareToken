@@ -1,0 +1,15 @@
+{
+  "name": "pinpad",
+  "version": "1.0.0",
+  "description": "JavaScript Client",
+  "authors": [
+    "MILAGRO"
+  ],
+  "dependencies": {
+    "milagro-mfa-js-lib": "https://github.com/apache/incubator-milagro-mfa-js-lib.git#1.1.1",
+    "qrcodejs": "0.1.0",
+    "handlebars": "~3.0.3"
+  },
+  "moduleType": "globals",
+  "main": "js/mpin.js"
+}

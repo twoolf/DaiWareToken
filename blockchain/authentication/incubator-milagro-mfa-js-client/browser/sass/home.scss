@@ -1,0 +1,224 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+
+#header {
+	@include top-bar();
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+
+	#mpinLogo {
+		@include logo();
+
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		-webkit-box-flex: 1;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+		-webkit-box-orient: vertical;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-height: 0px;
+	}
+
+	#menuIcon {
+		@include menu-icon();
+
+		display: -webkit-box;
+		display: -ms-flexbox;
+		-webkit-box-flex: 1;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+		-webkit-box-orient: vertical;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-height: 0px;
+
+		float: right;
+		margin: 10px 10px 0 10px;
+	}
+}
+
+.mpinIntroText {
+	width: 90%;
+	margin: 10px auto;
+}
+
+.mpinCenterTxt {
+	text-align: center;
+	font-weight: bold;
+	width: 90%;
+	padding: 10px;
+}
+.mpinJustifyTxt {
+	text-align: justify;
+	line-height: 17px;
+	margin: 5px;
+	&.mpinTextFont18 {
+		font-size: 18px;
+	}
+}
+
+.mpinColorGreen {
+	color: #06B405;
+	font-style: italic;
+}
+
+.mpinColorRed {
+	color: #FC0409;
+	font-style: italic;
+}
+
+.mpinBtm10 {
+	margin-bottom: 10px;
+}
+
+
+#homeIcon {
+
+	margin-top: 5px;
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	-webkit-box-orient: horizontal !important;
+	-ms-flex-direction: row !important;
+	flex-direction: row !important;
+
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: white;
+	/*padding: 10% 0px 20px;*/
+	/*float:right;*/
+
+	#mobileIcon {
+		@include mobile-icon();
+	}
+	#desktopIcon {
+		@include desktop-icon();
+	}
+
+}
+
+#buttonsContainer {
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	-webkit-box-flex: 1;
+	-ms-flex: 1 0 auto;
+	flex: 1 0 auto;
+	-webkit-box-orient: vertical;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-height: 0px;
+
+	-webkit-box-orient: vertical !important;
+	-ms-flex-direction: column !important;
+	flex-direction: column !important;
+
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+	width: 100%;
+
+	.mpinBtn {
+		width: 90%;
+
+		&.mpinBtnBusy {
+			background: url('#{$IMAGES}/checking.gif') no-repeat 95% center;
+			padding: 10px;
+		}
+
+		&.mpinBtnError {
+			color: red;
+			padding: 10px;
+			box-shadow: none;
+			background: none;
+			text-align: center;
+		}
+		&.mpinBtnOk	{
+			padding: 10px;
+		}
+		&.green {
+			background: #44A800;
+		}
+		&.grey {
+			background: #7E7E7E;
+		}
+	}
+
+	.mpinBlueBtn {
+		background: #0686CF;
+		padding: 10px;
+	}
+
+	.mpinGreenBtn {
+		background: #06B405;
+		padding: 10px;
+	}
+	.mpinBold {
+		font-weight: bold;
+		display: block;
+	}
+}
+
+.mpinWhiteGrBtn {
+	@include mpin-button();
+	background: none;
+	border: 1px solid $green !important;
+	padding: 5px;
+	color: $green;
+	width: 90%;
+	margin-top: 30px;
+	text-align: center;
+	text-shadow: none;
+	font-weight: bold;
+}

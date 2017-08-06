@@ -1,0 +1,555 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+
+/*@import "http://fonts.googleapis.com/css?family=Open+Sans:400,700,300";*/
+//http://bourbon.io/docs/#font-face
+
+/*@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans:400italic,700italic,400,700);*/
+/*
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+*/
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans);*/
+
+
+.mpinHeader {
+
+	@include mpin-header();
+
+	.mpinHome {
+		@include header-home();
+	}
+
+	.mpinLogo {
+		@include header-logo();
+	}
+}
+
+.mpMobileColor {
+	@include mobile-bgcolor();
+}
+
+.mpinHeaderBig {
+	width: 90%;
+	margin: auto;
+	line-height: 1.3em;
+	@include mpin-header-big();
+
+	#mpinLogo {
+		@include logo();
+	}
+
+	&.mpMobColor {
+		@include mobile-color();
+	}
+}
+
+.mpinHeaderRow {
+	@include mpin-header-row();
+
+	&.mpHeaderPadd {
+		padding: 0px;
+		font-size: 15px;
+	}
+
+	.mpinMobileIcon {
+		@include mobile-icon();
+		background-position:center;
+		width:50px !important;
+	}
+
+	.mobIconRight { background-position:24px 0; width:47px !important}
+
+	.mpinBorderBottom {
+		border-bottom:1px solid #00a800;
+		margin:0px 12px;
+	}
+	&.mpMobColor {
+		@include mobile-color();
+	}
+
+	&.mpHeaderRowThin {
+		padding: 4%;
+	}
+
+	&.mpinHeaderRed {
+		color: red;
+	}
+}
+
+.mpinIdentityRow {
+	@include identity-row();
+	z-index: 99;
+	/*width: 100%;*/
+	.mpinArrowDown {
+		&.mpinADown {
+			@include arrow-up-icon();
+		}
+
+		&.mpinAUp {
+			@include arrow-icon-open();
+		}
+
+		img {
+			height: 20px;
+			width: 20px;
+			/*float: right;*/
+			/*top: -16px;*/
+			transition: 1s all ease-in-out;
+			position: relative;
+			margin-bottom: 5px;
+		}
+
+		.mpinArrowImg {
+			@include arrow-up-icon();
+		}
+	}
+
+	/*#mpinCurrentIden, .mpinCurrentIdentity {*/
+	.mpinCurrentIdentity {
+		padding: 0px;
+		margin: 0px;
+		text-align: left;
+		padding-left: 10px;
+
+		.mpinIdentityLabel {
+			font-size: 12px;
+			color: #444;
+		}
+		.mpinIdentityTitle {
+			font-size:14px;
+			color: #4891dc;
+			margin-right: 30px;
+		}
+
+		&.mp10Padd {
+			margin: 10px;
+		}
+	}
+
+	#mpinCurrentIdenSetup {
+		padding: 0px;
+		margin: 0px;
+		text-align: left;
+		padding-left: 10px;
+		@include mpin-current-identity();
+	}
+
+	.mpWrappedIdentity {
+		text-align: left;
+		margin-left: 2px;
+		padding-top: 5px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		text-decoration: none;
+		display: block;
+	}
+
+
+
+	.mpinIdentityRowInner {
+		line-height: 30px;
+		font-size: 14px;
+	}
+	/*	.mpinArrowUp {
+			height: 20px;
+			width: 20px;
+			float: right;
+			margin: 3px;
+			background: url('#{$IMAGES}/arrow-up-black.svg') no-repeat;
+			background-size: auto 100%;
+			background-position: right bottom;
+		}*/
+	.mpinIdentity {
+		text-align: center;
+		padding: 5px 0px;
+
+		//turquoise theme fix
+		&.mpBrowserTop {
+			text-align: left;
+			padding-left: 10px;
+		}
+
+	}
+
+	.mpinIdentityGradient {
+		@include mpin-identity-gradient();
+	}
+
+}
+
+.mpinPinpad {
+	@include pin-pad-wrapper();
+
+	@import 'pinpads';
+}
+
+@import 'help';
+
+.mpinMain {
+	@include mpin-main();
+
+	@import 'identity';
+
+	@import 'buttons';
+
+	.mpinCenter5 {
+		padding-top: 3% !important;
+	}
+	.mpinCenter0 {
+		padding-top: 0% !important;
+	}
+
+	#appLinks {
+		padding-top: 10% !important;
+
+		a {
+			padding-bottom: 20px;
+			display: block;
+			word-break: break-word;
+
+			img {
+				display: block;
+				position: relative;
+				margin: 0 auto;
+			}
+		}
+
+		.note {
+			padding-top: 10px;
+			font-size: 12px;
+		}
+	}
+
+	&.mpNoHeight {
+		height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.mpinCenter {
+		width: 90%;
+		margin:0 auto;
+		text-align: center;
+		padding-top: 20%;
+
+		&.mpCenterTop {
+			padding-top: 0%;
+		}
+
+		.mpinInput {
+			@include mpin-input-field();
+		}
+
+		.mpinInput::-webkit-input-placeholder {
+			font-style: italic;
+		}
+		.mpinInput:-moz-placeholder { /* Firefox 18- */
+			font-style: italic;
+		}
+		.mpinInput::-moz-placeholder {  /* Firefox 19+ */
+			font-style: italic;
+		}
+		.mpinInput:-ms-input-placeholder {
+			font-style: italic;
+		}
+		
+		.mpinInputErr {
+			border-top-color: red;
+			border-right-color: red;
+			border-bottom-color: red;
+		}
+
+		.mpinLabel {
+			height: 40px;
+			padding-top:10px;
+			display: block;
+			text-align: left;
+		}
+		
+		.mpinLabelErr {
+			color: red;
+		}
+
+		.mpinInputGroup {
+			width: 100%;
+			display: inline-table;
+			vertical-align: middle;
+			position: relative;
+			border-collapse: separate;
+			display: table;
+			box-sizing: border-box;
+
+			.mpinInputAdd {
+				width: auto;
+
+				white-space: nowrap;
+				vertical-align: middle;
+
+				display: table-cell;
+
+				background-color: rgba(109, 198, 231, 0.1);
+				border: 1px solid #4891dc;
+				border-radius: 4px;
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+				border-right: 0;
+
+				@include email-input-before();
+			}
+			
+			.mpinLeftErr {
+				border-left-color: red;
+				border-top-color: red;
+				border-bottom-color: red;
+			}
+			
+			.mpinScr {
+				@include device-input-before();
+			}
+		}
+
+		.mpinIdentityText {
+			@include identity-text();
+			font-size: 14px;
+		}
+
+		.mpIdentityBrowser {
+			color: $BGCOLOR;
+			word-break: break-word;
+		}
+
+		.mpinInfoText {
+			color: #353535;
+			padding: 10px;
+		}
+
+		&.mpHomeTxt {
+			font-size: 150%;
+			padding-bottom: 4%;
+		}
+
+
+		.mpComming {
+			@include mobile-comming();
+		}
+
+		.mpinIdentityTextSm {
+			color: $BGCOLOR;
+		}
+	}
+
+	.mpinInfo {
+		background-image: url('#{$IMAGES}/info.svg');
+		background-repeat: no-repeat;
+		background-position: bottom;
+		width: 25px;
+		height: 25px;
+		display: inline-block;
+		margin-right: 3px;
+		margin-bottom: -3px;
+		cursor: pointer;
+	}
+
+	&.mpinAnimateIn {
+		transition: all 0.5s ease-in;
+	}
+	&.mpinAnimateOut {
+		transition: all 0.5s ease-out;
+	}
+
+	.mpErrorIcon {
+		@include mpin-error-icon();
+	}
+	.mpErrorNumber {
+		margin: 20px auto;
+	}
+
+}
+
+.mpinInfoCenter {
+	background-image: url('#{$IMAGES}/info-white.svg');
+	background-repeat: no-repeat;
+	background-position: bottom;
+	width: 23px;
+	height: 23px;
+	display: inline-block;
+	margin-right: 3px;
+	margin-top: -2px;
+	position: absolute;
+	left: 22%;
+	cursor: pointer;
+
+}
+
+.mpLeft20 {
+	margin-left: 20px;
+}
+
+.mpWrapped {
+	width: 97%;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-decoration: none;
+
+	&.mpAreaFixed {
+		max-height: 61px;
+		overflow: hidden;
+		display: block;
+		margin: 0 auto;
+		a {
+			display: block;
+			word-break: break-all;
+			-ms-word-break: break-all;
+			-moz-word-break: break-all;
+			-webkit-word-break: break-all;
+
+			-webkit-hyphens: none;
+			-moz-hyphens: none;
+			-ms-hyphens: none;
+			hyphens: none;
+		}
+	}
+}
+
+
+.mpHide {
+	display: none;
+}
+
+.mpZero {
+	height: 0px;
+	padding: 0px;
+}
+.mpinColorRed {
+	color: #FC0409;
+	font-style: italic;
+}
+
+.mpPointer {
+	@include mpin-logo-pointer();
+}
+
+.mpPaddTop10 {
+	padding-top: 20px;
+}
+
+.mpPaddBot10 {
+	padding-bottom: 20px;
+}
+
+.mpinBold { font-weight:bold;}
+.mpinItalic { font-style:italic;}
+
+.mpTop25per {
+	padding-top: 25%;
+}
+.mp10Down {
+	margin-down: 10px;
+}
+
+.marBot10 {
+	margin-bottom: 10px;
+}
+
+.marBot20 {
+	margin-bottom: 20px;
+}
+
+.marTop20 {
+	margin-top: 10px;
+	@include margin-top();
+}
+
+.border0 {
+	border:0px
+}
+
+//MOBILE
+#mpin_qrcode {
+	display: block;
+	width: 130px;
+	height: 130px;
+	margin: 0 auto 10px;
+}
+#mpin_seconds {
+	@include  mpin-expire-second();
+	/*margin: 15px 0;*/
+}
+
+/////////////////////////////////////////////////
+//timer Feature
+.mpinTimerBox {
+	position: relative;
+	margin: 15px;
+	height: 42px;
+	width: 87%;
+	/*	#mpTimer {
+			border: 1px solid green;
+		}*/
+
+	#mpTimer {
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.mpLeftTime {
+		position: absolute;
+		display: block;
+		width: 100%;
+		margin-top: 11px;
+		text-align: center;
+	}
+}
+
+
+
+.mpinFooterRow {
+	bottom: 0%;
+	min-height: 6%;
+	width: 100%;
+	z-index: 99;
+	position: absolute;
+}
+
+.mpinFooter {
+	@include footer();
+
+
+	.mpinHelpHub {
+		@include footer-helphub();
+	}
+	.mpinPowered {
+		@include footer-copyright();
+	}
+
+	&.mpinFooterHome {
+		border: none;
+		height:11%;
+		/*bottom: 2vh;*/
+	}
+
+	&.mpMobileFooter {
+		@include mobile-footer();
+	}
+}

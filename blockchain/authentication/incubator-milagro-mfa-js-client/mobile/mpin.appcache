@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# v0.1 Jordan - Apr 11 2014
+# Timestamp @@timestamp
+# Explicitly cached 'master entries'.
+
+CACHE:
+css/main.css
+
+js/handlebars.runtime.min.js
+js/mpin-all.min.js
+js/main.js
+
+#Cache images
+
+images/img/m-pin-header-logo.svg
+images/img/home.svg
+images/img/phone.svg
+
+NETWORK:
+*

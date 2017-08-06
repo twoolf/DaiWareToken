@@ -1,0 +1,4 @@
+namespace com.ibm.iotf.streams.sample;
+
+composite StreamsDemo {
+}

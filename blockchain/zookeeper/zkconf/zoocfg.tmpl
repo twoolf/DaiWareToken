@@ -1,0 +1,31 @@
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=./$servername:$clientPort/data
+clientPort=$clientPort
+
+#if $maxClientCnxns != 10
+maxClientCnxns=$maxClientCnxns
+#end if
+
+#if len($serverlist) > 1
+#if $electionAlg != 3
+electionAlg=$electionAlg
+#end if
+
+#for $sid, $servername, $clientport, $port1, $port2 in $serverlist
+server.$sid=$servername:$port1:$port2
+#end for
+
+#if len($weights) > 0
+#for $sid, $servername, $clientport, $port1, $port2 in $serverlist
+weight.$sid=$weights[$sid - 1]
+#end for
+#end if
+
+#if len($groups) > 0
+#for $i in xrange(1, len($groups) + 1)
+group.$i=$groups[$i - 1]
+#end for
+#end if
+#end if

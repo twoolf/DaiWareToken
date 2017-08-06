@@ -1,0 +1,2749 @@
+[
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/clientSettings",
+			"data" : "",
+			"context" : "@testInit"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "900",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"ETag" : "\"7659f8304c6fca7bf0e2210b5804c0fad24f9468\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:ZDM3MWI2ZTAzMzdlNDg2Mjg3YTkzODg2YTk5NDZlMTAyZmRiMjYyZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|44542de6b304e508aa842f3c124e732c17c7fd5052a2c751a369a89c59fa5d15\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"requestOTP\": false, \"mpinAuthServerURL\": \"/rps\", \"timePermitsURL\": \"/rps/timePermit\", \"useWebSocket\": false, \"useNFC\": false, \"setDeviceName\": false, \"seedValue\": \"fefd64380aa132bbc84d8a0c256452370e80f2d817f409bb899706854386f4a6b500bbc75ca29f88f1bb75555b9474b6eaa0f9dcb5713bc45bd153193a5ac5ac20f538258fcfcdef9d4a63c00ed715f79498a9353a72482dd05fbb42b6b1351062c40817\", \"accessNumberDigits\": 7, \"accessNumberURL\": \"/rps/accessnumber\", \"setupDoneURL\": \"/rps/setupDone\", \"timePermitsStorageURL\": \"https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3\", \"authenticateURL\": \"/mpinAuthenticate\", \"certivoxURL\": \"https://mpinapi-qa.certivox.org/v3/\", \"accessNumberUseCheckSum\": true, \"registerURL\": \"/rps/user\", \"appID\": \"dfb3538a8ed111e693e3022b36cac222\", \"cSum\": 1, \"signatureURL\": \"/rps/signature\", \"getAccessNumberURL\": \"/rps/getAccessNumber\", \"mobileAuthenticateURL\": \"/rps/authenticate\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://m-pindemo.certivox.org/rps/clientSettings",
+			"data" : "",
+			"context" : "@testBackend"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "849",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"ETag" : "\"5f84719e8ed69e18b56b73b299132900ba66a743\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"requestOTP\": false, \"mpinAuthServerURL\": \"https://m-pindemo.certivox.org/mpin\", \"timePermitsURL\": \"/rps/timePermit\", \"useWebSocket\": false, \"setDeviceName\": false, \"seedValue\": \"fd4aa619152a87714b8a31a88dff62236a688e9f7817d34cf58e22cfa1ac135d9d73571d18cc4d53212358d293f03a3835b87da6d5d832366fddb145c7de2ba9e71c7c11648db7f910e0ffd2a3484e8add8cd200c3ebf582bdfc4b619d2a0f6136bd0e0a\", \"accessNumberDigits\": 7, \"accessNumberURL\": \"/rps/accessnumber\", \"setupDoneURL\": \"/rps/setupDone\", \"timePermitsStorageURL\": \"https://timepermits.certivox.net\", \"authenticateURL\": \"/mpinAuthenticate\", \"certivoxURL\": \"https://community-api.certivox.net/v3/\", \"registerURL\": \"/rps/user\", \"appID\": \"45393a1e809511e481df066d36255cd6\", \"cSum\": 1, \"signatureURL\": \"/rps/signature\", \"getAccessNumberURL\": \"/rps/getAccessNumber\", \"mobileAuthenticateURL\": \"/rps/authenticate\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://blabla.certivox.org/rps/clientSettings",
+			"data" : "",
+			"context" : "@testBackend"
+		},
+		"response" : {
+			"success" : false,
+			"error" : "Failed in WinHttpSendRequest with error: 12007",
+			"httpStatus" : 0,
+			"headers" : {},
+			"data" : ""
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://blabla.certivox.org/rps/clientSettings",
+			"data" : "",
+			"context" : "@setBackend"
+		},
+		"response" : {
+			"success" : false,
+			"error" : "Failed in WinHttpSendRequest with error: 12007",
+			"httpStatus" : 0,
+			"headers" : {},
+			"data" : ""
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/clientSettings",
+			"data" : "",
+			"context" : "@setBackend"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "900",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"ETag" : "\"a6985122afcc176cdea45902d2c0fe9212ff7681\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:ODg1YzYzZGI4YzEzNGVkMzk5ZDdiY2VhYjdmMDE5YTQzMDBmZjljNjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|01e044387cdef0cba058bd902c84e6f1d884ce5b746ebff97de8eee037ae292b\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"requestOTP\": false, \"mpinAuthServerURL\": \"/rps\", \"timePermitsURL\": \"/rps/timePermit\", \"useWebSocket\": false, \"useNFC\": false, \"setDeviceName\": false, \"seedValue\": \"9f1561f041bbfcc584e443908574862ff4b9e5facb23274d1b45f8b7461e332d1bd09f1f0452a93e4938640e5291f4050bbeb9fadea1b91b351e95c18ff65c2184166e280b8ae9d41cda1792137b8213e384357d018a8a736a097db90ceb9849e85a3dee\", \"accessNumberDigits\": 7, \"accessNumberURL\": \"/rps/accessnumber\", \"setupDoneURL\": \"/rps/setupDone\", \"timePermitsStorageURL\": \"https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3\", \"authenticateURL\": \"/mpinAuthenticate\", \"certivoxURL\": \"https://mpinapi-qa.certivox.org/v3/\", \"accessNumberUseCheckSum\": true, \"registerURL\": \"/rps/user\", \"appID\": \"dfb3538a8ed111e693e3022b36cac222\", \"cSum\": 1, \"signatureURL\": \"/rps/signature\", \"getAccessNumberURL\": \"/rps/getAccessNumber\", \"mobileAuthenticateURL\": \"/rps/authenticate\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testUsers1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:Mzg2ODBjYWEyMmJhNGM2MjhlNjllOTFjY2Y3NzY0YjIzMDFjNWE3YzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|589a1a6112d8b3a9b6a4d7cfafdb1ae3e2da4afbe1eee3b8b211f1a36a4b3f84\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.183359\", \"active\": true, \"regOTT\": \"96a09690881f3a98b358ef1b37d9eede\", \"nowTime\": \"2016-10-11T13:58:15.183359\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e313833313231222c2022757365724944223a20227465737455736572222c202273616c74223a20223434306432333939383439373232613163636433623137653632326637343632227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testUsers2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:MjgzMDhkZTY2ZTljNDFhM2I5NDA3Y2QzY2FlNjE4MGMzMDI4ZjhiODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|60d20246cc56c28d81923889ac1f902655d23f4dcbe2b48fca2d053827b317ea\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.266020\", \"active\": true, \"regOTT\": \"41a5ab52a14de617883afc9faf5de03a\", \"nowTime\": \"2016-10-11T13:58:15.266020\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e323635373838222c2022757365724944223a20227465737455736572222c202273616c74223a20223566643933313331623230663037623136366438313035643332656534373531227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser000\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser000--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:ZWJlMDBmMDMxMmE4NDIyNjk4NjYwM2RiZDVkMDc5NzQzMDM1NTc3MDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|91bee4b2f27aea932f42bd6b68e0cd13f834ae732fac98f0fd44b795464b906e\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.347174\", \"active\": true, \"regOTT\": \"ef221f70b1aea4a6ef71330fd958af9f\", \"nowTime\": \"2016-10-11T13:58:15.347174\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e333436393438222c2022757365724944223a20227465737455736572303030222c202273616c74223a20226634383737633630623433343464333339306133656130306238346336313066227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser001\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser001--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:MzNkMmViOTYwOTgxNDc1OGE2YzFmMjI2ZjU3MTRmMGQzMDQwZGFmYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|ee249c57394bbc9448edc4a1f11dfdf7e76be8c41b3697c7faaee5c8bc1ef98f\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.422502\", \"active\": true, \"regOTT\": \"655f59dfb203b133534fa38fb31af2fc\", \"nowTime\": \"2016-10-11T13:58:15.422502\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e343232323837222c2022757365724944223a20227465737455736572303031222c202273616c74223a20223132373061613133333236323464313736663638383638396664646535343931227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser002\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser002--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:N2UyNDhmNjE2Zjg5NDA3ZDhjODNjZGU0NzAyZWQxYTYzMDRkOTE3ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|1a8591f7aa66eb73bf4f59ac05b9fb3ea9d78e9a32eed70e57246a33996f516b\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.505975\", \"active\": true, \"regOTT\": \"a972958c539a8342635e06d8c84a6f34\", \"nowTime\": \"2016-10-11T13:58:15.505975\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e353035373134222c2022757365724944223a20227465737455736572303032222c202273616c74223a20223735623237363739613037323433346563383165663365636637643430656465227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser003\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser003--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:11 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194051|16:mpindemo_session|88:MjM2NjgxZmZjMTVhNDY3Mzk0MzdiYzg5MWViYmNlOTkzMDU5OGNmODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|c6018887f2598d2f6d9e09cc13bc225f3dae266e1d22a09ef707f779ea4a3c76\"; expires=Thu, 10 Nov 2016 13:54:11 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.584826\", \"active\": true, \"regOTT\": \"e05f2c00da71ddae4d93f39123452a18\", \"nowTime\": \"2016-10-11T13:58:15.584826\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e353834353434222c2022757365724944223a20227465737455736572303033222c202273616c74223a20223964613262316631373737633430346233653136313862643531343932386637227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser004\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser004--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:ZWYyYzkzOGIwNDVkNDY4N2I4YTc5NWQ4ODcxZmViZDczMDY3MzYzMjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|42c838a52d1b15820aee9632c7bff96934d08725bc38112785485749a5383f7e\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.673985\", \"active\": true, \"regOTT\": \"82caabbfa115c7d0afe8844c52797f12\", \"nowTime\": \"2016-10-11T13:58:15.673985\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e363733373532222c2022757365724944223a20227465737455736572303034222c202273616c74223a20223832653535643166326463623437646532616664343336393432666535383935227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser005\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser005--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:MzZiNmM4YTk5MGY5NGU5MGE2OTJhZTZkMGEwNDk1MTEzMDc1ZGQ2ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|c8ae4c36c355bcbec22de16941162dbf499886aade6fade9aed5c316c40ddde4\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.770014\", \"active\": true, \"regOTT\": \"33f00703b52dabdc24c228b6a4d88d18\", \"nowTime\": \"2016-10-11T13:58:15.770014\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e373639373830222c2022757365724944223a20227465737455736572303035222c202273616c74223a20223962386433646638383035643636326465306366333036616539336238316130227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser006\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser006--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:ZWViYTUwNTVhMzg3NDQ5ODg3MzI3NDNiNDQ5YTE5MmIzMDg1NTk2NDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|59e136e9cdc629122f7929340c881dbde9e3919b1ca2fc5431868a1dbb59779f\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.871415\", \"active\": true, \"regOTT\": \"98375f960ee574421dce3381f82309ef\", \"nowTime\": \"2016-10-11T13:58:15.871415\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e383731313839222c2022757365724944223a20227465737455736572303036222c202273616c74223a20223464626163393861646264653232353666386136666637343664393038336335227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser007\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser007--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:NmZhZjA4Njk5MTA5NDJmOTg3YzdjZTdhZjdlODczZGEzMDk3OThlYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|a7b7ad9986fb281ad08f4f7d9a990fa7c966eb6966d7edb78d211d15f0229a1d\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:15.991192\", \"active\": true, \"regOTT\": \"530762c20f0d8cd074013e31726370bf\", \"nowTime\": \"2016-10-11T13:58:15.991192\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31352e393930393536222c2022757365724944223a20227465737455736572303037222c202273616c74223a20223962316332313165356338306633656135666263616232383362663839616361227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser008\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser008--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:ODgyNjVjYmVlYTI5NDQwMzg0MDI4MzcyOWY1NTM1YmMzMGFiOWEwMjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|82e6246094f7fc4efde96e0a6ffd133d6733a0441f752034f1b5a4b34e9ead14\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:16.122072\", \"active\": true, \"regOTT\": \"39a26df17d7ed00ac153aef50cc91a41\", \"nowTime\": \"2016-10-11T13:58:16.122072\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31362e313231383733222c2022757365724944223a20227465737455736572303038222c202273616c74223a20223837313231323930383762383237616236343935343765613431666534353961227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser009\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser009--@testUsers4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "405",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:12 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194052|16:mpindemo_session|88:OWI4MmY0ZDU0ZDJlNGZlNWJhY2U2MmMwZjAxMzI3N2EzMGMwNWExNDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|9421b0f644053c9ef98920b40f7a21d6f112babe1a6028aaef6e2b5a06b6cb3d\"; expires=Thu, 10 Nov 2016 13:54:12 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:16.258131\", \"active\": true, \"regOTT\": \"b56ef1e6dd3c9f49e02c64c1d0bf31ee\", \"nowTime\": \"2016-10-11T13:58:16.258131\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31362e323537383730222c2022757365724944223a20227465737455736572303039222c202273616c74223a20226365623166666433323731643935633462363736613066616533386232633964227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testUsers5"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:YjU5MTRjNWQ1MmZjNDVjMTg3MmYxYjlmNTQ4NDkyNDAzMTBiYjA3MjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|33b6ed357e275c9f33b8d1891f2eaa0024cd10ca104580d20cd347141533ba84\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:16.751998\", \"active\": true, \"regOTT\": \"3afcf9d130e0745e530a2f534b4a8ee9\", \"nowTime\": \"2016-10-11T13:58:16.751998\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31362e373531373638222c2022757365724944223a20227465737455736572222c202273616c74223a20226636623331663934636363623461326666386435303439616634366462333531227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testRegister1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:MTkzYmI5ZDdlYjkzNDAyNThjMDFhMjI0NzU4ZDkzMTczMTE3ZWYwZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d984f68d8ec274c74b3130de29d6f3479ebf4db47054b9a7066e0cde0c47a90e\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:16.832102\", \"active\": true, \"regOTT\": \"dbaffdc18601beb88baa79d3f41efe5f\", \"nowTime\": \"2016-10-11T13:58:16.832102\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31362e383331383637222c2022757365724944223a20227465737455736572222c202273616c74223a20223331383365346135653433366432616663616663666430613631636131356363227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31362e383331383637222c2022757365724944223a20227465737455736572222c202273616c74223a20223331383365346135653433366432616663616663666430613631636131356363227d?regOTT=dbaffdc18601beb88baa79d3f41efe5f",
+			"data" : "",
+			"context" : "testUser-@testRegister1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"ETag" : "\"7dc8dab85c7323850f13547e87dc1b251ea27e16\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:Nzk0YTIwMDU2NzU4NDViMzgwODgzOGEyYjJhMDc1MDczMTIzOTM5MDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|4e4cf4554e43a9b6cd4be124b2ea9989a2a7e7a6f0cdcad970223f1285b0db56\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"0401b20e7ec61dca78092047180aad71fb04c3018aec646a826ca412aa8ba7d98815011f5978c25f42602969eee7fc36795c01ffd10b79258159c3a0504b511cb6\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A16Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=b5eaf303c53824c6c65923df3e331163420240a5dcc9ed3188b80866746d80be&signature=fc7e62c40d82eca37e401b979eb19c3564979b769df4f694bbd86dca45743fda&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A16Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=b5eaf303c53824c6c65923df3e331163420240a5dcc9ed3188b80866746d80be&signature=fc7e62c40d82eca37e401b979eb19c3564979b769df4f694bbd86dca45743fda&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testRegister1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:18 GMT",
+				"ETag" : "\"2e153c184dff4e85621e69b25a4fbe4d788ff588\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"041d2f69336bacef84af8bffd57c79ead8c8a44321b0d58cc5c03469f291108d8f1dbdea57eadfa2d98cdd67c57a242186493388d2d3c765a2299c8c3a11538ba8\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testRegister2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:YzNkNWZkN2YwMGMyNDI2YzliNDY2ZDM2YWFlZTY0N2UzMTYxNGY2NDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|da7617f99de486328d06554ceb449f35a84ea524dfc7900a75ca41468145d4cb\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:17.313689\", \"active\": true, \"regOTT\": \"509751749a8ee0534a2c6573fd7405b6\", \"nowTime\": \"2016-10-11T13:58:17.313689\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e333133343631222c2022757365724944223a20227465737455736572222c202273616c74223a20223965623032623665656537393635663931303865666561633035363362373533227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"\",\n\t\"mobile\" : 1\n}",
+			"context" : "--@testRegister3"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 400,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "0",
+				"Content-Type" : "text/html; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:Yjc1M2QzMzVhMWQ2NDFkZmJhOWE5OTM5Y2I0OGI3YzgzMTZlMDNhODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|7f1832db7a0ec6e0975a4428fa3eac7c08f9df22d6294a61af7d9fb45dc97481\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : ""
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testRegister4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:YjI2NzYyNjNkOTE0NDY0YWE1M2EwYTVlODFmNmU2NDYzMTc3NDgzYzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|6dfe702d0ae2d9be3b5d6b7ec3851cbe81f08fdfc4850506c86fd9d0a79435e6\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:17.456928\", \"active\": true, \"regOTT\": \"01b26d448ade7ae2f54ddcf70fa7d7cd\", \"nowTime\": \"2016-10-11T13:58:17.456928\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e343536363935222c2022757365724944223a20227465737455736572222c202273616c74223a20223239303632666332653834326632326530616438393132303464663535323065227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e343536363935222c2022757365724944223a20227465737455736572222c202273616c74223a20223239303632666332653834326632326530616438393132303464663535323065227d?regOTT=01b26d448ade7ae2f54ddcf70fa7d7cd",
+			"data" : "",
+			"context" : "testUser-@testRegister4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:13 GMT",
+				"ETag" : "\"180dee875bb752885aaca6456a461a5494399972\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194053|16:mpindemo_session|88:N2JjZWQwMzAzYmNiNDk3NGIzY2U3MjA3MTBkOWQ3ZTczMTgyMjBlYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|1f998fa113e5a20e72be1c3b8f7d6c4933177cce43771fbd3d79d8396cec749c\"; expires=Thu, 10 Nov 2016 13:54:13 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"0412bca71e18544cd320e02e878e0239d70f3e36c34391adfe4ebcadc19ceb06f60ac312f7b10df8d30c984fca62c9100fb303d9775f3e63fe4ccc93d117b4b8cb\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A17Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=2bce5b6472bfbb24de9c0d4d7a31975fd28a7e42208a8935131e486d8b88a0f3&signature=112400e4bb7b6ac7b159c7ae123465f28ce6646f5cccb14dcbee9066623e59fd&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A17Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=2bce5b6472bfbb24de9c0d4d7a31975fd28a7e42208a8935131e486d8b88a0f3&signature=112400e4bb7b6ac7b159c7ae123465f28ce6646f5cccb14dcbee9066623e59fd&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testRegister4"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:19 GMT",
+				"ETag" : "\"0809db78fc8e65ff7cae38d97785315446343f77\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"0405db3cb8e2d61d72c7277beb3eef5f787905a16075ec9c4b2565e53ec061d1b00a04706cbf4ae5e14ce377cb87f425090e4d35d4ddaee6dbc1087a7b06842795\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:14 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194054|16:mpindemo_session|88:YTdlMDI2ZDA1YmRkNGIxNDkyZmNiMTY1ODU2ZTA4OGUzMTliYjRiYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|8034395f4c8cc76f98126feea8e74ad65a147e2de818398b2d81f015a0163aa4\"; expires=Thu, 10 Nov 2016 13:54:14 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:17.696827\", \"active\": true, \"regOTT\": \"1d85f03acb544456b2d13bbb532cb673\", \"nowTime\": \"2016-10-11T13:58:17.696827\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d?regOTT=1d85f03acb544456b2d13bbb532cb673",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:14 GMT",
+				"ETag" : "\"b4f24a462e7602e182f2e1738f9052c308cfe44f\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194054|16:mpindemo_session|88:OGM5MmE4YjZhNjk5NGYzOWFjNDIwMmM4M2RiNTdjMWMzMWE3ZTMzZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|805169483892244a5525727827e02904a2c8faac26fd9289b2d3186fb51da3ed\"; expires=Thu, 10 Nov 2016 13:54:14 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"041d8388416750495d6d2921c4d01affd9d8cd1fb84bd4a51f1ba2401d7986e3940ec19cb05c4ac39e539d46a782b2893633050ba0f2b85d289e9c61ecd689cf23\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A17Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671&signature=cfd174296838a579f46bb2605e10627d7ca9948344422a9e6dc1416633d32486&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A17Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671&signature=cfd174296838a579f46bb2605e10627d7ca9948344422a9e6dc1416633d32486&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:19 GMT",
+				"ETag" : "\"3eb68377a1276b45f27924a3b50e286208ff3702\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"040ef422bcd38b011f7739bff7454ad26a145da01b799642cf73167281f849627310730fb82ef9ed2f59db43648362a74b09032354ae26981a67d636f72d988bdd\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/timePermit/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache",
+				"Content-Length" : "385",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:14 GMT",
+				"ETag" : "\"016927f62da4b03039a9c468466b82b63577af76\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194054|16:mpindemo_session|88:N2E3YmIzYzI4MWMyNGU1MDgzNWYzODNmNDFjYzhiMjMzMWMxODA4YzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|7f24f3f646788fdd0fb862cbdf6b6c52c1d845ddf3d31139a6fe5b58e5d318ce\"; expires=Thu, 10 Nov 2016 13:54:14 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"storageId\": \"6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671\", \"signature\": \"30c76b2c8d2f526112115292c9094c9a540ddf52f926c4576799fdc5381e63c8\", \"date\": 17085, \"message\": \"M-Pin Time Permit Generated\", \"timePermit\": \"040124635fefba72d16013270d221b85243b702a06eca491facc9cc59b12c8820e00eeadc8d87aa3b9bf8b5ef708ffac6c0cdf9b881043b79b98f86bba02333e8d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3/dfb3538a8ed111e693e3022b36cac222/17085/6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 404,
+			"headers" : {
+				"Content-Type" : "application/xml",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Server" : "AmazonS3",
+				"Transfer-Encoding" : "chunked",
+				"x-amz-id-2" : "gIsc/oUNCQLeXuDir+oqiqV68D4BiuGTSA5sg5piaukDdy8q6MBHjgB6d5V3Ed12v0f1exGxESU=",
+				"x-amz-request-id" : "8DB3B3A74161996C"
+			},
+			"data" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>dfb3538a8ed111e693e3022b36cac222/17085/6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671</Key><RequestId>8DB3B3A74161996C</RequestId><HostId>gIsc/oUNCQLeXuDir+oqiqV68D4BiuGTSA5sg5piaukDdy8q6MBHjgB6d5V3Ed12v0f1exGxESU=</HostId></Error>"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/timePermit?hash_mpin_id=6881c66d62bec4b47556c0909391e4510e1787eaea61188405646d52fcef6671&app_id=dfb3538a8ed111e693e3022b36cac222&mobile=1&signature=30c76b2c8d2f526112115292c9094c9a540ddf52f926c4576799fdc5381e63c8",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "181",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:19 GMT",
+				"ETag" : "\"2b90766384380e5e759b463800f9a34716c51259\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"message\": \"OK\", \"version\": \"3\", \"timePermit\": \"040c317d3ba02b8e9dff346dc4afb1b45179d3b121865ffd5d6d4a500b6ee4895e00363cf2f9e1c318f595e829c949c07591e4e93e5556a114023b0b807c2b8d2c\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\",\n\t\"UT\" : \"0410e804c76e597f698fe45c708e12a349f838d3954af448a8826eb4cbdfe54c560ef2a99b02cc71bc7b2b2707417c5271905a31a3eb4fa961c1bcdccb9ac72aed\",\n\t\"U\" : \"041cc982116ab31290682642c1b465634663cb6007ac9fd44932b1d8580bdf787c09db4aa8e2c9a23b05c305f3fa2258741a863ab7e2036bc60a7dfa5e211368c2\"\n}",
+			"context" : "testUser-1234@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:14 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194054|16:mpindemo_session|88:YWJkZjk2MTk1NzYxNGY1OGI4NTI5ZjBmNDcyMDYwYTUzMjFiNDkxZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|745e2637d51377cab3774fd2c31196df3eaedf24ccf29c09f2cf545ab972710f\"; expires=Thu, 10 Nov 2016 13:54:14 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"0b7d275f8824cd61402e7af0c33ee2b557a494298acbd997dfd51af7e156f7e9\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"041dcf77cc2051759c03e6d00e06df83b768b856cdad87b6fa2983aba86ebbce26165c284d2ef005c67e9ebac69133be806d6baf833956d4dd00628c4e9837541d\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\"\n}",
+			"context" : "testUser-1234@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:14 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194054|16:mpindemo_session|88:OTI1M2E1ZmFkODM4NDJkOGI3MGVmODEyMzU3NDQ3NDYzMjI2M2E0MDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f75500bb6d723cdc28be03c18e637a96595c9be89ed9156001e9c6856ab04fc7\"; expires=Thu, 10 Nov 2016 13:54:14 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"73622ba06df3f5d52e7cb4966c7b5e93\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"73622ba06df3f5d52e7cb4966c7b5e93\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:ZDI2YTdmNTZjN2E1NDkwZDhhZWJkZWY2Y2I0ZDUxOTUzMjMzNDI5ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|e4d874f5413046162a3ead1b7cb3ab68d8b27e156099534fe75ac7cfadbadcf6\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\",\n\t\"UT\" : \"041f5bf065a22f2b9674dcb6db15d0c25dfe89849881002e7add8b3b693291283911a285d5991ef391ea784c6499a6a5df7a62428865444f68c133eb102f3f0bc7\",\n\t\"U\" : \"0400ad151d30162265886b85f09c712f07682d1e8994a04a86658df9f2e1c487671b304652da6b56df6917a7c91022c6c688e98ccb44ffb74bb1c2c394bfd33365\"\n}",
+			"context" : "testUser-1234-ARD@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:N2I5ZTZlZmE1NjU4NGU5OThlMTkwNDNiZGU1MzRkOWIzMjQ4NzNjNjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f5a767265dcea7519353db30dee690f39d32aeee299d083e3278e7e818ce9b8a\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"1a87e220e9b72c6986d006fe1219be582f121d3b9798b48d1fc0a32e38641db4\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"04046b3efbc425efc644ce8db41c874569aabf731e71073d95a612a428c4676a290516c9aa491d4eec585627e4ac49465d1941aeee33f71246f069736dfc1d978a\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\"\n}",
+			"context" : "testUser-1234-ARD@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:NTI4YjFiNThkZDJjNDdmZTgxNjJlODBmZDc3ODVkYzAzMjUzOWMxYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|1baff6252a4ceb6e3889e363bcd86f1e92e4a1febb6bc752e101453161a4baff\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"115dc2f5853c7a3ec3eb3a48842227bf\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"115dc2f5853c7a3ec3eb3a48842227bf\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234-ARD@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:NGYzZTQ5YmZkNDNjNDc0ZTg2ZjkzZjBkZjJhZDlmM2MzMjYwYWFlYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|13c1898a976f7f33ef484890c55a85be2f80f4a3fff1f6cca151bc1bbb14db2f\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\",\n\t\"UT\" : \"041f5bf065a22f2b9674dcb6db15d0c25dfe89849881002e7add8b3b693291283911a285d5991ef391ea784c6499a6a5df7a62428865444f68c133eb102f3f0bc7\",\n\t\"U\" : \"0400ad151d30162265886b85f09c712f07682d1e8994a04a86658df9f2e1c487671b304652da6b56df6917a7c91022c6c688e98ccb44ffb74bb1c2c394bfd33365\"\n}",
+			"context" : "testUser-1235@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:ODVjZDg3NWRjNTFmNGFlNWFmMzU3ZjQ3NjNjMGZjNjUzMjcwYjdiNDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|07f643db779de237f95adce32b4b95ad1e9d53a4173730a59aec9e2f6217fae5\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"02986333a67dd2cf9b9159951d1877d27e78e8beae300368b7a921ededefda14\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"041ba8de358bf0c1dc5ef5775c736b78bebb27daeba7fff2d82100a63df95ce6490efa708475ec52a63c73944d1ecec39812ea1ca68b77424dbf7e014300731d27\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\"\n}",
+			"context" : "testUser-1235@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:NDkxZDEzOTE5NWYxNGVjOWE0NThiMDg3NDhmNDU2M2QzMjdiMWZlYzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|170cc70cedad14f535924f4a4995661b8d75ccf83df834ed25795aeba2cbcf27\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"3889510065e3047102bc93c71449f21a\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"3889510065e3047102bc93c71449f21a\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1235@testAuthenticate1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 401,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:OTY0MGYwYWVjNjg5NDY3Yzk3MTU0Mzk1MWIxMmU4ZTkzMjhhNjE3ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f82849e25096a51f63b5bcb7a0a359c678698ded5014e7d05b787f454df17a85\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/",
+				"WWW-Authenticate" : "Authenticate"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\",\n\t\"UT\" : \"041f5bf065a22f2b9674dcb6db15d0c25dfe89849881002e7add8b3b693291283911a285d5991ef391ea784c6499a6a5df7a62428865444f68c133eb102f3f0bc7\",\n\t\"U\" : \"0400ad151d30162265886b85f09c712f07682d1e8994a04a86658df9f2e1c487671b304652da6b56df6917a7c91022c6c688e98ccb44ffb74bb1c2c394bfd33365\"\n}",
+			"context" : "testUser-1234@testAuthenticate1SecondAuth"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:ZGZjY2I3YjY2ODIwNDI5NTk4OGJiOTdmNGRjYjA1MjMzMjk2ZGY5ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|7e1ea5a83a991b72bfd017247ac7591a61103bc3ce373173736596ccf9a54a68\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"22418badbfc708d92271914f9077d2500bdf20ec24b0100b2725b034fb076e25\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"041fc5ded063b902ced782f40e0c7575058d1f781f1303d80462b12a62609d9ab70db34a2bc6223fc85f66022847bb08bee62715a8fc3385f184dd54c50e06a4ef\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31372e363936353630222c2022757365724944223a20227465737455736572222c202273616c74223a20223631383835396265336664356633613930396331326339386561316134303832227d\"\n}",
+			"context" : "testUser-1234@testAuthenticate1SecondAuth"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:YzViNmVmNTE1NTU1NDQ2NmFhYTM1MDkzYzMwZTFiZDYzMmExYmVlMDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|4fed919bb64b130ee6f9cf865e09a776ac48764a9668edf2dc717572648dd1a4\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"b53ea0db8d6761990832136b592f94a2\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"b53ea0db8d6761990832136b592f94a2\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234@testAuthenticate1SecondAuth"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:YTQ5NjdmNzMyMTg0NDdmOGEyYTk0NTRiOWQ5OTQ4NWMzMmFlNzAwZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|2914bccc7041a19b3892117bf10c23e5f5bd6c3e112fa152fdf53c2d028ccdd3\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:ZGM1MDA4YjA0OTM5NDM4MTg2YzcxY2E4ZGRlNjRiNWIzMmJjMjA2ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|9ed56f82e1720badf63bd893998871a5e04d051718cacf6f8e92c4eea1950fd1\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:19.585924\", \"active\": true, \"regOTT\": \"824fca158e5cb80e123eaf18c02139ff\", \"nowTime\": \"2016-10-11T13:58:19.585924\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d?regOTT=824fca158e5cb80e123eaf18c02139ff",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:15 GMT",
+				"ETag" : "\"de6b4e4192a55505ed13b1b427b01f9541d295a6\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194055|16:mpindemo_session|88:Yzg2NDYwNDc2YzNhNGNmY2JlNmI4MTgxMGUxOTQ2NDMzMmM2Y2Y1YThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d8fa3450482a8126ae36777dc37de96fac1b637e9e559cd3d3934e15e61213c2\"; expires=Thu, 10 Nov 2016 13:54:15 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"040cffc0e0990b340eee644292322291e7c2ed1ae1ca6d0a293471267889d3a7ce0189510550b69afdaa2c6d28704868054307bdbd8c4a05097a3501966ee78cea\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A19Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e&signature=b2c0237872078395085962a274adc83d3198192d5039cc4b7187cbc54d47cf0e&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A19Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e&signature=b2c0237872078395085962a274adc83d3198192d5039cc4b7187cbc54d47cf0e&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:21 GMT",
+				"ETag" : "\"af0710304c244e48052019885e1683d9ab5ad16d\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"0408cb7e17a27887a7ec1c2ee2d6df45f2b79bb77f16a199d819bb7e82523125550270d857c4fa73df75a22f4a28a1457e4f9baab5db78f6ef5cea32ecbbad7d7d\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/timePermit/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache",
+				"Content-Length" : "385",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"ETag" : "\"64cea0cf418e3859a9f916c00318c610aa3b6254\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:NzgxNDkyMTZkMmZlNDRkNmI3ZmViNTM4NjlhYTA1MjkzMmUxNmE1ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d7ffecdf25cc8c66232914355a1947c07a02b206e3be9b4945ee2b2a6b9b7478\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"storageId\": \"466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e\", \"signature\": \"cab70fec7af4b41b814e6c909097fe0da8e8ed95e38abc6a5ceee8abb26c5d00\", \"date\": 17085, \"message\": \"M-Pin Time Permit Generated\", \"timePermit\": \"041f6ca6e9b00849ecc2bcebd5aa60657db0f0aa9f62c7d0da76d50ef6190ebcef1c48caf6ec094864329474888d866c5514127c33a75acca65ef27b75e1513cb9\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3/dfb3538a8ed111e693e3022b36cac222/17085/466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 404,
+			"headers" : {
+				"Content-Type" : "application/xml",
+				"Date" : "Tue, 11 Oct 2016 13:54:19 GMT",
+				"Server" : "AmazonS3",
+				"Transfer-Encoding" : "chunked",
+				"x-amz-id-2" : "gJWsisufHsoAxGXqAuV+BOW7vMiLbs9u06Nl6uDlUZikEgyD2YSuzxNnYCrpqBzZ9oZdv5l4Sw4=",
+				"x-amz-request-id" : "B324C5D37000EFC8"
+			},
+			"data" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>dfb3538a8ed111e693e3022b36cac222/17085/466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e</Key><RequestId>B324C5D37000EFC8</RequestId><HostId>gJWsisufHsoAxGXqAuV+BOW7vMiLbs9u06Nl6uDlUZikEgyD2YSuzxNnYCrpqBzZ9oZdv5l4Sw4=</HostId></Error>"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/timePermit?hash_mpin_id=466900950186e183757531ade619e50a4dcf03015610563f8d939f4309bfe12e&app_id=dfb3538a8ed111e693e3022b36cac222&mobile=1&signature=cab70fec7af4b41b814e6c909097fe0da8e8ed95e38abc6a5ceee8abb26c5d00",
+			"data" : "",
+			"context" : "testUser-@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "181",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:21 GMT",
+				"ETag" : "\"855cb6f597d4460333aab3d8f9d89b0aa90256d4\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"message\": \"OK\", \"version\": \"3\", \"timePermit\": \"0421399dec2003f714383c407f8b5cbb2cdab527858aefca5729f6af04ce0ad4431693010f849f9b119608b68b608660d686de5516e958114fa3e77200b99bebda\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\",\n\t\"UT\" : \"0417d05fb5f933441d43194be9aa35babc3bb550c29ac926e7be686ab2ba0e7010195f6dddb25a8e16ef98a67aa6d005fd55bdf9722f1ea0b4cb53e315be771efd\",\n\t\"U\" : \"0404a63eb38502ba7431d1ab4a631543f274a8fb7705b4c6b31b6b289dedd5b8d81429d3294c59bd23d9ba4b910ad94af9233c0efec9db0691445433c2c6815861\"\n}",
+			"context" : "testUser-1111@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:YzM2ZTI3OTc2NmM0NDY2MmE5YTU0ODFkNmEyMTUzMmEzMzE2MzM2YThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|525bccda7741028bc103198d15005011df2563c76f9c519f7401fa13bb32deef\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"05ee09d6897e88391894aebb363e3836e0c03e01ee82f9e65ba4032150eccb81\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"0415883a6e634638d19e3f75428948f81c6d569b5285b1f614afa82b3fbfe32046131b3d14473edb5f69bfd21b4582e3567cfff699bb61e98ad8f5e87cbdf4357b\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\"\n}",
+			"context" : "testUser-1111@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:Y2QzMDVlMzUxN2Q1NDI3YWFlYWFmZjM2ZjIyNmI5MGEzMzIxN2Q3ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|67bc26a22b63ae7057396ae0650ee6b86c0cda858b6230289cd7274c1d91c0a7\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"fb93b358f6a60e555be51774afe5211c\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"fb93b358f6a60e555be51774afe5211c\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1111@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 401,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:NGQ0NDhjNDhjNGQ4NGU0M2I0ZDBlNmUyMDZkMWI1NTEzMzMwZjdmNDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|c1e7851327ed7e926249f0d974930b750774f6e1b845053faeb2e51fedc09a37\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/",
+				"WWW-Authenticate" : "Authenticate"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\",\n\t\"UT\" : \"0417d05fb5f933441d43194be9aa35babc3bb550c29ac926e7be686ab2ba0e7010195f6dddb25a8e16ef98a67aa6d005fd55bdf9722f1ea0b4cb53e315be771efd\",\n\t\"U\" : \"0404a63eb38502ba7431d1ab4a631543f274a8fb7705b4c6b31b6b289dedd5b8d81429d3294c59bd23d9ba4b910ad94af9233c0efec9db0691445433c2c6815861\"\n}",
+			"context" : "testUser-1112@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:ZDk3NmNmNWYwOWZlNDBiY2I3YWUzNmQ3YWVhNDJkZmQzMzNlZGUwYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|aa9d01d97ebacc3e04bbbf428be03c4da28ec646629c0cc390e0e453f961de38\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"1678e15e1d5458b03158d885c8728aa2d664bf4007663636d77c673980ea8f09\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"0405bb544fc2c66e1c668e763ced3fa59b014d2048bec5a8cfa712189e9661fe6c0ff362a19aceb2de0f3131a052e47500ac09aade39e88b12e158512a30e48262\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\"\n}",
+			"context" : "testUser-1112@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:NWZjZjNiMTlkMTU1NGU1ODhjYzBjM2I1NzU0NTA2ZmYzMzQ3YmFiNjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|32e07d6828c77c89dc1306a944ef28aa1a0e561c1b40e0e5102fca52a40fd745\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"3e66fe79877886cbc2722977a6596a20\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"3e66fe79877886cbc2722977a6596a20\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1112@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 401,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:16 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194056|16:mpindemo_session|88:NWUzYzgzNTNhM2Q1NGU4ZWFmNTg5YzAzMGZjZWU0NDYzMzU2ZTZlZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|194091d1026036e656a3c059a8f62283231a6951d46ea2f7167deb408cf02a20\"; expires=Thu, 10 Nov 2016 13:54:16 GMT; Path=/",
+				"WWW-Authenticate" : "Authenticate"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\",\n\t\"UT\" : \"04159df681b32fafcf9c5655ebb2c2b42344a871aa0ccf30af23452a58ea651828216ccaf95140aa316ce661b49ea3bf77e1b91993e05c5924f60f5f4552649692\",\n\t\"U\" : \"040f9756ac3879a9c2ebd2cfcf32d3fcb69d1f55422bb27cf800abcc5267c8c61612294f34372b48079ecd1da1b0e287bab18397a99ab8662ff73a5f78dc6c6078\"\n}",
+			"context" : "testUser-1113@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:ZGYwOTRmNzU0ZDVmNDFjM2I1Njc2NzVmNmEwNDFlYjEzMzY0MmNkMjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|62ca5a77180b4db02ce79691af6de50bf5959740a29ac222d4ea7634782d8add\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"071544f2ce3f33ea37b748b8d5a9bc897f1088c60ee535740c8b2fe219c7f6a5\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"0\",\n\t\"V\" : \"0401e37e318afcaecfda8cb25d13b79491dad6cf2c7e1997fc47b4abec09c795ff053695f2e1bd212d983b63941ade43fdc9f5f960ce8e13fd7f103682f435d6e9\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a31392e353835363638222c2022757365724944223a20227465737455736572222c202273616c74223a20226235313932383337343635616138666339626539376239303438313763653737227d\"\n}",
+			"context" : "testUser-1113@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:YzUwMWMyYzg0MjE3NDgzNjgyNGU4ZWY3NmFkMDRjMWIzMzZmMTkzYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|df730fb545b879002dd88c61eb44d3cfdd6ca4654e5a7604598a1c6f1decabf4\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"ecdc269c89b9c722795b423db2978c55\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"ecdc269c89b9c722795b423db2978c55\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1113@testAuthenticate2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 410,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:NDg3OTZmY2QzZDIwNGI2NGE2MzFjN2Q5ZGM0NDA1YmUzMzdlM2Q3YThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|20917229a77d7cb1e7cbf572c3f84bd17b5f0e81cce0e03a93762f397c0c7381\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:NzFiZjIxZmFkODg2NDdiMmExMjBlMDA5ZjQ3ODMxMWIzMzg4YTYwYzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|396f7c3f7b7ca32f357ec4d1a0b85bbc18c5970aad4890e2401096830a672678\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:20.926166\", \"active\": true, \"regOTT\": \"9d1f241df64a74314f7e1b7db2a180af\", \"nowTime\": \"2016-10-11T13:58:20.926166\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32302e393235393233222c2022757365724944223a20227465737455736572222c202273616c74223a20226339313534396464636330623033316330633232333139306334636137303439227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32302e393235393233222c2022757365724944223a20227465737455736572222c202273616c74223a20226339313534396464636330623033316330633232333139306334636137303439227d?regOTT=9d1f241df64a74314f7e1b7db2a180af",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"ETag" : "\"1b1331df1172f8ec9127be20186949ce6926c804\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:MTU2ZTMzZjViMGVhNGQ1ZTgxMzcwNDEzZDkxYTBhNTkzMzk0MTBkMjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d6d6a7eb3b7b49b6cf25730572df337b0930321ecddb76218d0aa5f873dd0c97\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"041ca005f74aca63c5fb306b81b2c616e18494c92bba8e7619eb3d820392ca78a10b1201327aac4e5aa1268ad2f1bf9bd8e9ea99b69f7f7a10d6ec44d259f8a18f\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A21Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b&signature=96270d0cfca1d431eb44c1a861d08af8ee0990ced8c2bbbe2eb3e73a8dccb88c&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A21Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b&signature=96270d0cfca1d431eb44c1a861d08af8ee0990ced8c2bbbe2eb3e73a8dccb88c&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:22 GMT",
+				"ETag" : "\"9525ebd915115de3ad7a61561fb4a39a4ee04c5b\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"041a4b7fcbccc0fe0ad1367380df97526a033c8d317979b337643a72a0c7d51cf80f31773fe82b99304f9618637e53e85aed72e19c23d517298cd8080c4eef2e7a\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/timePermit/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32302e393235393233222c2022757365724944223a20227465737455736572222c202273616c74223a20226339313534396464636330623033316330633232333139306334636137303439227d",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache",
+				"Content-Length" : "385",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"ETag" : "\"6d32ddb97f927b7fbc61f2f506f94f64e64e95be\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:MzQ1ODEyMmRkOGMwNGRmZGJjY2JmOWNlMTM5ZTllMDYzM2FmN2VmODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|b629039c2e62a8fc445b5b92406489c32dfcd8e136375238ffd470ac9f84a30a\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"storageId\": \"795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b\", \"signature\": \"544df02d3da1c2eeb0ccad87cb93ff5f52ce0485dcd00930e3fcd6c93d22ad21\", \"date\": 17085, \"message\": \"M-Pin Time Permit Generated\", \"timePermit\": \"04047e7f5e49ca5dafcef172293fa1e8662417fd2d379fadcfc51b5c24dd3b8ebc22501898f8838413813378ccae27475876dbd44c073e588488563e74bfc50130\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3/dfb3538a8ed111e693e3022b36cac222/17085/795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 404,
+			"headers" : {
+				"Content-Type" : "application/xml",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Server" : "AmazonS3",
+				"Transfer-Encoding" : "chunked",
+				"x-amz-id-2" : "fmiUHSjAwf9eV1gZhDkE7iZQnaID78kdJpsMxm/1RzuOkTOnlnofCHegxfb+pntBJ7QQFehiSco=",
+				"x-amz-request-id" : "4D13B3F1CF431799"
+			},
+			"data" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>dfb3538a8ed111e693e3022b36cac222/17085/795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b</Key><RequestId>4D13B3F1CF431799</RequestId><HostId>fmiUHSjAwf9eV1gZhDkE7iZQnaID78kdJpsMxm/1RzuOkTOnlnofCHegxfb+pntBJ7QQFehiSco=</HostId></Error>"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/timePermit?hash_mpin_id=795fbb24d62bcb709166bf739b1a53bdea3864f29b8b8450a692ae8c4010f88b&app_id=dfb3538a8ed111e693e3022b36cac222&mobile=1&signature=544df02d3da1c2eeb0ccad87cb93ff5f52ce0485dcd00930e3fcd6c93d22ad21",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "181",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:22 GMT",
+				"ETag" : "\"548405df6ae8be4e4acf54a37d4b0f4e336baacc\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"message\": \"OK\", \"version\": \"3\", \"timePermit\": \"04152db2863f60ac46fdbec8c00aea894b9b8f8dd183feae600d82b9491a9b227e000ae8f491a34849a9f8b2c573c7e3141376e8a085e67309f3ca4e22c9bb87ff\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32302e393235393233222c2022757365724944223a20227465737455736572222c202273616c74223a20226339313534396464636330623033316330633232333139306334636137303439227d\",\n\t\"UT\" : \"0410adb4ad81b9fbc371b179772664d06fd0da7c3fab5610ae5f5d0b0e28e433931e75d978c388171b8807b5f8545c01f96746bb4b5f0445cf40ad49e518f742da\",\n\t\"U\" : \"04184f3f2c34f3ae41e609442db555e5341eddae37f01d7a65948b290286d3a9e30f77efee04e773ce4aa0adda41d01abe48562f0974ef3bc34b8b4a5482c8642d\"\n}",
+			"context" : "testUser-1234-OTP@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:YWIwMTIyMTI4MDlhNGY1ZGJjZDYwMzIyOWVhOWZhM2QzM2RmMzJmNjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|9bc63243bbe4defbb71037128c3f1de010cce7009a96843245fbeb01a9a0dd1b\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"110cea18c25cad9d95f3b47977959b7b0a7a30bbfdce2d3dfd5730660ec4d75b\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : true,\n\t\"WID\" : \"0\",\n\t\"V\" : \"0400c99f3217216a8f2cc5367de1896600d669beb50af242305510a5c79ede3a371e576939c51abe2251b2d36481845945e2a4897777f674fc2217c786d1df4afb\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32302e393235393233222c2022757365724944223a20227465737455736572222c202273616c74223a20226339313534396464636330623033316330633232333139306334636137303439227d\"\n}",
+			"context" : "testUser-1234-OTP@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "93",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:NDhiYjdkYzliNGIwNDBlNTg3NGM3NmIzNjYwNDZiMjEzM2U5YzY5ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f5326e116d28a18d53bf5719fe41ee144c3e7c2a64c2e0927a5f7e991951caf2\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"OTP\": \"612614\", \"version\": \"0.3\", \"authOTT\": \"0ff24148609f9c280578d206dabdd3d7\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"OTP\" : \"612614\",\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"0ff24148609f9c280578d206dabdd3d7\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234-OTP@testAuthenticateOTP"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:17 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194057|16:mpindemo_session|88:MTMwNjI4YWY3YWQ2NDZkMGI1M2ZlODE1NWFhOTc1ZjczM2Y2YWQxZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|230c4a25d7b165feb4ac5ce1aee6222422043df9cc9d2763bfd531c5edac8d77\"; expires=Thu, 10 Nov 2016 13:54:17 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:MmNjYjA3MTkyYjBkNGFmZGEwOTA3YjEyMzBjZTY1MDAzNDA1YWM4ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|80b97c416ecb430dffc05b9a708d8495c61c5974e9b24734a341ac2621c25222\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:21.745589\", \"active\": true, \"regOTT\": \"a7ac7b30764b1de10daff874da2e45b5\", \"nowTime\": \"2016-10-11T13:58:21.745589\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32312e373435333336222c2022757365724944223a20227465737455736572222c202273616c74223a20223836303735326137373265326237356233333539646432646362323966366362227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32312e373435333336222c2022757365724944223a20227465737455736572222c202273616c74223a20223836303735326137373265326237356233333539646432646362323966366362227d?regOTT=a7ac7b30764b1de10daff874da2e45b5",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"ETag" : "\"a87263d5c81655b58f716b024464a68db94f839d\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:YmFmMGE3NDg0YTUxNGI5Yjk0ZTcyYjEyZTM0YmY4YjMzNDEwNzUyODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|cb042dd0d6ec3b21a76cfa53d489f30b9ea510d9f1e003e711eea4ff20678571\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"04068b667927a6f9fed9812f0ea63fc0cab28dbe65dbf04653cfe56048186624992089d836fc63d6ec8f708b99f5976aaccb29071d3285e97f46db5e898cfff84b\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A21Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08&signature=9483cd6d51bdd06576d4cda8c821d84c29232981f57d2eeedc2c4773d52e463d&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A21Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08&signature=9483cd6d51bdd06576d4cda8c821d84c29232981f57d2eeedc2c4773d52e463d&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:23 GMT",
+				"ETag" : "\"79a327bfb649c0f6418fc6573a2e9ba1be4b84e1\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"04170778e0bc39e9104ccf67a1ac0347141ee794eb5348d5f6528dd912ad47df7e0d78bc6e0b1374f41d2ef6ff136b83ed689c6e3a2b9e7fe65cb0056043403a9d\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/getAccessNumber",
+			"data" : "",
+			"context" : "@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "155",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:MjdkNGY5NzZlNDdmNDEyNWIzMjU0YWQ0NDMyOTY1YjkzNDI5ZjRhODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|3a67d9b84768028b2bc295a15a1ea66ba955739f7709c704893f6f8288410c2c\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"localTimeStart\": 1476194301000, \"ttlSeconds\": 60, \"localTimeEnd\": 1476194361000, \"webOTT\": \"2d15a416e5e5dd53f6a87293dd224dc7\", \"accessNumber\": \"4241703\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/timePermit/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32312e373435333336222c2022757365724944223a20227465737455736572222c202273616c74223a20223836303735326137373265326237356233333539646432646362323966366362227d",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache",
+				"Content-Length" : "385",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"ETag" : "\"c56e6c53be857afe76421f91d491260a527a1b4f\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:ZTAwZTJmMzNmMzY1NDk1NzliMTFmYzkwZmQzMzgwZDczNDMzYjY1YThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|aa993c795bc3121cc0e5debc351ff8d93557a221a7e2d45885195555b40ca5af\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"storageId\": \"7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08\", \"signature\": \"59cdede28c3398cff733594c6c5e358a1a99cc56d7b6266bd630e18dadad2e5f\", \"date\": 17085, \"message\": \"M-Pin Time Permit Generated\", \"timePermit\": \"041954cf3d3bc574e94f314035d3f74ac7395b3359e92329bf12cd5fe260f2837b12cb2cb772347570429126ad5811149875587493095fff909ba57222277afe0e\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3/dfb3538a8ed111e693e3022b36cac222/17085/7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 404,
+			"headers" : {
+				"Content-Type" : "application/xml",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Server" : "AmazonS3",
+				"Transfer-Encoding" : "chunked",
+				"x-amz-id-2" : "4jCUbBKq6d7RY+qMjhJNmoQe6qhb5M3/MH5WNMqmzdtsA2Yegji19ab6om5jViexZ2AtFYR0dCI=",
+				"x-amz-request-id" : "A263AA9F4E93C57B"
+			},
+			"data" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>dfb3538a8ed111e693e3022b36cac222/17085/7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08</Key><RequestId>A263AA9F4E93C57B</RequestId><HostId>4jCUbBKq6d7RY+qMjhJNmoQe6qhb5M3/MH5WNMqmzdtsA2Yegji19ab6om5jViexZ2AtFYR0dCI=</HostId></Error>"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/timePermit?hash_mpin_id=7526eb974a5eb35dd9495462e0d04931fc472d4d08ce3db7916cbd21051c7a08&app_id=dfb3538a8ed111e693e3022b36cac222&mobile=1&signature=59cdede28c3398cff733594c6c5e358a1a99cc56d7b6266bd630e18dadad2e5f",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "181",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:23 GMT",
+				"ETag" : "\"dec88d8a94ee092fea62d6997c7d71e744c7cadc\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"message\": \"OK\", \"version\": \"3\", \"timePermit\": \"041d2bc3b94e88c2659bb4707d4d9ad846b062af1cad0d039a06c547453d372bb91eec830c44732ba856eee486e8d24defb2627650e50c63d763f95b928ad39709\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32312e373435333336222c2022757365724944223a20227465737455736572222c202273616c74223a20223836303735326137373265326237356233333539646432646362323966366362227d\",\n\t\"UT\" : \"04132c2ef801f87943b2204fbac840255f0883f3f899543329103b05ca1749b04e1ffb84770375584169ad1c2948beb1ad28c7eaf6b3312fbfe84f7a3e3daab08a\",\n\t\"U\" : \"0420318a020399f5df900700caf136f9e41d28f1cc5236d4894cb7129c045300471f9b7b2ccdbac13ecc86b99cd950d79d734034cd7a77ba47b43c76737cd868bb\"\n}",
+			"context" : "testUser-1234-4241703@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:NTliOGM3YTMyMmRhNDVjYzk3MWMxM2QxZDgyNGUyZWUzNDY4OTc0NDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|cefc94fa7bb06c8d84e3e027ccb10dd1f000616554675e6510f6f611a02d3cc3\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"0351c2215b7620bad6e92a3e50fb28a177fb67b194e8938c424adc9be1ca8b83\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"4241703\",\n\t\"V\" : \"04061b1043327c06e346e79794358b2428d6ebb60fce9079b9e212183e5a98b6c710053315fe5ce0b32fc8322e88ba4866f59b2b2b7a7a31c695d838b7aacbead8\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32312e373435333336222c2022757365724944223a20227465737455736572222c202273616c74223a20223836303735326137373265326237356233333539646432646362323966366362227d\"\n}",
+			"context" : "testUser-1234-4241703@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:NjYwOGQ1YzdhMDM3NGJmZmI4ZDk4NTRiNDI0M2M0NzUzNDczOGNiYzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|3e7a2f54ed3313a619afdd3ae8bcce773f1e2332935c9497dbbf6f786923de46\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"1c311ed95f4e7391ff2b09d9257d3ad1\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/accessnumber",
+			"data" : "{\n\t\"webOTT\" : \"2d15a416e5e5dd53f6a87293dd224dc7\"\n}",
+			"context" : "@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "47",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:19 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194059|16:mpindemo_session|88:YjIxYWFhNDdlYjljNDdkZDljNjYzYjEzZDUyODhiN2UzNGQxZTUzMjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|454e95623158fd23f826db9defd9f8b92e3850d9f9c4792501087e41a547b4cc\"; expires=Thu, 10 Nov 2016 13:54:19 GMT; Path=/"
+			},
+			"data" : "{\"authOTT\": \"1c311ed95f4e7391ff2b09d9257d3ad1\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"authOTT\" : \"1c311ed95f4e7391ff2b09d9257d3ad1\"\n\t}\n}",
+			"context" : "@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "67",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:19 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194059|16:mpindemo_session|88:YzYwNTFhNWVmNDE4NDY5Zjg0MjRmYzRjYWI2MTU2YjEzNGRhY2ZhODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|7761b3dcaceebbe7b0e07856b76920f83b4209b4c07c1cd0c8f95c835027852d\"; expires=Thu, 10 Nov 2016 13:54:19 GMT; Path=/"
+			},
+			"data" : "{\"someUserData\": \"This will be handled by onSuccessLogin handler.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/authenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"1c311ed95f4e7391ff2b09d9257d3ad1\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234-4241703@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "146",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:18 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194058|16:mpindemo_session|88:OGIxYzJmM2Y0YWY1NDNiODk5YjRmMTFjMzUzZmJhODgzNDgwYjc4NDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d3c64e6c30f18d76a9f671198a094a45719e122aa8f8b9edaceaadcebf4655b5\"; expires=Thu, 10 Nov 2016 13:54:18 GMT; Path=/"
+			},
+			"data" : "{\"logoutData\": {\"userId\": \"testUser\", \"sessionToken\": \"c6051a5ef418469f8424fc4cab6156b134dacfa88fba11e68441fa163e626386\"}, \"logoutURL\": \"/logout\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/logout",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"sessionToken\" : \"c6051a5ef418469f8424fc4cab6156b134dacfa88fba11e68441fa163e626386\"\n}",
+			"context" : "testUser@testAuthenticateAN1"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "0",
+				"Content-Type" : "text/html; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:19 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194059|16:mpindemo_session|88:NjQzZWFlOWI1NjQ4NGI2NmJjYzE2ZTkwNjg0N2ZiMmYzNTIzYmVjMDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|5ec5376cb29b42ee5cd91e81c371e6adb836ffad39b23b637737c98ac9dc0fad\"; expires=Thu, 10 Nov 2016 13:54:19 GMT; Path=/"
+			},
+			"data" : ""
+		}
+	},
+	{
+		"request" : {
+			"method" : "PUT",
+			"url" : "http://10.10.40.62:8005/rps/user",
+			"data" : "{\n\t\"userId\" : \"testUser\",\n\t\"mobile\" : 1\n}",
+			"context" : "testUser--@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "399",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:MGMxZTczMGE3N2M3NGJkMmEzOGE5MjhmZGFkNDNjMjUzNTJjYTQwZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|36aa7f531dc2513e08bdfcce2a981e2e99b54fbb270e12408744691c24517ef4\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"expireTime\": \"2016-10-11T14:58:23.679848\", \"active\": true, \"regOTT\": \"7288cab628e6947bd2c6d5f24c753d19\", \"nowTime\": \"2016-10-11T13:58:23.679848\", \"mpinId\": \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/signature/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d?regOTT=7288cab628e6947bd2c6d5f24c753d19",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "417",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"ETag" : "\"7a26ef5f07b712a808e98b0a0a7e8bab4a3ac95e\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:MmY3NDgzOTU4MDAzNDM4YmI0YzczOGNiMWMxZWYzOTQzNTM4Y2ViZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|9b3f8b575220e14bc5905d02029be08a5e5a7c6565e1e5f77379d1c06b6c99e2\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"clientSecretShare\": \"040c31f27749f3828d36800dfef7c16998d38b0548adb3945338ac4365dd22fa150b052afb175848a7c60004af2b033a5d0e23bc27f6a8d405bf48a0dcc9191f8d\", \"params\": \"mobile=1&expires=2016-10-11T13%3A59%3A23Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3&signature=2344922c52edf45fc8ff3dddb3df6c4332cc36822992a2563ef152a18006447f&hash_user_id=\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/clientSecret?mobile=1&expires=2016-10-11T13%3A59%3A23Z&app_id=dfb3538a8ed111e693e3022b36cac222&hash_mpin_id=deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3&signature=2344922c52edf45fc8ff3dddb3df6c4332cc36822992a2563ef152a18006447f&hash_user_id=",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "183",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:25 GMT",
+				"ETag" : "\"4da0e673afadd34090ded1b4b1e27909ce0a4f8c\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"clientSecret\": \"0407e905f45f2ff058ed214325e131f0d049bbe336959bce27210a8730a7b55ab320ea25fc98ed624421123cb37061fe769c1af840ba110e4d8eda83f764a4caed\", \"message\": \"OK\", \"version\": \"3\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/getAccessNumber",
+			"data" : "",
+			"context" : "@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "155",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:ZWRjN2IyM2I2NmI5NDQzNjlkYjA1ZDE0YmJiZjI3MTgzNTUxYTAwNjhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|46b63aded2e9a4ba5681509f0f5c3f22a4ff07e47599670dcd828ccdfbfa376c\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"localTimeStart\": 1476194303000, \"ttlSeconds\": 60, \"localTimeEnd\": 1476194363000, \"webOTT\": \"76ad537986ca6336528f1fc319b42bec\", \"accessNumber\": \"6418791\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "http://10.10.40.62:8005/rps/timePermit/7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache",
+				"Content-Length" : "385",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"ETag" : "\"2e767f9f32eb35e403c6a4cc124be09811fd9981\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:ZDk4ZWU2OGUyZTU5NGE0NmEzZjgwNGE0NWRiNzg1NDQzNTU5ZDJiYzhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f70c14cfaeb945b699a1c8baf8593095d80ef8b5c29cc7c4652257d59a75c9a2\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"storageId\": \"deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3\", \"signature\": \"d383b1a381a460a52ec9045513b50cfa3f9de0a2c5391ce721de52427c1316b0\", \"date\": 17085, \"message\": \"M-Pin Time Permit Generated\", \"timePermit\": \"0410eceed8f1f0e2388cd173387abf23e5321f0bc9d29d1b5fa268565b2babc38513e24d6f3cc21e97b50c7fb40500fd7ddbca428eff8367866c5a7b2b1b92a845\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://s3-eu-west-1.amazonaws.com/freetier-timeperbit-bucket-qa-v3/dfb3538a8ed111e693e3022b36cac222/17085/deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 404,
+			"headers" : {
+				"Content-Type" : "application/xml",
+				"Date" : "Tue, 11 Oct 2016 13:54:23 GMT",
+				"Server" : "AmazonS3",
+				"Transfer-Encoding" : "chunked",
+				"x-amz-id-2" : "cgnYWtDrAKxkJ1iNAo7MZIcxxnbDB57VIYmAg88/pSjquTKnAj++rSCDubtzpwPTwh8JT+HhmHY=",
+				"x-amz-request-id" : "D91E1499590009A2"
+			},
+			"data" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>dfb3538a8ed111e693e3022b36cac222/17085/deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3</Key><RequestId>D91E1499590009A2</RequestId><HostId>cgnYWtDrAKxkJ1iNAo7MZIcxxnbDB57VIYmAg88/pSjquTKnAj++rSCDubtzpwPTwh8JT+HhmHY=</HostId></Error>"
+		}
+	},
+	{
+		"request" : {
+			"method" : "GET",
+			"url" : "https://mpinapi-qa.certivox.org/v3/timePermit?hash_mpin_id=deaa55e8e8f7f0275d18072bc3c15970b413264f5f0a1f540a3278b69eefd7c3&app_id=dfb3538a8ed111e693e3022b36cac222&mobile=1&signature=d383b1a381a460a52ec9045513b50cfa3f9de0a2c5391ce721de52427c1316b0",
+			"data" : "",
+			"context" : "testUser-@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires",
+				"Access-Control-Allow-Methods" : "GET,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Connection" : "keep-alive",
+				"Content-Length" : "181",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:58:25 GMT",
+				"ETag" : "\"5de5bdd2e49bd04ece7df5e7cded62df4c0b35ea\"",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "nginx/1.4.6 (Ubuntu)"
+			},
+			"data" : "{\"message\": \"OK\", \"version\": \"3\", \"timePermit\": \"040c14b2403fb47c3f0aa00fc4a0564411df78e71b1cb1cbecca78a6d5fbcee524107eb02da07d9ec3eac56a19d1f5f66cde68707653f50557d9b6b55cc91447da\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\",\n\t\"UT\" : \"040f7e341d59c06f7a56230335832fc96b424492817efd49cc3d3eee4d361a66d50b1b687bf6ba5f408347c3d150ae604d8942b70cbf02b5f39e3c7b28d8cdab5d\",\n\t\"U\" : \"041e367c1bce2ecfd67a6d18d7225752804484e853b66888cd860979a3b25edc600a7c8476c8d8118b0f6c13afc843c67ae0bc8d410f762b34d756fb1a9356951d\"\n}",
+			"context" : "testUser-1234-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:N2YwNjM0NmUwMzBiNGZkYWE0ZWYyMGQwYmE0ODYzMjYzNTg5MjllYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|80030b96886dc59d5bec85a799e4cf7f2f7a12cc54c2438acc92daa217998d5b\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"239dbb0002a949d42b91cdb68736eb5c9c1ce74791483975e278fd67e2652e90\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"6419791\",\n\t\"V\" : \"0421cf318436cb42d1e42c7b8db0b2cac71d4ba5eeb600d155fe8eb1490e8e5d3403ad3dc94b0f5645722e863068058d8d8cb22f2d75a5c5c9042f562758da7ab4\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\"\n}",
+			"context" : "testUser-1234-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:ODJkNzNiYjJkNWFlNGI3MDg4NTY4NTVjNDAzMDEyYTMzNTk0MTRmNDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|d552b76885129f49d24adb72748af13dce126ee38ce9c0201061f88d8b57a234\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"19b804b360d6f2878a3dd3f5029f42bb\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/authenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"19b804b360d6f2878a3dd3f5029f42bb\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1234-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 412,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "47",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:NzJkMGJiY2FiNDI4NGFlYzkyMGFjMWJkNDQyNTg5YzUzNWEwZWI5ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|90fb74373fbec3321b06f5a68eb30d3bbfd65b8d4c3d127261c15d16c3bfe2c0\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"message\": \"Invalid or expired access number\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\",\n\t\"UT\" : \"040f7e341d59c06f7a56230335832fc96b424492817efd49cc3d3eee4d361a66d50b1b687bf6ba5f408347c3d150ae604d8942b70cbf02b5f39e3c7b28d8cdab5d\",\n\t\"U\" : \"041e367c1bce2ecfd67a6d18d7225752804484e853b66888cd860979a3b25edc600a7c8476c8d8118b0f6c13afc843c67ae0bc8d410f762b34d756fb1a9356951d\"\n}",
+			"context" : "testUser-1233-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:MGQxZjViM2I0MDEwNDJjMWFjN2Q5ODI3MDVmYjU4YTczNWFlMDdiMDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|6c3588cb29ee48afaaf8e0b1de62a2ab113d263353f695958f7039ea4a92bd08\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"03bee0de7d125199d6f8d3f4e1f4dfc5275ead5e08d4dee2bf895e88a3414a07\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"6419791\",\n\t\"V\" : \"041227276d756aa85d5620cf53dc6604fd729c9d1c9bba6bf0f1d2db98cc8798a91e16ba1abfa3bd34404b8bb09edb4cb41c58f6090e6391fb621bec5127ecea95\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\"\n}",
+			"context" : "testUser-1233-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:20 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194060|16:mpindemo_session|88:Nzg3OWJkZjNkZDA2NDUyYjk4NTZlZGExNGU5MDhmYWEzNWI5MjE2ODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|52a1153a5be3479bee861d0e9d397fb24f4724d4cda47c259eb78fd0f454ee86\"; expires=Thu, 10 Nov 2016 13:54:20 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"e9ea564136bc7628ff341e4d9336bb9c\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/authenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"e9ea564136bc7628ff341e4d9336bb9c\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1233-6419791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 412,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "47",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194061|16:mpindemo_session|88:MDMyMDZkZGY4ZWE3NGMwYThjOWM1ZTM4YTVjODY5YzgzNWM4NjMzMDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|dbceccaadabd487b68a45125e1b4f5277a63c4334edf50a75eaf5ccc405bd7c8\"; expires=Thu, 10 Nov 2016 13:54:21 GMT; Path=/"
+			},
+			"data" : "{\"message\": \"Invalid or expired access number\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass1",
+			"data" : "{\n\t\"pass\" : 1,\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\",\n\t\"UT\" : \"0415072e7b76ce737759c3b8f6999b8d138bdf4df5218508f0898fa3dafb12a00e08b4839c9a729cf3ed746a888083dcb983a42252b85aecde44844b7b19f458bd\",\n\t\"U\" : \"041ba36d48141ea78241c37a187e94b073374aee7f560a1ef64b68472a4a93901b1e93820c3887ae7f97c92257d647d15360ff6f658b7d1fb99cf002fde92defa8\"\n}",
+			"context" : "testUser-1235-6418791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "119",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194061|16:mpindemo_session|88:N2I1MDQyMzdmZmEyNGNhN2FjMDA2MGMxNzkxMzg0ZjczNWQ2NWZkMDhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|f2101f27bef964b1f6a5599123044af4679685fa668dd7ea9a176258257f5357\"; expires=Thu, 10 Nov 2016 13:54:21 GMT; Path=/"
+			},
+			"data" : "{\"y\": \"0520079b8127f386a7f22fcc80b43452485679d4ce6d965a16b3fee0b63d45b8\", \"message\": \"OK\", \"version\": \"0.3\", \"pass\": 1}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/pass2",
+			"data" : "{\n\t\"pass\" : 2,\n\t\"OTP\" : false,\n\t\"WID\" : \"6418791\",\n\t\"V\" : \"040cb9a543e52bfd5454059bea4358f20763b9217d74e590c2dc9981f649fec0180ca996fc6d7617edc9a3809c41e227baadfb443c039810d4a6d574d09cddade1\",\n\t\"mpin_id\" : \"7b226d6f62696c65223a20312c2022697373756564223a2022323031362d31302d31312031333a35383a32332e363739353733222c2022757365724944223a20227465737455736572222c202273616c74223a20223538323261383363313162303536326130383461306566373935383762643061227d\"\n}",
+			"context" : "testUser-1235-6418791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 200,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "76",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194061|16:mpindemo_session|88:YjVhNGE3ODRlYjBiNDc4OWJiODE0NWY2NjFiYWQwZTgzNWUwYThjODhmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|a1c5f71a08dd2540506c8bd08301cb46a33f11ce5398cb3175a47aef35266564\"; expires=Thu, 10 Nov 2016 13:54:21 GMT; Path=/"
+			},
+			"data" : "{\"version\": \"0.3\", \"authOTT\": \"debb870f8b9730073776c9747ef380f2\", \"pass\": 2}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/authenticate",
+			"data" : "{\n\t\"mpinResponse\" : {\n\t\t\"version\" : \"0.3\",\n\t\t\"authOTT\" : \"debb870f8b9730073776c9747ef380f2\",\n\t\t\"pass\" : 2\n\t}\n}",
+			"context" : "testUser-1235-6418791@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 401,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "25",
+				"Content-Type" : "application/json; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194061|16:mpindemo_session|88:NTg5NDg2ZDRkNzgxNDZjODgxYWYzZjFmYjgwMmY2ZTgzNWYxOTlkYThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|dbacfba962ebf0cf73d69504b5c0eaef3c6063a4e446726dd831f0ae83c62628\"; expires=Thu, 10 Nov 2016 13:54:21 GMT; Path=/",
+				"WWW-Authenticate" : "Authenticate"
+			},
+			"data" : "{\"message\": \"Wrong PIN.\"}"
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/rps/accessnumber",
+			"data" : "{\n\t\"webOTT\" : \"76ad537986ca6336528f1fc319b42bec\"\n}",
+			"context" : "@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 401,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "0",
+				"Content-Type" : "text/html; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:21 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194061|16:mpindemo_session|88:MDY4ZDI1ZGVlNTkzNDhiMWE4ZjFmZjI5NTUyM2JmZTEzNWYyOGE4ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|dc6ccd0f53a9cacff107f6c77920a88ccd3d0d4575280eaea787f0c9edad3e93\"; expires=Thu, 10 Nov 2016 13:54:21 GMT; Path=/",
+				"WWW-Authenticate" : "Authenticate"
+			},
+			"data" : ""
+		}
+	},
+	{
+		"request" : {
+			"method" : "POST",
+			"url" : "http://10.10.40.62:8005/mpinAuthenticate",
+			"data" : "{\n\t\"mpinResponse\" : {}\n}",
+			"context" : "@testAuthenticateAN2"
+		},
+		"response" : {
+			"success" : true,
+			"error" : "",
+			"httpStatus" : 400,
+			"headers" : {
+				"Access-Control-Allow-Credentials" : "true",
+				"Access-Control-Allow-Headers" : "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control, Pragma, Expires, WWW-Authenticate",
+				"Access-Control-Allow-Methods" : "GET,POST,HEAD,OPTIONS",
+				"Access-Control-Allow-Origin" : "*",
+				"Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+				"Content-Length" : "0",
+				"Content-Type" : "text/html; charset=UTF-8",
+				"Date" : "Tue, 11 Oct 2016 13:54:25 GMT",
+				"Expires" : "Sat, 26 Jul 1997 05:00:00 GMT",
+				"Pragma" : "no-cache",
+				"Server" : "TornadoServer/4.1",
+				"Set-Cookie" : "mpindemo_session=\"2|1:0|10:1476194065|16:mpindemo_session|88:ZjJhOTc0ZjM1MjFmNDAxN2EyMTE5OWVhYTIyNmY4MDkzODdkOGQ5ZThmYmExMWU2ODQ0MWZhMTYzZTYyNjM4Ng==|2748ff4ff7656af73e840887b0b608e46312f9ee10498408f91da06672f19164\"; expires=Thu, 10 Nov 2016 13:54:25 GMT; Path=/"
+			},
+			"data" : ""
+		}
+	}
+]

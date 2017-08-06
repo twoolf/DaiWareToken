@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
+
+        sourceSets.main {
+            jniLibs.srcDir 'src/main/libs' //set libs as .so's location instead of jniLibs
+            jni.srcDirs = [] //disable automatic ndk-build call with auto-generated Android.mk
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+// call regular ndk-build(.cmd) script from app directory
+task ndkBuild(type: Exec) {
+    def ndkDir = plugins.getPlugin('com.android.library').sdkHandler.getNdkFolder()
+    if (ndkDir == null) {
+        // if ndkDir is not set try with ANDROID_NDK env var
+        ndkDir = System.getenv("ANDROID_NDK")
+    }
+
+    if (ndkDir == null) {
+        throw new GradleException('Cannot retrieve Anroid NDK location. Set it either in local.properties or as ANDROID_NDK env var')
+    }
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine "$ndkDir/ndk-build.cmd", '-C', file('src/main').absolutePath
+    } else {
+        commandLine "$ndkDir/ndk-build", '-C', file('src/main').absolutePath
+    }
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn ndkBuild
+}
+
+dependencies {
+    androidTestCompile 'junit:junit:4.12'
+}
+
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

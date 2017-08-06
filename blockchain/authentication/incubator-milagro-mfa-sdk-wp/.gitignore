@@ -1,0 +1,11 @@
+#Windows phone
+bin
+obj
+Debug
+ARM
+MPinConnect
+Release
+*.sdf
+*.opensdf
+*.exe
+*.suo

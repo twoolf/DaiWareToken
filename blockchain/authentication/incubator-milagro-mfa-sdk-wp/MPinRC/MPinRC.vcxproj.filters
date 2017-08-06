@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>4c544314-69aa-4c28-8e68-418237ea4af4</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ext">
+      <UniqueIdentifier>{e41984d4-173c-435b-8dc0-eb1b31d15440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ext\cvshared">
+      <UniqueIdentifier>{11cbf739-8d18-4478-b560-2cc483173a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{72e31a9d-f7fa-436d-a026-ab978c8b0a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{0ff7500c-eda7-4b9e-970c-0efa19b8c0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\crypto">
+      <UniqueIdentifier>{7c6bd862-aa61-4c54-8b10-53258f2b0db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\json">
+      <UniqueIdentifier>{ef0b1ada-b705-4c48-bdad-6c3505ee9e4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\utf8">
+      <UniqueIdentifier>{fad3a8cc-d8cc-4e2c-ad3d-d9d1e57c1577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{07fc5d67-99a0-4403-8f59-6f41c59a00b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="HttpRequest.cpp" />
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="MPinWrapper.cpp" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\aes.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\big.c" />
+    <ClCompile Include="..\mpin-sdk-core\ext\cvshared\cpp\CvString.cpp" />
+    <ClCompile Include="..\mpin-sdk-core\ext\cvshared\cpp\CvXcode.cpp" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\ecp.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\ecp2.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\ff.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\fp.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\fp2.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\fp4.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\fp12.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\gcm.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\hash.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\mpin.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\oct.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\pair.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\rand.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\rom.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\crypto\version.c" />
+    <ClCompile Include="..\mpin-sdk-core\src\mpin_crypto_non_tee.cpp" />
+    <ClCompile Include="..\mpin-sdk-core\src\mpin_sdk.cpp" />
+    <ClCompile Include="..\mpin-sdk-core\src\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Storage.h" />
+    <ClInclude Include="HttpRequest.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="MPinWrapper.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\utf8\checked.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\utf8\core.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\utf8\unchecked.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\cv_shared_ptr.h" />
+    <ClInclude Include="..\mpin-sdk-core\ext\cvshared\cpp\include\CvCommon.h" />
+    <ClInclude Include="..\mpin-sdk-core\ext\cvshared\cpp\include\CvString.h" />
+    <ClInclude Include="..\mpin-sdk-core\ext\cvshared\cpp\include\CvXcode.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\crypto\clint.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\crypto\DLLDefines.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\crypto\mpin.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\crypto\platform.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\crypto\version.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\json\elements.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\mpin_crypto.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\mpin_crypto_non_tee.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\mpin_sdk.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\utf8.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\utils.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\version.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\json\reader.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\json\visitor.h" />
+    <ClInclude Include="..\mpin-sdk-core\src\json\writer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\mpin-sdk-core\src\json\elements.inl" />
+    <None Include="..\mpin-sdk-core\src\json\reader.inl" />
+    <None Include="..\mpin-sdk-core\src\json\writer.inl" />
+    <None Include="..\LICENSE" />
+    <None Include="..\NOTICE" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,94 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!doctype html>
+<!-- <html lang="en"  manifest="mpin.appcache"> -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MPIN</title>
+	<meta name="description" content="">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+	<link rel="apple-touch-icon" href="images/icons/Icon@2x.png" />
+	<meta http-equiv="cleartype" content="on">
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div id="rotateLock">
+		<img src="images/img/rotate.svg" alt="">
+		<h1>Rotate Device to Portrait</h1>
+	</div>
+	<div id="mpinContainer">
+
+		<div id="mpinHolder">
+
+			<!-- Master container to inherit the flexibility position -->
+			<div id="mpinMaster" ontouchstart="">
+
+			<!-- Append here -->
+
+			</div>
+
+
+			<help>
+
+			  <div id="helpContainer">
+
+
+			  </div>
+
+			</help>
+
+			<!-- Helphub -->
+
+			<helpHub></helpHub>
+
+		</div>
+	</div>
+
+	<!-- Load JS files -->
+
+	<script src="js/main.js"></script>
+	<!-- Initialize MPIN -->
+
+	<script>
+	(function() {
+		new mpin("mpinMaster", {
+				clientSettingsURL: "@@clientsetting",
+				// useWebSocket: true,
+				emailCheckRegex: @@emailregex,
+				onSuccessLogin: function() {
+					alert(" :: on SUCCESS LOGIN ::");
+				},
+				setDeviceName: true,
+				// requestOTP: "1"
+			});
+		})();
+
+	</script>
+
+
+</body>
+</html>

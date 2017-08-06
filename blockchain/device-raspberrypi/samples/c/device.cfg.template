@@ -1,0 +1,7 @@
+#Device configuration file...
+org=<yourOrg>
+type=iotsample-raspberrypi
+id=<yourId>
+auth-method=token
+auth-token=<yourAuthToken>
+#End of Configuration file

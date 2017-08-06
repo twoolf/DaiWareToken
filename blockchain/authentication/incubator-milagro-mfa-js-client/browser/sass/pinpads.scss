@@ -1,0 +1,125 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+
+.mpinInput {
+	height: 23%;
+	background: #fff;
+	margin: 0 auto;
+	padding: 1%;
+
+
+
+	&.mpinInputError {
+		@include pin-pad-input-error();
+	}
+
+	.mpinInputIn {
+		margin: 0 auto;
+		width: 90%;
+		padding: 7% 1%;
+		text-align: center;
+
+		& i {
+			background-image: url('#{$IMAGES}/info.svg');
+			display: block;
+			width: 21px;
+			height: 35px;
+			float:left;
+			background-repeat: no-repeat;
+			background-position:center;
+			margin-right: 5px;
+			cursor: pointer;
+		}
+
+		.mpinInputErrorText {
+			@include pin-pad-input-text-error();
+		}
+
+	}
+
+	.mpinCircle {
+		@include pinpad-circle();
+
+		.mpinCircleIn {
+			@include pinpad-circlein();
+		}
+		.mpinCircleOut {
+			@include pinpad-circleout();
+		}
+	}
+
+
+	.mpinInputText {
+		text-align: center;
+		line-height: 20px;
+
+		@include pin-pad-input-text();
+
+		&.mpinInputTop {
+			display: block;
+			margin-top: 9px;
+		}
+	}
+
+	.mpin80width {
+		/*width: 75% !important;*/
+		width: 80%;
+		text-align: center;
+	}
+
+	.mpin70width {
+		width: 70%;
+		text-align: center;
+	}
+}
+
+.mpin-pre-row {
+
+	height: 19%;
+
+	.mpin-row {
+		@include display-box-flex();
+
+		height: 100%;
+
+		.mpinPadBtn {
+			@include pin-pad-button();
+
+			&:active {
+				@include pin-pad-button-active();
+			}
+
+		}
+
+		.mpinPadBtn2 {
+			@include pin-pad-button-text();
+
+			&:active {
+				@include pin-pad-button-active();
+			}
+		}
+
+		.mpinBtnDisabled {
+			opacity: 0.5;
+		}
+	}
+
+}
+
+

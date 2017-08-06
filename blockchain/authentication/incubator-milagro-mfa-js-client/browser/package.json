@@ -1,0 +1,32 @@
+{
+  "name": "mpinpinpad",
+  "type": "browser",
+  "version": "0.0.1",
+  "description": "Browser PinPad",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apache/incubator-milagro-mfa-js-client.git"
+  },
+  "license": "Apache License",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-bg-shell": "~2.3.1",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-hashres": "^0.4.1",
+    "grunt-replace": "~0.7.7",
+    "grunt-sass": "^1.0.0",
+    "handlebars": "3.0.1",
+    "node-sass": "^3.2.0"
+  },
+  "dependencies": {
+    "grunt-contrib-clean": "^1.0.0"
+  }
+}

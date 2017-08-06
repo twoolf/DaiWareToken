@@ -1,0 +1,115 @@
+/**
+ *****************************************************************************
+ Copyright (c) 2016 IBM Corporation and other Contributors.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ Contributors:
+ Sathiskumar Palaniappan - Initial Contribution
+ *****************************************************************************
+ *
+ **/
+ 
+ namespace com.ibm.iotf.streams.sample;
+
+use com.ibm.streamsx.datetime.convert::minutes;
+use com.ibm.streamsx.iot::*;
+
+
+type CountInfo = rstring eventId, int32 count;
+
+type StatisticsInfo = rstring typeId, rstring deviceId,rstring name, int32 count, int32 avg, int32 max, int32 min, int32 standardDev;
+type PayloadInfo = rstring name, int32 count, int32 avg, int32 max, int32 min, int32 standardDev;
+/**
+ * Sample application that aggregates device events.
+ * computes  statistics of events from devices and sends back a
+ * device command with aggregated average, minimum or maximum over
+ * the last minute.
+ *
+ * This uses the publish-subscribe model
+ * thus an instance of `com.ibm.streamsx.iot.watson.apps.IotOrganization`
+ * must be running within the Streams instance in order to
+ * see events.
+ *
+*/
+type DrumData = tuple<int32 count, int32 speed>;
+type VoltageData = tuple<int32 count, int32 voltage, int32 frequency>;
+
+
+public composite EventAggregatorSample {
+     graph
+
+      // Subscribe to all events.
+      stream<DeviceEvent> Events = EventsSubscribe() {}
+
+	  // Extract the Drum events
+      stream<DeviceEventTs, DrumData> DeviceDrumData = DeviceEventExtractData(Events) {
+           param
+              dataType: DrumData;
+              events: eventId == "drum";
+      }
+        
+	  // Calculate Avg, min, max and stddev of drum events tumbling every minute.
+      stream<StatisticsInfo> DrumStatistics = Aggregate(DeviceDrumData)
+      {
+          window DeviceDrumData: tumbling, time(minutes(1));
+          param
+             groupBy: typeId, deviceId, eventId;
+          output DrumStatistics:
+          	 typeId = typeId,
+          	 deviceId = deviceId,
+          	 name = "speed",
+             count = Count(),
+             avg = Average(speed),
+             max = Max(speed),
+             min = Min(speed),
+             standardDev = SampleStdDev(speed);          
+      }
+      
+      // Extract the Voltage events
+      stream<DeviceEventTs, VoltageData> VoltageDeviceData = DeviceEventExtractData(Events) {
+           param
+              dataType: VoltageData;
+              events: eventId == "voltage";
+        }
+          
+      // Calculate Avg, min, max and stddev of drum events tumbling every minute.
+      stream<StatisticsInfo> VoltageStatistics = Aggregate(VoltageDeviceData)
+      {
+          window VoltageDeviceData: tumbling, time(minutes(1));
+          param
+             groupBy: typeId, deviceId, eventId;
+          output VoltageStatistics:
+          	 typeId = typeId,
+          	 deviceId = deviceId,
+          	 name = "voltage",
+             count = Count(),
+             avg = Average(voltage),
+             max = Max(voltage),
+             min = Min(voltage),
+             standardDev = SampleStdDev(voltage);             
+      }
+      
+      // Union both the streams
+      stream<StatisticsInfo> Statistics = Union(DrumStatistics; VoltageStatistics) {}        
+
+      // Convert them into device commands with command Id "statistics"
+      stream<DeviceCmdId, tuple<PayloadInfo payloadInfo>> EventCommands = Functor(Statistics)
+      {
+          output EventCommands:
+             cmdId = "statistics",
+             payloadInfo = {name=name, count=count, avg=avg, max=max, min=min, standardDev=standardDev};
+      }
+
+      // Convert them into the required schema
+      stream<DeviceCmd> EventCommandsJson = CommandTupleToPayload(EventCommands)
+      {
+            param
+              payload: payloadInfo;
+              
+      }
+
+      // And then publish them
+      () as PublishCmds = CommandPublish(EventCommandsJson) {}
+}

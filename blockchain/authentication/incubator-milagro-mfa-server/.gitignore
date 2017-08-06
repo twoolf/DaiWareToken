@@ -1,0 +1,13 @@
+*.pyc
+.cache
+.coverage
+.tox
+backup.json
+backup_dta.json
+config.py
+coverage.xml
+credentials.json
+install
+M_Pin_Backend.egg-info/
+mpin_*_storage.json
+servers/demo/public/mpin

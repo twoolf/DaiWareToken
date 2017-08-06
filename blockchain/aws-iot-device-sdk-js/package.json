@@ -1,0 +1,54 @@
+{
+  "name": "aws-iot-device-sdk",
+  "description": "AWS IoT Node.js SDK for Embedded Devices",
+  "version": "2.0.1",
+  "author": {
+    "name": "Amazon Web Services",
+    "email": "",
+    "url": "http://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/aws-iot-device-sdk-js",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aws/aws-iot-device-sdk-js"
+  },
+  "bugs": {
+    "url": "http://github.com/aws/aws-iot-device-sdk-js/issues"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "api",
+    "amazon",
+    "aws",
+    "iot",
+    "mqtt"
+  ],
+  "dependencies": {
+    "mqtt": "2.2.1",
+    "minimist": "1.2.0",
+    "websocket-stream": "^3.3.3",
+    "crypto-js": "3.1.6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^3.0.1",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.2.1",
+    "gulp-coverage": "^0.3.38",
+    "gulp-beautify": "^2.0.0",
+    "sinon": "^1.17.3",
+    "rewire": "^2.5.1"
+  },
+  "scripts": {
+    "test": "node ./node_modules/gulp/bin/gulp.js test --verbose",
+    "browserize": "./scripts/browserize.sh",
+    "beautify": "node ./node_modules/gulp/bin/gulp.js beautify"
+  }
+}

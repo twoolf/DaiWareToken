@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="84">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="crypto-core" projectFiles="true">
+        <itemPath>../crypto-core/aesGcm.h</itemPath>
+        <itemPath>../crypto-core/big.h</itemPath>
+        <itemPath>../crypto-core/common_c.h</itemPath>
+        <itemPath>../crypto-core/csprng_c.h</itemPath>
+        <itemPath>../crypto-core/eccsi_c.h</itemPath>
+        <itemPath>../crypto-core/ecdh_c.h</itemPath>
+        <itemPath>../crypto-core/ecn.h</itemPath>
+        <itemPath>../crypto-core/ecn2.h</itemPath>
+        <itemPath>../crypto-core/ecp_c.h</itemPath>
+        <itemPath>../crypto-core/octet_c.h</itemPath>
+        <itemPath>../crypto-core/pfc.h</itemPath>
+        <itemPath>../crypto-core/sakke_bn_c.h</itemPath>
+        <itemPath>../crypto-core/zzn.h</itemPath>
+        <itemPath>../crypto-core/zzn12a.h</itemPath>
+        <itemPath>../crypto-core/zzn2.h</itemPath>
+        <itemPath>../crypto-core/zzn4.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Shared" projectFiles="true">
+        <itemPath>../include/CvCommon.h</itemPath>
+        <itemPath>../include/CvString.h</itemPath>
+        <itemPath>../include/CvXcode.h</itemPath>
+      </logicalFolder>
+      <itemPath>../include/CvAesGcm.h</itemPath>
+      <itemPath>../include/CvEccsi.h</itemPath>
+      <itemPath>../include/CvEcdh.h</itemPath>
+      <itemPath>../include/CvEntropyServer.h</itemPath>
+      <itemPath>../include/CvMikey.h</itemPath>
+      <itemPath>../include/CvSakke.h</itemPath>
+      <itemPath>../include/CvStrongRng.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="crypto-core" projectFiles="true">
+        <itemPath>../crypto-core/aesGcm.c</itemPath>
+        <itemPath>../crypto-core/big.cpp</itemPath>
+        <itemPath>../crypto-core/csprng_c.c</itemPath>
+        <itemPath>../crypto-core/eccsi_c.c</itemPath>
+        <itemPath>../crypto-core/ecdh_c.c</itemPath>
+        <itemPath>../crypto-core/ecn.cpp</itemPath>
+        <itemPath>../crypto-core/ecn2.cpp</itemPath>
+        <itemPath>../crypto-core/ecp_c.c</itemPath>
+        <itemPath>../crypto-core/octet_c.c</itemPath>
+        <itemPath>../crypto-core/pfc.cpp</itemPath>
+        <itemPath>../crypto-core/sakke_bn_c.c</itemPath>
+        <itemPath>../crypto-core/zzn.cpp</itemPath>
+        <itemPath>../crypto-core/zzn12a.cpp</itemPath>
+        <itemPath>../crypto-core/zzn2.cpp</itemPath>
+        <itemPath>../crypto-core/zzn4.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Shared" projectFiles="true">
+        <itemPath>../CvString.cpp</itemPath>
+        <itemPath>../CvXcode.cpp</itemPath>
+      </logicalFolder>
+      <itemPath>../CvAesGcm.cpp</itemPath>
+      <itemPath>../CvEccsi.cpp</itemPath>
+      <itemPath>../CvEcdh.cpp</itemPath>
+      <itemPath>../CvEntropyServer.cpp</itemPath>
+      <itemPath>../CvMikey.cpp</itemPath>
+      <itemPath>../CvSakke.cpp</itemPath>
+      <itemPath>../CvStrongRng.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../../../MIRACL</pElem>
+            <pElem>../include</pElem>
+            <pElem>../crypto-core</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../../../MIRACL</pElem>
+            <pElem>../include</pElem>
+            <pElem>../crypto-core</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibFileItem>../../../MIRACL/miracl.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../CvStrongRng.cpp" ex="true" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../../../MIRACL</pElem>
+            <pElem>../include</pElem>
+            <pElem>../crypto-core</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../../../MIRACL</pElem>
+            <pElem>../include</pElem>
+            <pElem>../crypto-core</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibFileItem>../../../MIRACL/miracl.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

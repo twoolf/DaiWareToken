@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{929ee623-bfc7-49e0-b7cb-71a4eb695eb2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\tests\common\file_storage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\common\http_request.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\common\memory_storage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\common\access_number_thread.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tests\common\file_storage.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tests\common\http_request.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tests\common\memory_storage.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tests\common\access_number_thread.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

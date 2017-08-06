@@ -1,0 +1,11 @@
+node_modules/
+dist/
+npm-debug.log
+bower_components/
+nbproject/
+test/coverage.html
+mocha.json
+
+target
+coverage
+htmlcov

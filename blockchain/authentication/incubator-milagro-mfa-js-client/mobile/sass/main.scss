@@ -1,0 +1,896 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+
+// Import CSS3 reset
+
+@import 'reset';
+
+// Import template
+
+@import 'templates/_template';
+
+// General mixins
+
+@mixin display-box-flex() {
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flexbox;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin border-radius($value) {
+	border-radius: $value;
+	-webkit-border-radius: $value;
+	-moz-border-radius: $value;
+	-o-border-radius: $value;
+	-ms-border-radius: $value;
+}
+
+@mixin box-flex-value($value) {
+	-moz-box-flex:$value; /* Firefox */
+	-webkit-box-flex:$value; /* Safari and Chrome */
+	-ms-flex:$value; /* Internet Explorer 10 */
+	box-flex:$value;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	@include bg-color();
+	// background-color:
+	 whitesmoke: !important;
+	margin: 0;
+}
+
+:focus {
+	outline: 0;
+}
+
+body {
+
+
+	// Set main font
+
+	font-size: 104%;
+
+	@include font-family();
+
+	// Hide the overflow
+
+	overflow: hidden;
+
+	// Set default text size of the H1 tag
+
+	h1 {
+		font-size: 20px;
+		color: darkgrey;
+	}
+
+	-webkit-text-size-adjust: 100%; /* 2 */
+	-ms-text-size-adjust: 100%; /* 2 */
+
+	position: relative;
+
+}
+
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+
+#mpinContainer {
+
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	// Import the pinpad styles
+
+
+	#mpinHolder {
+
+		// -webkit-box-align: stretch;
+		// -ms-flex-align: stretch;
+		// align-items: stretch;
+
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		width: 100;
+		z-index: 0;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+
+		#mpinMaster {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+
+			-webkit-box-align: stretch;
+			-ms-flex-align: stretch;
+			align-items: stretch;
+
+			-moz-box-pack:stretch;
+			-moz-box-align:stretch;
+
+			-webkit-box-orient: vertical !important;
+			-ms-flex-direction: column !important;
+			-moz-box-orient: vertical !important;
+			flex-direction: column !important;
+
+			display: -moz-box; /* Firefox */
+			display: -webkit-box; /* Safari and Chrome */
+			display: -ms-flexbox; /* Internet Explorer 10 */
+
+			display: flex;
+			// // display: -webkit-box;
+			// // display: -ms-flexbox;
+
+			// padding: 10px 10px 0 10px;
+
+			// Import the pinpad SASS
+			@import 'pinpad';
+
+			// Import the home view
+
+			@import 'home';
+
+		}
+	}
+
+	#topNav {
+
+		padding: 0px 10px 0px 10px !important;
+
+		@include header-bar();
+
+		-webkit-box-orient: horizontal !important;
+		-moz-box-orient: horizontal !important;
+		flex-direction: row !important;
+
+		-webkit-box-pack: start;
+		-moz-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		#mp_action_home {
+			display: -moz-box; /* Firefox */
+			display: -webkit-box; /* Safari and Chrome */
+			display: -ms-flexbox; /* Internet Explorer 10 */
+			@include home-icon();
+			position: relative;
+		}
+
+		#logo {
+			@include custom-logo();
+			display: -moz-box; /* Firefox */
+			display: -webkit-box; /* Safari and Chrome */
+			display: -ms-flexbox; /* Internet Explorer 10 */
+			position: relative;
+		}
+
+	}
+
+	#accountTopBar {
+
+		@include account-top-bar();
+
+		overflow: hidden;
+
+		position: relative;
+		width: 100%;
+		z-index: 10000;
+		height: 39px;
+		position: absolute;
+
+		-webkit-box-orient: horizontal !important;
+		-ms-flex-direction: row !important;
+		flex-direction: row !important;
+
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+
+		-webkit-box-orient: horizontal !important;
+		-ms-flex-direction: row !important;
+		flex-direction: row !important;
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		#mpinUser {
+
+			@include box-flex-value(1.0);
+			@include mpin-user();
+
+			position: absolute;
+			top: 10px;
+			left: 0;
+			right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			overflow: hidden;
+
+			p {
+				text-align: center;
+			}
+		}
+
+		#menuBtn {
+
+			z-index: 10000;
+			position: absolute;
+			right: 0;
+			display: inline-block;
+			overflow: hidden;
+			border: none;
+			border-radius: 0;
+			-webkit-border-radius: 0;
+			-moz-border-radius: 0;
+			-o-border-radius: 0;
+			-ms-border-radius: 0;
+			min-height: 1.8em;
+			padding: .3em .6em;
+		    top: 10px;
+
+			@include mpin-menu();
+
+			&.close {
+				bottom: 0;
+				@include mpin-menu-close();
+
+			}
+
+			&.up {
+				bottom: 0;
+			}
+		}
+
+		.mp_customScrollBox {
+			max-height: 288px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+	}
+
+	#addIdentity {
+
+		@include top-heading();
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		-webkit-box-orient: vertical;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-height: 0px;
+
+		text-align: center;
+
+		display: flex !important;
+		display: -webkit-box !important;
+		display: -ms-flexbox !important;
+
+		.identityHeader {
+			display: flex;
+			display: -webkit-box;
+			display: -ms-flexbox;
+
+			-ms-flex-pack: center;
+
+			-webkit-box-flex: 1;
+			-ms-flex: 1 0 auto;
+			flex: 1 0 auto;
+			-webkit-box-orient: vertical;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			min-height: 0px;
+
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	#identityContainer {
+
+		@include identity-container();
+
+
+		-webkit-box-flex: 10;
+		background-position: initial initial;
+		background-repeat: initial initial;
+
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-box-align: center;
+
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -moz-box;
+		display: flex;
+
+		-webkit-box-flex: 1;
+		-moz-box-flex: 1;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+
+		-webkit-box-orient: vertical;
+		-moz-box-orient: vertical !important;
+		-ms-flex-direction: column;
+		flex-direction: column;
+
+
+		min-height: 0px;
+
+		width: 100%;
+
+		position: relative;
+
+		.headerText {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.inputContainer {
+
+			min-height: 0 !important;
+
+			position: relative;
+
+			display: flex;
+			display: -webkit-box;
+			display: -ms-flexbox;
+
+			-webkit-box-orient: vertical;
+			-ms-flex-direction: column;
+			flex-direction: column;
+
+			// Align items center
+
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+
+			background-color: transparent;
+			width: 100%;
+			background-position: initial initial;
+			background-repeat: initial initial;
+
+			.identityElHolder {
+
+				background-color: transparent;
+				margin-bottom: 2vh;
+				width: 90%;
+				background-position: initial initial;
+				background-repeat: initial initial;
+
+				display: flex;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				-webkit-box-orient: vertical;
+				-ms-flex-direction: column;
+				flex-direction: column;
+
+				.identityText {
+
+					@include input-heading();
+
+				}
+
+				.identityInput {
+
+					.inputLabel {
+						color: #444;
+						font-size: 14pt;
+						margin-bottom: 14px;
+						display: block;
+						margin-top: 14px;
+					}
+					
+					.inputLabelErr {
+						color: red;
+					}
+
+					.inputGroup {
+
+						width: 100%;
+						position: relative;
+						min-width: 3.7em;
+
+						width: 100%;
+						display: inline-table;
+						vertical-align: middle;
+						position: relative;
+						border-collapse: separate;
+						display: table;
+						box-sizing: border-box;
+
+						.userLabel, .deviceLabel {
+							width: auto;
+
+							white-space: nowrap;
+							vertical-align: middle;
+
+							display: table-cell;
+
+							background-color: rgba(54, 66, 74, 0.1);
+							border: 1px solid #36424a;
+							border-radius: 4px;
+							border-top-right-radius: 0;
+							border-bottom-right-radius: 0;
+							border-right: 0;
+						}
+						
+						.userLabelErr {
+							border-top-color: red;
+							border-left-color: red;
+							border-bottom-color: red;
+						}
+
+						.userLabel {
+							@include user-label();
+						}
+
+						.deviceLabel {
+							@include device-label();
+						}
+
+						#emailInput {
+
+							@include email-input();
+
+							-webkit-user-select: text;
+							-webkit-appearance: none;
+							-webkit-appearance: none;
+							text-align: left;
+
+							&:focus, &:hover {
+
+							}
+
+						}
+						
+						.emailInputErr {
+							border-top-color: red !important;
+							border-right-color: red !important;
+							border-bottom-color: red !important;
+						}
+
+						#deviceInput {
+
+							@include device-input();
+
+							-webkit-user-select: text;
+							-webkit-appearance: none;
+							-webkit-appearance: none;
+							text-align: left;
+
+						}
+
+					}
+				}
+
+			}
+
+		}
+
+		.identityMainText {
+
+			margin-top: 20px;
+
+			@include central-text();
+
+			display: block;
+
+			.congrats {
+				font-size: 5vh;
+				color: black;
+				padding: 0px 1vh;
+				display: flex;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				-webkit-box-orient: vertical;
+				-ms-flex-direction: column;
+				flex-direction: column;
+			}
+
+			.infoSmall {
+				font-size: 4vh;
+				color: black;
+				padding: 0px 0vh;
+				padding-left: 2vh;
+				padding-right: 2vh;
+				display: flex;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				-webkit-box-orient: vertical;
+				-ms-flex-direction: column;
+				flex-direction: column;
+				text-align: center;
+
+				> P {
+
+					padding-bottom: 3vh;
+
+					&:first-child {
+						padding-top: 3vh;
+					}
+
+					font-size: 3vh;
+				}
+			}
+
+			.identityBodyText {
+
+				@include body-text();
+				display: block;
+			}
+
+			.email {
+				color: #3c9dcb;
+				padding: 10px 5px 20px 5px;
+				display: block;
+			}
+		}
+	}
+
+	#bottomBtnHolder {
+
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+
+		// Align items center
+
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+
+		@include bottom-holder();
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		/* -webkit-box-flex: 1; */
+		-ms-flex: 1 0 auto;
+		/* flex: 1 0 auto; */
+		/* -webkit-box-orient: vertical; */
+		-ms-flex-direction: column;
+		/* flex-direction: column; */
+		/* min-height: 0px; */
+
+		width: 100%;
+
+		.mpinBtn {
+			width: 90%;
+		}
+	}
+
+	#mpinFooter {
+
+		padding: 0px 10px 0px 10px !important;
+
+		@include footer();
+
+		-webkit-box-orient: horizontal !important;
+		-ms-flex-direction: row !important;
+		flex-direction: row !important;
+
+		-webkit-box-pack: start;
+		-ms-flex-pack: start;
+		justify-content: flex-start;
+
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		#poweredBy {
+			display: block;
+			@include powered-by();
+			background-repeat: no-repeat;
+			background-size: auto 100%;
+			width: 100%;
+		}
+
+		#mpinLogo {
+			@include mpin-logo();
+			display: block;
+			width: 100%;
+
+			#openHelpHub {
+				display: block;
+			    height: 100%;
+			    width: 100%;
+			    text-decoration: none;
+			}
+		}
+	}
+
+	// General button styling
+
+	.mpinBtn {
+		@include mpin-button();
+
+		// Set as display flex
+
+		display: flex;
+		display: -webkit-box;
+		display: -ms-flexbox;
+
+		-webkit-box-direction: reverse;
+		-ms-flex-direction: row-reverse;
+		flex-direction: row-reverse;
+
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+
+		font-size: 17px;
+		margin-bottom: 3%;
+
+		width: 100%;
+		height: auto;
+
+		.iconArrow {
+			@include arrow-icon();
+			display: block;
+
+			position: relative;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.btnLabel {
+			@include btn-text-label();
+
+			-webkit-box-flex: 1;
+			-ms-flex: 1 0 auto;
+			flex: 1 0 auto;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			white-space: nowrap;
+			text-align: center;
+			display: block;
+			overflow: hidden;
+		}
+	}
+
+}
+
+// Activate Identity Screen
+
+#mp_accountListView {
+
+	@include account-list();
+
+	&.notActive {
+		background: #eeeeee;
+		margin-top: 20px;
+	}
+
+	.default {
+
+		@include settings-item();
+
+		.editImg {
+			@include settings-img-active();
+		}
+	}
+
+	.mp_titleItem {
+		position: relative;
+		top: 17px;
+		text-align: left;
+		width: 90%;
+		padding-left: 10px;
+		font-size: 14px;
+		line-height: 6px;
+	}
+
+	.mp_buttonItem {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 10px;
+		z-index: 9999;
+		cursor: pointer;
+		width: 24px;
+		height: 100%;
+		right: 0;
+
+		.editImg {
+			@include settings-img();
+		}
+
+
+		img {
+			background-color: white;
+			border-radius: 4px;
+			width: 40px;
+		}
+	}
+}
+
+.mp_contentItem {
+	position: relative;
+	min-height: 40px;
+	border-bottom: 1px solid #eeeeee;
+}
+
+#mp_back {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	top: 50px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+
+	-webkit-transition: all .05 ease-in-out;
+	-moz-transition: all .05 ease-in-out;
+	-o-transition: all .05 ease-in-out;
+	transition: all .05 ease-in-out;
+}
+
+#mp_back_not_active {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	background-color: #eee;
+
+	-webkit-transition: all .05 ease-in-out;
+	-moz-transition: all .05 ease-in-out;
+	-o-transition: all .05 ease-in-out;
+	transition: all .05 ease-in-out;
+}
+
+.circle {
+	display: inline-block;
+
+	@include circle-main();
+
+	.outer-circle {
+		@include outer-circle();
+	}
+
+	.inner-circle {
+		@include inner-circle();
+	}
+
+	.inner-circle-ac {
+		margin: 7px;
+		width: 18px;
+		height: 18px;
+		font-size: 19px;
+		color: black;
+		text-align: center;
+		font-family: Arial;
+
+		position: absolute;
+		z-index: 1000;
+
+	}
+}
+
+#rotateLock {
+	display: none;
+}
+
+.noteText {
+	text-align: center;
+	margin-top: 40px;
+}
+
+#otpContainer {
+
+	font-size: 0.87em;
+	padding: 14px 0;
+	border-radius: 0.3em;
+	border: 1px solid #5d6078;
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+
+	h2 {
+		color: #444;
+		font-size: 18px;
+		line-height: 32px;
+	}
+
+	#mpinOTPNumber {
+		font-size: 24px;
+		letter-spacing: .4em;
+		font-weight: bold;
+		line-height: 32px;
+		margin-bottom: 10px;
+		color: #5d6078;
+	}
+
+	#mpin_seconds {
+		color: #f00;
+		line-height: 32px;
+	}
+
+	.mp_alertTitle {
+
+	}
+
+	.mp_accountField {
+
+	}
+
+}
+
+.mpinTimerBox {
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 15px;
+
+	#mpin_seconds {
+		position: absolute;
+		top: 11px;
+		left: 11px;
+	}
+}
+
+// Import mediaqueries
+@import 'mediaqueries';
+@import 'help';

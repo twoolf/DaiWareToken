@@ -1,0 +1,13 @@
+samples/c/.lck
+samples/c/.pc
+samples/c/iot
+samples/c/debian/files
+samples/c/debian/iot.debhelper.log
+samples/c/debian/iot.postinst.debhelper
+samples/c/debian/iot.postrm.debhelper
+samples/c/debian/iot.prerm.debhelper
+samples/c/debian/iot.substvars
+samples/c/debian/iot/
+samples/iot_1.0-1_armhf.build
+samples/iot_1.0-1_armhf.changes
+samples/iot_1.0-1_armhf.deb
