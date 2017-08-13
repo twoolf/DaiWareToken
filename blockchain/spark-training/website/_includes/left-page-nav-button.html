@@ -1,0 +1,18 @@
+{% for p in site.navigation %}
+  {% if p.url == page.url %}
+    {% assign prev_page = prev_tracker %}
+  {% endif %}
+  {% assign prev_tracker = p.url %}
+{% endfor %}
+
+{% if page.prev %}
+  {% assign prev_page = page.prev %}
+{% endif %}
+
+{% if prev_page %}
+<a class="btn page-nav" style="float:left" a href="{{prev_page | remove_first:'/'}}">
+{% else %}
+<a class="btn page-nav" disabled="disable" style="float:left">
+{% endif %}
+  <i class="icon-arrow-left icon-2x"></i>
+</a>
