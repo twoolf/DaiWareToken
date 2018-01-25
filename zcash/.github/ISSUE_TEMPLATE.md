@@ -1,6 +1,6 @@
 <!--- Remove text and sections that do not apply -->
 
-This issue tracker is only for technical issues related to zcashd.
+This issue tracker is for technical issues related to zcashd.
 
 General Zcash questions and/or support requests and are best directed to the [Zcash Forums](https://forum.z.cash) or [Community Rocket.Chat](https://chat.zcashcommunity.com).
 
