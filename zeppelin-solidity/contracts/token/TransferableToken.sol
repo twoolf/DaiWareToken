@@ -14,7 +14,7 @@ the specific logic for limitting token transferability for a holder over time.
 
 TransferableToken has been designed to allow for different limitting factors,
 this can be achieved by recursively calling super.transferableTokens() until the
-base class is hit. For example:
+base class is hit. For such example:
 
 function transferableTokens(address holder, uint64 time) constant public returns (uint256) {
   return min256(unlockedTokens, super.transferableTokens(holder, time));
