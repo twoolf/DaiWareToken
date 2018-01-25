@@ -172,7 +172,7 @@ Furthermore cross-platform builds require additional [`electron-builder` depende
     // linux deps
     $ brew install gnu-tar libicns graphicsmagick xz
 
-#### Generate packages
+#### Generate packages FOR YOUR USE
 
 To generate the binaries for Mist run:
 
