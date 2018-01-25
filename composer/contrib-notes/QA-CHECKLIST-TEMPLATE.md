@@ -8,7 +8,7 @@
 
 ## Hyperledger Composer
 
-- Version tested: v.r.m - xxxxxxxxxx
+- Version tested: v.r.m 
 
 ### Pre-requisties
 
