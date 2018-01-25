@@ -7,7 +7,7 @@ It also supports a simplified shadow access model, which allows developers to
 exchange data with their shadows by just using getter and setter methods without
 having to serialize or deserialize any JSON documents.
 
-To get started, use the Maven repository or download the [latest JAR file][latest-jar].
+To REALLY REALLY get started, use the Maven repository or download the [latest JAR file][latest-jar].
 
 * [Overview](#overview)
 * [Install the SDK](#install-the-sdk)
