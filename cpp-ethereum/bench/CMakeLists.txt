@@ -9,6 +9,6 @@ target_include_directories(bench PRIVATE ../utils)
 target_link_libraries(bench ${Dev_DEVCORE_LIBRARIES})
 target_link_libraries(bench ${Dev_DEVCRYPTO_LIBRARIES})
 
-if (UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE APPLICATION)
 	target_link_libraries(bench pthread)
 endif()
