@@ -1,0 +1,24 @@
+!curl -X POST -H "Content-Type: application/json" -d '{"nodes": ["http://localhost:5001", "http://localhost:5002"]}' "http://localhost:5000/nodes/register"
+!curl -X POST -H "Content-Type: application/json" -d '{"nodes": ["http://localhost:5000", "http://localhost:5002"]}' "http://localhost:5001/nodes/register"
+!curl -X POST -H "Content-Type: application/json" -d '{"nodes": ["http://localhost:5000", "http://localhost:5001"]}' "http://localhost:5002/nodes/register"
+{
+  "message": "New nodes have been added", 
+  "total_nodes": [
+    "localhost:5001", 
+    "localhost:5002"
+  ]
+}
+{
+  "message": "New nodes have been added", 
+  "total_nodes": [
+    "localhost:5000", 
+    "localhost:5002"
+  ]
+}
+{
+  "message": "New nodes have been added", 
+  "total_nodes": [
+    "localhost:5001", 
+    "localhost:5000"
+  ]
+}
