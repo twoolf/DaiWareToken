@@ -1,0 +1,13 @@
+import os
+from time import sleep
+out_pids = []
+for i in range(5000, 5003):
+    cpid = os.fork()
+    if not cpid:
+        create_blockchain_process(i)
+    else:
+        out_pids += [cpid]
+sleep(2) # make sure everything is started
+ * Running on http://0.0.0.0:5001/ (Press CTRL+C to quit)
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Running on http://0.0.0.0:5002/ (Press CTRL+C to quit)
