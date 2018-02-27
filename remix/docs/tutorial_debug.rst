@@ -101,7 +101,7 @@ The navigation part contains a slider and buttons that can be used to step throu
 
 From the left to the right: 
 
-step over back, step into back, step into forward, step over forward, jump out (jump out of the current call), jump to the previous breakpoint, jump to the next breakpoint.
+Step over back, step into back, step into forward, step over forward, jump out (jump out of the current call), jump to the previous breakpoint, jump to the next breakpoint.
 
 .. image:: remix_navigation.png
 
