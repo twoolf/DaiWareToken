@@ -81,7 +81,7 @@ Please read [here](./CONTRIBUTING.md).
 
 ## License
 
-[Apache 2.0](./LICENSE)
+[Apache 2.0](./LICENSE) 2018
 
 ## Acknowledgements
 
